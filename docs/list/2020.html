@@ -19,7 +19,7 @@
 	<link rel="stylesheet" href="../main.css">
 	<link rel="canonical" href="https://s-n-1-0.github.io/sist_bus/list/2020.html">
 	<link rel="icon" type="image/png" href="../icon.png">
-	<title>【過去】2021年のバスの時刻表示</title>
+	<title>【過去】2020年のバスの時刻表示</title>
 </head>
 <body>
     <div id="contents">
@@ -33,17 +33,36 @@
         </ul>
       </div>
 </body>
+<script src="../unc/get_schedule.js"></script>
 <script>
-    let year = 2020;
-new Vue({
+    let yyyy = 2020;
+var list = new Vue({
 	el:"#contents",
   data:{
   	title:["10","11","12"],
+    schedule_ex:null,
+    schedule_c:null,
+    schedule_a:null,
     active:""
   },
   methods:{
   	dropdown(MM){
-    	this.active = this.active===MM ? "":MM;
+      GetScheduleEx(yyyy, MM, function(schedule) {
+			this.schedule_ex = schedule;
+			//ex内部で実行(非同期後)
+			getSchedule(yyyy, MM,function(pm, schedule) {
+				if (schedule != null) {
+					//読み込み後
+					var mode = pm;
+					this.schedule_c = schedule["a2c"];
+					this.schedule_a = schedule["c2a"];
+          console.log(mode)
+          if (mode != -1){
+        list.active = list.active===MM ? "":MM;
+        }
+				}
+			},0,"../");
+		},"../");
     }
   }
 });

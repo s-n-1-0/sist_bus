@@ -23,8 +23,11 @@ function GetSchedule(yyyy, MM,dd,day,ex, fgot) {
         fgot(mode,null);
         return;
     }
+    getSchedule(yyyy,MM,fgot,mode)
+}
+function getSchedule(yyyy, MM,fgot,mode,base = "./") { //データを取得する 全て取得する場合はmode未指定でも可= 0
     $.ajax({
-        url: "./unc/json/schedule/" + String(yyyy) + "_" + String(MM) + ".json",
+        url: base + "unc/json/schedule/" + String(yyyy) + "_" + String(MM) + ".json",
         dataType: 'json',
         success: function( data ) {
             var sm2 = data["data"];
@@ -40,9 +43,9 @@ function GetSchedule(yyyy, MM,dd,day,ex, fgot) {
         }
       });
 }
-function GetScheduleEx(yyyy, MM, fgot) {
+function GetScheduleEx(yyyy, MM, fgot,base = "./") {
     $.ajax({
-        url: "./unc/json/schedule/" + String(yyyy) + "_" + String(MM) + ".json",
+        url: base + "unc/json/schedule/" + String(yyyy) + "_" + String(MM) + ".json",
         dataType: 'json',
         success: function( data ) {
             var sm2 = data["ex"];
