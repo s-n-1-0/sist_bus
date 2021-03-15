@@ -25,7 +25,7 @@
 <body>
 	<div id="root">
 		<h1>現在のSISTバス時刻</h1>
-		<div id="announce"><b>アナウンス(2/8):</b>
+		<div class="announce"><b>アナウンス(2/8):</b>
 			<br>2月3月は授業が無いためスケジュールの表示をしません。</div>
 		<br>
 		<div id="hello">
@@ -119,11 +119,14 @@
 				</table>
 			</div>
 		<footer style="text-align: left;">
-			<hr/> <a id="yome">注意</a>
+			<hr/>
+			<div class="announce" style="padding: 10px">
+			<a id="yome">注意</a>
 			<br/> 作成者個人用の時刻確認ページです。大学公式ではありません。表示時間にバスが来なくて遅刻・欠席が発生しても責任は取れません。
 			<br> 現在時刻は現地時間を元にしています。
 			<br> 作成者に関係の無い予定は表示されない場合があります。
 			<br><a href="./list/2021.html" style="float: right;">過去の時刻表はこちら</a><br>
+			</div>
 	</footer>
 	<script src="./unc/get_schedule.js"></script>
 	<script>
