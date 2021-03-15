@@ -40,30 +40,38 @@ var list = new Vue({
 	el:"#contents",
   data:{
   	title:["10","11","12"],
-    schedule_ex:null,
-    schedule_c:null,
-    schedule_a:null,
+    schedule:null,
+    schedules:Array(3),//月数を指定
     active:""
   },
   methods:{
   	dropdown(MM){
+      let i = list.title.indexOf(MM)
+      if (list.schedules[i] === undefined){
       GetScheduleEx(yyyy, MM, function(schedule) {
-			this.schedule_ex = schedule;
+        list.schedules[i] = {}
+        list.schedules[i].schedule_ex = schedule;
 			//ex内部で実行(非同期後)
 			getSchedule(yyyy, MM,function(pm, schedule) {
 				if (schedule != null) {
 					//読み込み後
 					var mode = pm;
-					this.schedule_c = schedule["a2c"];
-					this.schedule_a = schedule["c2a"];
+					list.schedules[i].schedule_c = schedule["a2c"];
+					list.schedules[i].schedule_a = schedule["c2a"];
           console.log(mode)
           if (mode != -1){
+        list.schedule = list.schedules[i];
         list.active = list.active===MM ? "":MM;
         }
 				}
 			},0,"../");
 		},"../");
-    }
+    }else{
+      console.log("読み込み済みのデータを表示");
+    list.schedule = list.schedules[i];
+    list.active = list.active===MM ? "":MM;
+  }
+  }
   }
 });
 </script>
