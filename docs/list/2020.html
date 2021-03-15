@@ -28,6 +28,55 @@
             <a href="#" v-bind:class="{active:active===MM}" @click="dropdown(MM)">{{MM}}月</a>
             <ul v-if="active===MM">
                 <a href="#" v-bind:label="title">{{MM}}月</a>
+                <div id="hello">
+                  <div>
+                    <div class="tabs">
+                      <input type="radio" id="tab1" name="tab" value="true"  v-model="isCorS" v-on:change="onChange(true)">
+                      <label for="tab1">大学行</label>
+                      <input type="radio" id="tab2" name="tab" value="false"   v-model="isCorS"
+                      v-on:change="onChange(false)">
+                      <label for="tab2">駅行</label>
+                    </div>
+                  </div>
+                  <div id="modetitle"></div>
+                  <div id="modesubtitle"></div> <a class="introvert2" href="https://forms.office.com/Pages/ResponsePage.aspx?id=Bb0r1yPrmEGObOE4I--qiDTo6qug1SlGruWNB4fcjXxUNElKS1BBMU9WRUpQV1RPM0lGNzU5QzNKQS4u">時刻表示ミスがある場合の報告</a>
+                  <div id="schedule-c" v-if="isCorS">
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>時刻</th>
+                          <th>駅発</th>
+                          <th>大学着</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr v-for="row in schedule.schedule_c">
+                          <td><b>{{row.HH}}</b></td>
+                          <td>{{row.mm}}</td>
+                          <td>{{row.arrival_mm}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div id="schedule-a" v-else="isCorS">
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>時刻</th>
+                          <th>大学発</th>
+                          <th>駅着</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr v-for="row in schedule.schedule_a">
+                          <td><b>{{row.HH}}</b></td>
+                          <td>{{row.mm}}</td>
+                          <td>{{row.arrival_mm}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                
             </ul>
           </li>
         </ul>
@@ -42,6 +91,7 @@ var list = new Vue({
   	title:["10","11","12"],
     schedule:null,
     schedules:Array(3),//月数を指定
+    isCorS:true,
     active:""
   },
   methods:{
@@ -71,7 +121,12 @@ var list = new Vue({
     list.schedule = list.schedules[i];
     list.active = list.active===MM ? "":MM;
   }
-  }
-  }
+  },
+  onChange(iscs) { // クリックイベントでイベント発火
+    console.log(iscs);
+    console.log("呼ばれたよ");
+    list.isCorS = iscs;
+			}
+    }
 });
 </script>
