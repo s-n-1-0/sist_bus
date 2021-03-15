@@ -18,14 +18,15 @@
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.min.js"></script>
 	<link rel="stylesheet" href="../main.css">
   <link rel="stylesheet" href="../dropdown.css">
-	<link rel="canonical" href="https://s-n-1-0.github.io/sist_bus/list/2020.html">
+	<link rel="canonical" href="https://s-n-1-0.github.io/sist_bus/list/2021.html">
 	<link rel="icon" type="image/png" href="../icon.png">
-	<title>【過去】2020年のバスの時刻表示</title>
+	<title>【過去】2021年のバスの時刻表示</title>
 </head>
 <body>
-  <h1>【過去データ】2020年のSISTバス時刻</h1>
+  <h1>【過去データ】2021年のSISTバス時刻</h1>
   <a href="../">リアルタイム時刻表はこちら</a><br>
-  このページでは2020年の10月、11月、12月の予定のみ表示可能です。9月以前はサイトが設置されていないため表示できません。<br>
+  このページでは2021年の1月の予定を表示しています。長期休暇中(2月、3月)を除いた全ての月の予定表を表示予定です。<br/>
+  最新の予定表は上の <a href="../">リアルタイム時刻表はこちら</a>から確認できます。<br>
 
   <ul id="contents" class="list">
           <li v-for="MM in title" class="list-item">
@@ -111,19 +112,19 @@
     <br> 現在時刻は現地時間を元にしています。
     <br> 作成者に関係の無い予定は表示されない場合があります。
     <hr/>
-    <b>2020年の特別運行予定表</b>は、「運休」の項目がないため運休の場合も「意図的なデータ未入力(PDF見てください)」が表示されます。
+    <b>2021年の特別運行予定表</b>は、「運休」の項目がないため運休の場合も「意図的なデータ未入力(PDF見てください)」が表示されます。
   </div>
   <br>
-  <a href="./2021.html" style=" float: right;">2021年の過去データはこちら</a><br>
+  <a href="./2020.html" style=" float: right;">2020年の過去データはこちら</a><br>
 </footer>
 </body>
 <script src="../unc/get_schedule.js"></script>
 <script>
-    let yyyy = 2020;
+    let yyyy = 2021;
 var list = new Vue({
 	el:"#contents",
   data:{
-  	title:["10","11","12"],
+  	title:["1"],
     schedule:null,
     schedules:Array(3),//月数を指定
     isCorS:true,
