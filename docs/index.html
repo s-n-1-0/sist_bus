@@ -54,7 +54,7 @@
 			</div>
 			<div id="modetitle"></div>
 			<div id="modesubtitle"></div> <a class="introvert2" href="https://forms.office.com/Pages/ResponsePage.aspx?id=Bb0r1yPrmEGObOE4I--qiDTo6qug1SlGruWNB4fcjXxUNElKS1BBMU9WRUpQV1RPM0lGNzU5QzNKQS4u">時刻表示ミスがある場合の報告</a>
-			<div id="schedule-c" v-if="isActive === '1'" v-pre>
+			<div v-if="isActive === '1'" >
 				<table>
 					<thead>
 						<tr>
@@ -72,7 +72,7 @@
 					</tbody>
 				</table>
 			</div>
-			<div id="schedule-a" v-else-if="isActive === '2'" v-pre>
+			<div v-else>
 				<table>
 					<thead>
 						<tr>
@@ -102,7 +102,7 @@
 		</div>
 		<hr>
 		特殊運行予定表
-			<div id="schedule-ex" v-pre>
+			<div>
 				<table>
 					<thead>
 						<tr>
@@ -137,11 +137,31 @@
 	let dd = nd.getDate();
 	// dd = 1;
 	let day_idx = nd.getDay();
-	var schedule_c = [];
-	var schedule_a = [];
-	var schedule_ex = [];
 	let comment = "";
-
+	var next = null;
+	var next_end = null;
+	var next_interval = 0;
+	var rootVue = new Vue({
+		el: '#root',
+		data: {
+			isActive: '1',
+			schedule_ex: [],
+			schedule_c:[],
+			schedule_a:[]
+		},
+		methods: {
+			onChange(event) { // クリックイベントでイベント発火
+				next = null;
+				next_end = null;
+				$('#next-time').text("取得中");
+				$('#timer-time').text("あと?分");
+			},
+			update(){ //isActiveを切り替えることで再描画される。
+				rootVue.isActive = ''; //一度他の値に書き換えて再描画をさせる
+				rootVue.isActive = '1';
+			}
+		}
+	});
 	window.onload = function() {
 		var now = new Date();
 		$("#now").text("アクセス時刻:" + now.toLocaleString('ja-JP') + "");
@@ -157,68 +177,27 @@
 			return false;
 		});
 		GetScheduleEx(yyyy, MM, function(schedule) {
-			schedule_ex = schedule;
 			//console.log(JSON.stringify(schedule_ex));
-			new Vue({
-				el: '#schedule-ex',
-				data: {
-					schedule_ex: schedule_ex
-				}
-			});
+			rootVue.schedule_ex = schedule;
 			//ex内部で実行(非同期後)
-			GetSchedule(yyyy, MM, dd, day_idx, schedule_ex, function(pm, schedule) {
+			GetSchedule(yyyy, MM, dd, day_idx, schedule, function(pm, schedule) {
 				if (schedule != null) {
 					//読み込み後
 					mode = pm;
-					schedule_c = schedule["a2c"];
-					schedule_a = schedule["c2a"];
+				   rootVue.schedule_c = schedule["a2c"];
+					rootVue.schedule_a = schedule["c2a"];
 
 				} else {
 					$("#hello").hide();
 					$("#sleep").show();
 				}
-				v_sc.update(); //大学行きを初期画面とする。
+				rootVue.update(); //大学行きを初期画面とする。
 				$("#modetitle").text("本日(" + (String(yyyy) + "/" + String(MM) + "/" +
 					String(dd)) + ")" + ((mode == 0) ? "通常運行です" : "特別運行です"));
 			});
 		});
 	}
 
-	var v_sc = new Vue({
-		el: '#schedule-c',
-		data: {
-			schedule_c: schedule_c
-		},
-		methods: {
-			update: function() { //isActiveを切り替えることで再描画される。
-				radioVue.isActive = ''; //一度他の値に書き換えて再描画をさせる
-				radioVue.isActive = '1';
-			}
-		}
-	});
-	new Vue({
-		el: '#schedule-a',
-		data: {
-			schedule_a: schedule_a
-		}
-	});
-	var next = null;
-	var next_end = null;
-	var next_interval = 0;
-	var radioVue = new Vue({
-		el: '#root',
-		data: {
-			isActive: '1'
-		},
-		methods: {
-			onChange(event) { // クリックイベントでイベント発火
-				next = null;
-				next_end = null;
-				$('#next-time').text("取得中");
-				$('#timer-time').text("あと?分");
-			}
-		}
-	});
 
 	var initialOffset = '280';
 	var i = 0; //デバッグよう
@@ -231,7 +210,7 @@
 		if (next == null || next < now) {
 			$('.timer-circle').css('stroke-dashoffset', 280);
 			if (next != null) $('#timer-time').text("出発"); //初期表示を防ぐ
-			let schedule = (radioVue.isActive == 1) ? schedule_c : schedule_a;
+			let schedule = (rootVue.isActive == 1) ? rootVue.schedule_c : rootVue.schedule_a;
 			let bemybaby = []
 			for (key in schedule) {
 				var baby = schedule[key];
