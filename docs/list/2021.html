@@ -34,12 +34,12 @@
             <ul v-if="active===MM">
               <div id="root" style="padding: 10px;">
                <div id="hello">
-               特別運行予定表
+               変則運転予定表
                 <div id="schedule-ex">
                   <table>
                     <thead>
                       <tr>
-                        <th>設定されている特別運行または運休日(土日を除く)</th>
+                        <th>設定されている変則運転または運休日(土日を除く)</th>
                         <th> </th>
                       </tr>
                     </thead>
@@ -142,7 +142,7 @@ var list = new Vue({
 					var mode = pm;
 					list.schedules[i].schedule_c = schedule["a2c"];
 					list.schedules[i].schedule_a = schedule["c2a"];
-          console.log(mode)
+          //console.log(mode)
           if (mode != -1){
         list.schedule = list.schedules[i];
         list.active = list.active===MM ? "":MM;
@@ -151,7 +151,7 @@ var list = new Vue({
 			},0,"../");
 		},"../");
     }else{
-      console.log("読み込み済みのデータを表示");
+      //console.log("読み込み済みのデータを表示");
     list.schedule = list.schedules[i];
     list.active = list.active===MM ? "":MM;
   }
