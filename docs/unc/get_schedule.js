@@ -4,7 +4,7 @@ function GetSchedule(yyyy, MM,dd,day,ex, fgot) {
     if(day != 0 && day !=6){
         mode = 0;
     }
-    /*特別運行・特別運休かどうか*/
+    /*変則運転・特別運休かどうか*/
     if(ex != null){
 
         for (idx in ex){
@@ -61,7 +61,7 @@ function GetScheduleEx(yyyy, MM, fgot,base = "./") {
                 sm2[i]['comment'] = "通常運行(本来は運休)";
                 break;
                 default:
-                sm2[i]['comment'] = "特別運行";
+                sm2[i]['comment'] = "変則運転";
                 break;
                 }
             }
