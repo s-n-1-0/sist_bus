@@ -166,7 +166,6 @@
 	window.onload = function() {
 		var now = new Date();
 		$("#now").text("アクセス時刻:" + now.toLocaleString('ja-JP') + "");
-		$("#modesubtitle").text((mode == 0) ? "" : "バス到着時間が通常運行とは異なる場合があります");
 		$('a[href^="#"]').click(function() {
 			var speed = 500;
 			var href = $(this).attr("href");
@@ -185,6 +184,7 @@
 				if (schedule != null) {
 					//読み込み後
 					mode = pm;
+					$("#modesubtitle").text((mode == 0) ? "" : "バス到着時間が通常運行とは異なる場合があります");
 				   rootVue.schedule_c = schedule2ScheduleUI(schedule["a2c"]);
 					rootVue.schedule_a = schedule2ScheduleUI(schedule["c2a"]);
 
