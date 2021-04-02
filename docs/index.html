@@ -65,7 +65,7 @@
 					</thead>
 					<tbody>
 						<tr v-for="row in schedule_c">
-							<td><b>{{row.HH}}</b></td>
+							<td><b v-if="row.isShowHH">{{row.HH}}時</b></td>
 							<td>{{row.mm}}</td>
 							<td>{{row.arrival_mm}}</td>
 						</tr>
@@ -83,7 +83,7 @@
 					</thead>
 					<tbody>
 						<tr v-for="row in schedule_a">
-							<td><b>{{row.HH}}</b></td>
+							<td><b v-if="row.isShowHH">{{row.HH}}</b></td>
 							<td>{{row.mm}}</td>
 							<td>{{row.arrival_mm}}</td>
 						</tr>
@@ -185,8 +185,8 @@
 				if (schedule != null) {
 					//読み込み後
 					mode = pm;
-				   rootVue.schedule_c = schedule["a2c"];
-					rootVue.schedule_a = schedule["c2a"];
+				   rootVue.schedule_c = schedule2ScheduleUI(schedule["a2c"]);
+					rootVue.schedule_a = schedule2ScheduleUI(schedule["c2a"]);
 
 				} else {
 					$("#hello").hide();

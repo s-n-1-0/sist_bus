@@ -73,3 +73,13 @@ function GetScheduleEx(yyyy, MM, fgot,base = "./") {
         }
       });
 }
+function schedule2ScheduleUI(schedule){
+    for(key in schedule){
+    if (key == 0 || schedule[key - 1].HH != schedule[key].HH){
+        schedule[key]["isShowHH"] = true
+    }else{
+        schedule[key]["isShowHH"] = false
+    }
+    }
+    return schedule
+}
