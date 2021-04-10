@@ -32,7 +32,7 @@ function getSchedule(yyyy, MM,fgot,mode,base = "./") { //データを取得す�
         success: function( data ) {
             var sm2 = data["data"];
             for (var i in sm2) {
-                if (sm2[i]["mode"] == '0') {
+                if (sm2[i]["mode"] == String(mode)) {
                     fgot(mode, sm2[i]);
                     return;
                 }
