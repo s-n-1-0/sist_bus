@@ -58,7 +58,7 @@ function GetScheduleEx(yyyy, MM, fgot,base = "./") {
                 sm2[i]['comment'] = "意図的なデータ未入力(PDF見てください)";
                 break;
                 case 0:
-                sm2[i]['comment'] = "通常運行(本来は運休)";
+                sm2[i]['comment'] = "通常運転(本来は運休)";
                 break;
                 default:
                 sm2[i]['comment'] = "変則運転";
