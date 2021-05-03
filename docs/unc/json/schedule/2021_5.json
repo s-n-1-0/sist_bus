@@ -2,15 +2,15 @@
   "ex": [
     {
       "dd": 3,
-      "exception": -1
+      "exception": -2
     },
     {
       "dd": 4,
-      "exception": -1
+      "exception": -2
     },
     {
       "dd": 5,
-      "exception": -1
+      "exception": -2
     }
   ],
   "data": [
