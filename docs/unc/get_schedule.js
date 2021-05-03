@@ -19,7 +19,7 @@ function GetSchedule(yyyy, MM,dd,day,ex, fgot) {
     }
 
 
-    if(mode == -1){//最終モードが-1なら取得しない(運休)
+    if(mode == -1 || mode == -2){//最終モードが-1/-2なら取得しない(運休)
         fgot(mode,null);
         return;
     }
