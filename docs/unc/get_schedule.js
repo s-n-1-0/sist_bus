@@ -53,7 +53,8 @@ function GetScheduleEx(yyyy, MM, fgot,base = "./") {
                 sm2[i]['comment'] = '';
                 switch(sm2[i]['exception']){
                 case -2:
-                sm2[i]['comment'] = "運休" //確実に運休の場合
+                        sm2[i]['comment'] = "運休" //確実に運休の場合
+                        break
                 case -1:
                 sm2[i]['comment'] = "意図的なデータ未入力(PDF見てください)";
                 break;
