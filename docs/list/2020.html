@@ -27,12 +27,12 @@
   <a href="../">リアルタイム時刻表はこちら</a><br>
   このページでは2020年の10月、11月、12月の予定のみ表示可能です。9月以前はサイトが設置されていないため表示できません。<br>
 
-  <ul id="contents" class="list">
+  <div id="contents" class="list">
           <li v-for="MM in title" class="list-item">
             <a href="#" class ="dropdown-head" v-bind:class="{active:active===MM}" @click="dropdown(MM)">{{MM}}月</a>
             <ul v-if="active===MM">
               <div id="root" style="padding: 10px;">
-               <div id="hello">
+               <div>
                変則運転予定表
                 <div id="schedule-ex">
                   <table>
@@ -101,7 +101,7 @@
                 </div>
             </ul>
           </li>
-  </ul>
+        </div>
 
   <footer >
     <hr/> 

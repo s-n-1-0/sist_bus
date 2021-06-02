@@ -28,12 +28,12 @@
   このページでは2021年の1月の予定を表示しています。長期休暇中(2月、3月)を除いた全ての月の予定表を表示予定です。<br/>
   最新の予定表は上の <a href="../">リアルタイム時刻表はこちら</a>から確認できます。<br>
 
-  <ul id="contents" class="list">
+  <div id="contents" class="list">
           <li v-for="MM in title" class="list-item">
             <a href="#" class ="dropdown-head" v-bind:class="{active:active===MM}" @click="dropdown(MM)">{{MM}}月</a>
             <ul v-if="active===MM">
               <div id="root" style="padding: 10px;">
-               <div id="hello">
+               <div>
                変則運転予定表
                 <div id="schedule-ex">
                   <table>
@@ -102,8 +102,7 @@
                 </div>
             </ul>
           </li>
-  </ul>
-
+        </div>
   <footer >
     <hr/> 
     <div class="announce" style="padding: 10px">
