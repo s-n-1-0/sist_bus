@@ -142,6 +142,12 @@ background-color: #7d2927;
 border: solid 2px #7d2927;
 border-radius: 10px;
 }
+@media screen and (min-width: 800px){
+  .hey{
+    font-size: 14px;
+    width: 275px;
+  }
+}
 .hey a{
   text-decoration: none;
   color: white;
