@@ -6,7 +6,12 @@ input{
 }
 body {
   font-size: 4vw;
-  
+  font-family: Meiryo,
+  "Helvetica Neue",
+   Arial,
+   "Hiragino Kaku Gothic ProN",
+   "Hiragino Sans",
+   sans-serif;
 }
 h1 { font-size: 4.25vw;
   color: #7d2927;}
@@ -126,4 +131,18 @@ table th,table td{
 
 table tr:nth-child(odd){
   background-color: #eaf4fc
+}
+
+/*誘導*/
+.hey{
+font-size: 3vw;
+width: 40%;
+margin-left: auto;
+background-color: #7d2927;
+border: solid 2px #7d2927;
+border-radius: 10px;
+}
+.hey a{
+  text-decoration: none;
+  color: white;
 }
