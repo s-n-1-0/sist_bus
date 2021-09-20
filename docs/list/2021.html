@@ -31,7 +31,7 @@
   最新の予定表は上の <a href="../">リアルタイム時刻表はこちら</a>から確認できます。<br>
 
   <div id="contents" class="list">
-    <li v-for="MM in title" class="list-item">
+    <div v-for="MM in title" class="list-item">
       <a href="#" class ="dropdown-head" v-bind:class="{active:active===MM}" @click="dropdown(MM)">{{MM}}月</a>
       <div v-if="active===MM">
         <div style="padding: 10px;">
@@ -50,7 +50,7 @@
           </div>
           </div>
         </div>
-    </li>
+      </div>
   </div>
   <footer >
     <hr/> 
