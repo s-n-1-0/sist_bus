@@ -15,7 +15,9 @@
 	<meta name="description" content="【過去データ】SIST 静岡理工科大学2021年のバス時刻を表示します。手動による更新のため若干反映に時間が掛かる場合があります。">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 	<link rel="stylesheet" href="../main.css">
   <link rel="stylesheet" href="../dropdown.css">
 	<link rel="canonical" href="https://s-n-1-0.github.io/sist_bus/list/2021.html">
@@ -29,80 +31,27 @@
   最新の予定表は上の <a href="../">リアルタイム時刻表はこちら</a>から確認できます。<br>
 
   <div id="contents" class="list">
-          <li v-for="MM in title" class="list-item">
-            <a href="#" class ="dropdown-head" v-bind:class="{active:active===MM}" @click="dropdown(MM)">{{MM}}月</a>
-            <ul v-if="active===MM">
-              <div id="root" style="padding: 10px;">
-               <div>
-               変則運転予定表
-                <div id="schedule-ex">
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>設定されている変則運転または運休日(土日を除く)</th>
-                        <th> </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr v-for="row in schedule.schedule_ex">
-                        <td><b>{{row.dd}}日</b></td>
-                        <td>{{row.comment}}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <hr/>
-                  <div>
-                    <div class="tabs">
-                      <input type="radio" id="tab1" name="tab" value="true"  v-model="isCorS" v-on:change="onChange(true)">
-                      <label for="tab1">大学行</label>
-                      <input type="radio" id="tab2" name="tab" value="false"   v-model="isCorS"
-                      v-on:change="onChange(false)">
-                      <label for="tab2">駅行</label>
-                    </div>
-                  </div>
-                  <div id="modetitle"></div>
-                  <div id="modesubtitle"></div> <a class="introvert2" href="https://forms.office.com/Pages/ResponsePage.aspx?id=Bb0r1yPrmEGObOE4I--qiDTo6qug1SlGruWNB4fcjXxUNElKS1BBMU9WRUpQV1RPM0lGNzU5QzNKQS4u">時刻表示ミスがある場合の報告</a>
-                  <div id="schedule-c" v-if="isCorS">
-                    <table>
-                      <thead>
-                        <tr>
-                          <th>時刻</th>
-                          <th>駅発</th>
-                          <th>大学着</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr v-for="row in schedule.schedule_c">
-                          <td><b v-if="row.isShowHH">{{row.HH}}時</b></td>
-                          <td>{{row.mm}}</td>
-                          <td>{{row.arrival_mm}}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                  <div id="schedule-a" v-else="isCorS">
-                    <table>
-                      <thead>
-                        <tr>
-                          <th>時刻</th>
-                          <th>大学発</th>
-                          <th>駅着</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr v-for="row in schedule.schedule_a">
-                          <td><b v-if="row.isShowHH">{{row.HH}}時</b></td>
-                          <td>{{row.mm}}</td>
-                          <td>{{row.arrival_mm}}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-            </ul>
-          </li>
+    <li v-for="MM in title" class="list-item">
+      <a href="#" class ="dropdown-head" v-bind:class="{active:active===MM}" @click="dropdown(MM)">{{MM}}月</a>
+      <div v-if="active===MM">
+        <div style="padding: 10px;">
+         <div>
+          <schedule-irregular :schedule="schedule"></schedule-irregular>
+          <hr/>
+          <div class="text-center">
+              <div class="tabs">
+                <input type="radio" id="tab1" name="tab" value="true"  v-model="isCorS" v-on:change="onChange(true)">
+                <label for="tab1">大学行</label>
+                <input type="radio" id="tab2" name="tab" value="false"   v-model="isCorS"
+                v-on:change="onChange(false)">
+                <label for="tab2">駅行</label>
+              </div></div>
+            <schedule-times :to-c="isCorS" :schedule="schedule"></schedule-times>
+          </div>
+          </div>
         </div>
+    </li>
+  </div>
   <footer >
     <hr/> 
     <div class="announce" style="padding: 10px">
@@ -116,6 +65,7 @@
 </footer>
 </body>
 <script src="../unc/get_schedule.js"></script>
+<script src="../unc/components/schedule.js"></script>
 <script>
     let yyyy = 2021;
 var list = new Vue({
