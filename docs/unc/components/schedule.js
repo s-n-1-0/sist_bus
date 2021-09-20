@@ -2,14 +2,14 @@ Vue.component('schedule-irregular',{
   props:['schedule'],
 template:`
 <div class="text-center">
-<b>変則運転予定表</b>
+<b>変則運転予定表(原則土日を除く)</b>
 <div>
   <table>
-    <thead>
-      <tr>
-        <th>設定されている変則運転または運休日(土日を除く)</th>
-        <th> </th>
-      </tr>
+  <thead>
+    <tr>
+    <th>日にち</th>
+    <th>対応</th>
+    </tr>
     </thead>
     <tbody>
       <tr v-for="row in schedule.schedule_ex">

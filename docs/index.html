@@ -16,6 +16,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js" defer></script>
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 	<link rel="stylesheet" href="main.css">
 	<link rel="canonical" href="https://s-n-1-0.github.io/sist_bus/">
 	<link rel="icon" type="image/png" href="./icon.png">
@@ -57,42 +59,7 @@
 			</div>
 			<div id="modetitle"></div><hr>
 			<div id="modesubtitle"></div>
-			<div v-if="isActive === '1'" >
-				<table>
-					<thead>
-						<tr>
-							<th>時刻</th>
-							<th>駅発</th>
-							<th>大学着</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr v-for="row in schedule_c">
-							<td><b v-if="row.isShowHH">{{row.HH}}時</b></td>
-							<td>{{row.mm}}</td>
-							<td>{{row.arrival_mm}}</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			<div v-else>
-				<table>
-					<thead>
-						<tr>
-							<th>時刻</th>
-							<th>大学発</th>
-							<th>駅着</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr v-for="row in schedule_a">
-							<td><b v-if="row.isShowHH">{{row.HH}}時</b></td>
-							<td>{{row.mm}}</td>
-							<td>{{row.arrival_mm}}</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
+			<schedule-times :to-c="isActive === '1'" :schedule="{schedule_a,schedule_c}"></schedule-times>
 		</div>
 		<div id="sleep" style="display: none; ">
 			<div style="display:inline-block; text-align: left;">
@@ -105,23 +72,7 @@
 			</div>
 		</div>
 		<hr>
-		変則運転予定表(原則土日を除く)
-			<div>
-				<table>
-					<thead>
-						<tr>
-							<th>日にち</th>
-							<th>対応</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr v-for="row in schedule_ex">
-							<td><b>{{row.dd}}日</b></td>
-							<td>{{row.comment}}</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
+		<schedule-irregular :schedule="{schedule_ex}"></schedule-irregular>
 		<hr/>
 		愛野駅の電車時刻表は<a href="https://ekitan.com/timetable/railway/line-station/149-147/d1">こちら(駅探)</a>
 		<hr />
@@ -134,6 +85,7 @@
 			</div>
 	</footer>
 	<script src="./unc/get_schedule.js"></script>
+	<script src="./unc/components/schedule.js"></script>
 	<script>
 	var nd = new Date();
 	var mode = -1;
