@@ -5,22 +5,17 @@ input{
    display:none;
 }
 body {
-  font-size: 4vw;
-  font-family: Meiryo,
+  font-family: 'Noto Sans JP', sans-serif,Meiryo,
   "Helvetica Neue",
    Arial,
    "Hiragino Kaku Gothic ProN",
    "Hiragino Sans",
    sans-serif;
 }
-h1 { font-size: 4.25vw;
-  color: #7d2927;}
+h1 {color: #7d2927;}
 #root{
-  margin: auto;
   text-align:center;
- 
 }
-
 /*時刻表示枠全体*/
 .circle_root {
     position: relative;
@@ -54,11 +49,13 @@ h1 { font-size: 4.25vw;
     font-size:5vw;
  }
 .announce{
-font-size: 3vw;
-width: 80%;
+max-width: 80%;
 margin: auto;
 border: solid 3px #7d2927;
 border-radius: 10px;
+}
+.announce b{
+  color: #7d2927;
 }
 @media screen and (min-width: 800px){
     .circle_root{
@@ -68,15 +65,8 @@ border-radius: 10px;
         font-size:40px;
     }
     .introvert{
-        font-size: 20px;
+        font-size: 24px;
      }
-     body{
-      font-size: 16px;
-    }
-    h1 { font-size: 20px;}
-    .announce{
-      font-size: 16px;
-    }
 }
 /*円向き*/
 svg {
