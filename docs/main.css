@@ -124,21 +124,28 @@ table tr:nth-child(odd){
 }
 
 /*誘導*/
+.row{
+  justify-content: center;
+  align-items: center;
+}
 .hey{
+  --bs-gutter-x:2px;
+}
+.hey p{
+  text-align: center;
+  padding: 5px;
+  white-space: nowrap;
 font-size: 3vw;
-width: 40%;
-margin-left: auto;
 background-color: #7d2927;
 border: solid 2px #7d2927;
-border-radius: 10px;
+border-radius: 5px;
 }
 @media screen and (min-width: 800px){
-  .hey{
+  .hey p{
     font-size: 14px;
-    width: 275px;
   }
 }
-.hey a{
+.hey p a{
   text-decoration: none;
   color: white;
 }
