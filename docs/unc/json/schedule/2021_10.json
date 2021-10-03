@@ -1,5 +1,26 @@
 {
-  "ex": [],
+  "ex": [
+    {
+      "dd": 22,
+      "exception": 1
+    },
+    {
+      "dd": 23,
+      "exception": -1
+    },
+    {
+      "dd": 24,
+      "exception": -1
+    },
+    {
+      "dd": 25,
+      "exception": -2
+    },
+    {
+      "dd": 28,
+      "exception": -1
+    }
+  ],
   "data": [
     {
       "mode": 0,
@@ -335,6 +356,88 @@
           "HH": 20,
           "mm": 45,
           "arrival_mm": 51
+        }
+      ]
+    },
+    {
+      "mode": 1,
+      "a2c": [
+        {
+          "HH": 8,
+          "mm": 30,
+          "arrival_mm": 36
+        },
+        {
+          "HH": 9,
+          "mm": 0,
+          "arrival_mm": 6
+        },
+        {
+          "HH": 10,
+          "mm": 0,
+          "arrival_mm": 6
+        },
+        {
+          "HH": 10,
+          "mm": 30,
+          "arrival_mm": 36
+        },
+        {
+          "HH": 11,
+          "mm": 0,
+          "arrival_mm": 6
+        },
+        {
+          "HH": 12,
+          "mm": 0,
+          "arrival_mm": 6
+        },
+        {
+          "HH": 13,
+          "mm": 0,
+          "arrival_mm": 6
+        },
+        {
+          "HH": 14,
+          "mm": 0,
+          "arrival_mm": 6
+        }
+      ],
+      "c2a": [
+        {
+          "HH": 12,
+          "mm": 30,
+          "arrival_mm": 36
+        },
+        {
+          "HH": 13,
+          "mm": 30,
+          "arrival_mm": 36
+        },
+        {
+          "HH": 14,
+          "mm": 30,
+          "arrival_mm": 36
+        },
+        {
+          "HH": 15,
+          "mm": 30,
+          "arrival_mm": 36
+        },
+        {
+          "HH": 16,
+          "mm": 30,
+          "arrival_mm": 36
+        },
+        {
+          "HH": 17,
+          "mm": 30,
+          "arrival_mm": 36
+        },
+        {
+          "HH": 18,
+          "mm": 20,
+          "arrival_mm": 26
         }
       ]
     }
