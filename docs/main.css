@@ -149,3 +149,10 @@ border-radius: 5px;
   text-decoration: none;
   color: white;
 }
+.hey-border p{
+  background-color: transparent;
+}
+.hey-border p a{
+  text-decoration: none;
+  color: #7d2927;
+}
