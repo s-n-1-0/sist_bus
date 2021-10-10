@@ -131,7 +131,7 @@ table tr:nth-child(odd){
 .hey{
   --bs-gutter-x:2px;
 }
-.hey p{
+.hey a{
   text-align: center;
   padding: 5px;
   white-space: nowrap;
