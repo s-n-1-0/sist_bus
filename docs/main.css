@@ -139,20 +139,17 @@ font-size: 3vw;
 background-color: #7d2927;
 border: solid 2px #7d2927;
 border-radius: 5px;
+text-decoration: none;
+color: white;
 }
 @media screen and (min-width: 800px){
-  .hey p{
+  .hey a{
+    display: block;
     font-size: 14px;
   }
 }
-.hey p a{
-  text-decoration: none;
-  color: white;
-}
-.hey-border p{
+.hey-border a{
   background-color: transparent;
-}
-.hey-border p a{
   text-decoration: none;
   color: #7d2927;
 }
