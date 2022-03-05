@@ -34,6 +34,7 @@ module.exports = {
     },
     resolve:{
         alias:{
+          vue: "vue/dist/vue.esm-bundler.js"
         },
         extensions: [".js", ".vue",".ts"]
     },
