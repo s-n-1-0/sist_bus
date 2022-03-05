@@ -3,9 +3,7 @@
       "target": "es2017",
       "module": "es2022",
       "moduleResolution":"Node",
-      "declaration": true,
-      "baseUrl": "./src/",
-      "outDir": "../docs/bundle/"
+      "baseUrl": "./src/"
     },
     "exclude": ["node_modules"]
   }
