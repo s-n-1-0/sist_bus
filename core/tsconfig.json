@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+      "target": "es2017",
+      "module": "es2022",
+      "declaration": true,
+      "baseUrl": "./src/",
+      "outDir": "../docs/bundle/"
+    },
+    "exclude": ["node_modules"]
+  }
