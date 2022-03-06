@@ -13,31 +13,7 @@ body {
    sans-serif;
 }
 h1 {color: #7d2927;}
-#root{
-  text-align:center;
-}
-/*時刻表示枠全体*/
-.circle_root {
-    position: relative;
-    left: 50%;
-    transform: translate(-50%,0%);
-    /*background-color: red;*/
-    width: 100%;
-}
 
-/*園内テキスト*/
-.circle_text {
-    text-align:center;
-    position: absolute;
-    line-height: 1.5em;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    vertical-align: middle;
-    font-size:6vw;
-    color: #7d2927;
-    /*background-color: blue;*/
-}
 /*小文字表記*/
 .introvert{
     font-size: 5vw;
@@ -57,29 +33,6 @@ border-radius: 10px;
 .announce b{
   color: #7d2927;
 }
-@media screen and (min-width: 800px){
-    .circle_root{
-        width: 600px;
-    }
-    .circle_text {
-        font-size:40px;
-    }
-    .introvert{
-        font-size: 24px;
-     }
-}
-/*円向き*/
-svg {
-   -webkit-transform: rotate(-90deg);
-    transform: rotate(-90deg);
-}
-/*  アニメーションセット  */
-.timer-circle {
-    stroke-dasharray: 280; 
-    stroke-dashoffset: 280;
-    transition: all 1s linear;
-  }
-  
   .tabs {
     overflow: hidden;
     display: inline-block;
