@@ -1,5 +1,5 @@
 import axios from "axios";
-function GetSchedule(yyyy, MM,dd,day,ex, fgot) {
+export function checkAndGetSchedule(yyyy, MM,dd,day,ex, fgot) {
     var mode = -1;
     /*土日ではないか*/
     if(day != 0 && day !=6){
@@ -25,8 +25,8 @@ function GetSchedule(yyyy, MM,dd,day,ex, fgot) {
     }
     getSchedule(yyyy,MM,fgot,mode)
 }
-function getSchedule(yyyy, MM,fgot,mode,base = "./") { //データを取得する 全て取得する場合はmode未指定でも可= 0
-    axios.get(base + "unc/json/schedule/" + String(yyyy) + "_" + String(MM) + ".json").then((res)=>{
+export function getSchedule(yyyy, MM,fgot,mode) { //データを取得する 全て取得する場合はmode未指定でも可= 0
+    axios.get("/unc/json/schedule/" + String(yyyy) + "_" + String(MM) + ".json").then((res)=>{
         let data = res.data;
         var sm2 = data["data"];
         for (var i in sm2) {
@@ -39,39 +39,34 @@ function getSchedule(yyyy, MM,fgot,mode,base = "./") { //データを取得す�
         fgot(-1, null);
     });
 }
-function GetScheduleEx(yyyy, MM, fgot,base = "./") {
-    axios.get(base + "unc/json/schedule/" + String(yyyy) + "_" + String(MM) + ".json")
-    $.ajax({
-        url: ,
-        dataType: 'json',
-        success: function( data ) {
-            var sm2 = data["ex"];
-            for (let i in sm2){
-                sm2[i]['comment'] = '';
-                switch(sm2[i]['exception']){
-                case -2:
-                        sm2[i]['comment'] = "運休" //確実に運休の場合
-                        break
-                case -1:
-                sm2[i]['comment'] = "意図的なデータ未入力(PDF見てください)";
-                break;
-                case 0:
-                sm2[i]['comment'] = "通常運転(本来は運休)";
-                break;
-                default:
-                sm2[i]['comment'] = "変則運転";
-                break;
-                }
+export function getScheduleEx(yyyy, MM, fgot,base = "./") {
+    axios.get(base + "unc/json/schedule/" + String(yyyy) + "_" + String(MM) + ".json").then(res=>{
+        let data = res.data;
+        var sm2 = data["ex"];
+        for (let i in sm2){
+            sm2[i]['comment'] = '';
+            switch(sm2[i]['exception']){
+            case -2:
+                    sm2[i]['comment'] = "運休" //確実に運休の場合
+                    break
+            case -1:
+            sm2[i]['comment'] = "意図的なデータ未入力(PDF見てください)";
+            break;
+            case 0:
+            sm2[i]['comment'] = "通常運転(本来は運休)";
+            break;
+            default:
+            sm2[i]['comment'] = "変則運転";
+            break;
             }
-                    fgot(sm2);
-                    return;
-        },
-        error: function() {
-            fgot(null);
         }
-      });
+                fgot(sm2);
+                return;
+    }).catch(err=>{
+        fgot(null);
+    });
 }
-function schedule2ScheduleUI(schedule){
+export function schedule2ScheduleUI(schedule){
     for(let key in schedule){
         let i = Number(key);
     if (i == 0 || schedule[i - 1].HH != schedule[key].HH){
