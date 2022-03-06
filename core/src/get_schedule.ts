@@ -1,3 +1,4 @@
+import axios from "axios";
 function GetSchedule(yyyy, MM,dd,day,ex, fgot) {
     var mode = -1;
     /*土日ではないか*/
@@ -25,26 +26,23 @@ function GetSchedule(yyyy, MM,dd,day,ex, fgot) {
     getSchedule(yyyy,MM,fgot,mode)
 }
 function getSchedule(yyyy, MM,fgot,mode,base = "./") { //データを取得する 全て取得する場合はmode未指定でも可= 0
-    $.ajax({
-        url: base + "unc/json/schedule/" + String(yyyy) + "_" + String(MM) + ".json",
-        dataType: 'json',
-        success: function( data ) {
-            var sm2 = data["data"];
-            for (var i in sm2) {
-                if (sm2[i]["mode"] == String(mode)) {
-                    fgot(mode, sm2[i]);
-                    return;
-                }
+    axios.get(base + "unc/json/schedule/" + String(yyyy) + "_" + String(MM) + ".json").then((res)=>{
+        let data = res.data;
+        var sm2 = data["data"];
+        for (var i in sm2) {
+            if (sm2[i]["mode"] == String(mode)) {
+                fgot(mode, sm2[i]);
+                return;
             }
-        },
-        error: function() {
-            fgot(-1, null);
         }
-      });
+    }).catch(err=>{
+        fgot(-1, null);
+    });
 }
 function GetScheduleEx(yyyy, MM, fgot,base = "./") {
+    axios.get(base + "unc/json/schedule/" + String(yyyy) + "_" + String(MM) + ".json")
     $.ajax({
-        url: base + "unc/json/schedule/" + String(yyyy) + "_" + String(MM) + ".json",
+        url: ,
         dataType: 'json',
         success: function( data ) {
             var sm2 = data["ex"];
