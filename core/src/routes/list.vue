@@ -102,8 +102,8 @@ export default defineComponent({
             selectedMMRef.value = selectedMMRef.value ===MM ? "":MM;
             }
                     }
-                },0,"./");
-            },"./");
+                },0);
+            });
                 }else{
                 //console.log("読み込み済みのデータを表示");
                 selectedScheduleRef.value = schedulesRef.value[i];

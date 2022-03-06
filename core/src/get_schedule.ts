@@ -25,8 +25,8 @@ export function checkAndGetSchedule(yyyy, MM,dd,day,ex, fgot) {
     }
     getSchedule(yyyy,MM,fgot,mode)
 }
-export function getSchedule(yyyy, MM,fgot,mode,base = "./") { //データを取得する 全て取得する場合はmode未指定でも可= 0
-    axios.get(base + "unc/json/schedule/" + String(yyyy) + "_" + String(MM) + ".json").then((res)=>{
+export function getSchedule(yyyy, MM,fgot,mode) { //データを取得する 全て取得する場合はmode未指定でも可= 0
+    axios.get("/unc/json/schedule/" + String(yyyy) + "_" + String(MM) + ".json").then((res)=>{
         let data = res.data;
         var sm2 = data["data"];
         for (var i in sm2) {
@@ -39,8 +39,8 @@ export function getSchedule(yyyy, MM,fgot,mode,base = "./") { //データを取�
         fgot(-1, null);
     });
 }
-export function getScheduleEx(yyyy, MM, fgot,base = "./") {
-    axios.get(base + "unc/json/schedule/" + String(yyyy) + "_" + String(MM) + ".json").then(res=>{
+export function getScheduleEx(yyyy, MM, fgot) {
+    axios.get("/unc/json/schedule/" + String(yyyy) + "_" + String(MM) + ".json").then(res=>{
         let data = res.data;
         var sm2 = data["ex"];
         for (let i in sm2){
@@ -78,9 +78,9 @@ export function schedule2ScheduleUI(schedule){
     return schedule
 }
 
-export async function getYearList(base = "./"){
+export async function getYearList(){
     try{
-      const res =  await axios.get(base + "unc/json/schedule/yyyy.json");
+      const res =  await axios.get("/unc/json/schedule/yyyy.json");
       return res.data
     }catch{
         return null;

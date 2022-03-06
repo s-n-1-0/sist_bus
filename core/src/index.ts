@@ -1,4 +1,4 @@
-import { createRouter,createWebHashHistory } from "vue-router";
+import { createRouter,createWebHistory } from "vue-router";
 import {createApp}from "vue";
 import rootComponent from "./routes/index.vue";
 import listComponent from "./routes/list.vue";
@@ -10,7 +10,7 @@ let app = createApp({
     }
 })
 app.use(createRouter({
-    history:createWebHashHistory(),
+    history:createWebHistory(),
     routes:[
       {
         path: '/',
