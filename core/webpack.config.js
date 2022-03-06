@@ -40,6 +40,13 @@ module.exports = {
     },
     externals: {
     },
+    devServer: {
+      static: {
+        directory: path.join(__dirname, '../docs'),
+      },
+      open:true,
+      hot:true
+  },
     plugins: [new VueLoaderPlugin(),
               new webpack.DefinePlugin({
                 __VUE_PROD_DEVTOOLS__: false
