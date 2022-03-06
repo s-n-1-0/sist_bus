@@ -77,3 +77,12 @@ export function schedule2ScheduleUI(schedule){
     }
     return schedule
 }
+
+export async function getYearList(base = "./"){
+    try{
+      const res =  await axios.get(base + "unc/json/schedule/yyyy.json");
+      return res.data
+    }catch{
+        return null;
+    }
+}
