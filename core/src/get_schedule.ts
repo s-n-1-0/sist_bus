@@ -7,9 +7,8 @@ function GetSchedule(yyyy, MM,dd,day,ex, fgot) {
     /*変則運転・特別運休かどうか*/
     if(ex != null){
 
-        for (idx in ex){
+        for (let idx in ex){
            let e = ex[idx];
-          
           if (e["dd"] == dd){
               
               mode = e["exception"];
@@ -49,7 +48,7 @@ function GetScheduleEx(yyyy, MM, fgot,base = "./") {
         dataType: 'json',
         success: function( data ) {
             var sm2 = data["ex"];
-            for (i in sm2){
+            for (let i in sm2){
                 sm2[i]['comment'] = '';
                 switch(sm2[i]['exception']){
                 case -2:
@@ -75,8 +74,9 @@ function GetScheduleEx(yyyy, MM, fgot,base = "./") {
       });
 }
 function schedule2ScheduleUI(schedule){
-    for(key in schedule){
-    if (key == 0 || schedule[key - 1].HH != schedule[key].HH){
+    for(let key in schedule){
+        let i = Number(key);
+    if (i == 0 || schedule[i - 1].HH != schedule[key].HH){
         schedule[key]["isShowHH"] = true
     }else{
         schedule[key]["isShowHH"] = false
