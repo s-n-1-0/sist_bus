@@ -25,8 +25,8 @@ export function checkAndGetSchedule(yyyy, MM,dd,day,ex, fgot) {
     }
     getSchedule(yyyy,MM,fgot,mode)
 }
-export function getSchedule(yyyy, MM,fgot,mode) { //データを取得する 全て取得する場合はmode未指定でも可= 0
-    axios.get("/unc/json/schedule/" + String(yyyy) + "_" + String(MM) + ".json").then((res)=>{
+export function getSchedule(yyyy, MM,fgot,mode,base = "./") { //データを取得する 全て取得する場合はmode未指定でも可= 0
+    axios.get(base + "unc/json/schedule/" + String(yyyy) + "_" + String(MM) + ".json").then((res)=>{
         let data = res.data;
         var sm2 = data["data"];
         for (var i in sm2) {
