@@ -1,7 +1,7 @@
 <template>
   <div class="container">
   <h1>【過去データ】<span>{{yyyy}}年の</span>バス時刻</h1>
-  <a href="../">リアルタイム時刻表はこちら</a><br>
+  <router-link to="/">リアルタイム時刻表はこちら</router-link><br>
     <div v-if="isGetListData !== null">
         <div v-if="isGetListData === true">
         このページでは{{yyyy}}年の以下の月の予定のみ表示可能です。<br>
@@ -42,41 +42,49 @@
     <b>2020年の変則運転予定表</b>は、「運休」の項目がないため運休の場合も「意図的なデータ未入力(PDF見てください)」が表示されます。
   </div>
   <br>
-  <a href="./2021" style=" float: right;">2021年の過去データはこちら</a><br>
+  <router-link to="/archive/2021" style=" float: right;">2021年の過去データはこちら</router-link><br>
 </footer>
 </div>
 </template>
 <script lang="ts">
 import { defineComponent,ref } from 'vue'
-import {useRoute} from 'vue-router';
+import {onBeforeRouteUpdate,useRoute,RouteLocationNormalized} from 'vue-router';
 import {getScheduleEx,getSchedule,schedule2ScheduleUI,getYearList} from "../get_schedule";
 import scheduleIrregularComponent from "../components/schedule-irregular.vue";
 import scheduleTimesComponent from "../components/schedule-times.vue";
    
 export default defineComponent({
     setup() {
-        const route = useRoute();
-        const _yyyy = Number(route.params?.yyyy ?? "");
-        let yyyy = isNaN(_yyyy) ? 2000 : _yyyy;
-        getYearList().then(data=>{
-            let list = data.yyyy;
-           if (list?.[`${yyyy}`]){
-               titleRef.value = list[yyyy].map(item=>`${item}`);
-               schedulesRef.value = Array(titleRef.value.length);
-               isGetListDataRef.value = true;
-           }else{
-               //データがありません
-               isGetListDataRef.value = false;
-           }
-        });
         let titleRef = ref([]);
         const schedulesRef = ref(Array(titleRef.value.length)),
+            yyyyRef = ref(0),
             isCorSRef = ref(true),
             isGetListDataRef = ref(null),
             selectedScheduleRef = ref(null),
             selectedMMRef = ref("");
+        const loadList = (route:RouteLocationNormalized)=>{
+          const _yyyy = Number(route.params?.yyyy ?? "");
+          let yyyy = isNaN(_yyyy) ? 2000 : _yyyy;
+          yyyyRef.value = yyyy;
+          getYearList().then(data=>{
+              let list = data.yyyy;
+            if (list?.[`${yyyy}`]){
+                titleRef.value = list[yyyy].map(item=>`${item}`);
+                schedulesRef.value = Array(titleRef.value.length);
+                isGetListDataRef.value = true;
+            }else{
+                //データがありません
+                isGetListDataRef.value = false;
+            }
+          });
+        }
+        loadList(useRoute());//初回ロード
+        //二回目以降の遷移
+        onBeforeRouteUpdate((to, from) => {
+          loadList(to);
+      });
       return{
-            yyyy:yyyy,
+            yyyy:yyyyRef,
   	        title:titleRef,
             selectedSchedule:selectedScheduleRef,
             schedules:schedulesRef,//月数を指定
@@ -86,11 +94,11 @@ export default defineComponent({
             dropdown(MM){
             let i = titleRef.value.indexOf(MM)
             if (schedulesRef.value[i] === undefined){
-            getScheduleEx(yyyy, MM, function(schedule) {
+            getScheduleEx(yyyyRef.value, MM, function(schedule) {
             schedulesRef.value[i] = {}
             schedulesRef.value[i].schedule_ex = schedule;
                 //ex内部で実行(非同期後)
-                getSchedule(yyyy, MM,function(pm, schedule) {
+                getSchedule(yyyyRef.value, MM,function(pm, schedule) {
                     if (schedule != null) {
                         //読み込み後
                         var mode = pm;
