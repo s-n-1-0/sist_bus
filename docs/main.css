@@ -106,3 +106,6 @@ color: white;
   text-decoration: none;
   color: #7d2927;
 }
+[v-cloak] {
+  display: none !important;
+}
