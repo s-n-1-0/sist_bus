@@ -6,8 +6,8 @@
         <div v-if="isGetListData === true">
         このページでは{{yyyy}}年の以下の月の予定のみ表示可能です。<br>
         <div id="contents" class="list-group">
-          <div v-for="MM in title" :key="MM" class="list-group-item cur-ptr">
-            <span class ="dropdown-head" v-bind:class="{active:selectedMM===MM}" @click="dropdown(MM)"><u>{{MM}}月</u></span>
+          <div v-for="MM in title" :key="MM" class="list-group-item cur-ptr" @click="dropdown(MM)">
+            <span class ="dropdown-head" v-bind:class="{active:selectedMM===MM}"><u>{{MM}}月</u></span>
             <div v-if="selectedMM===MM">
               <div style="padding: 10px;">
                <div>
