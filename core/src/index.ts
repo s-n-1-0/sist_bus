@@ -13,7 +13,7 @@ const router = createRouter({
   history:createWebHistory(),
   routes:[
     {
-      path: '/',
+      path: '/sist_bus',
       meta:meta({
         title:()=>"SIST バスの時刻表示",
         description:()=>"SIST 静岡理工科大学の交通アクセス。バス時刻をリアルタイムに表示します。個人用。2022年1月、2月、4月、5月...に対応します。",
@@ -22,7 +22,7 @@ const router = createRouter({
       component: rootComponent
     },
     {
-      path: '/list/:yyyy',
+      path: '/sist_bus/list/:yyyy',
       meta:meta({
         title:(to:RouteLocationNormalized)=>{
           return `【過去データ】${encodeURIComponent(to.params.yyyy as string)}年のSISTバス時刻`;

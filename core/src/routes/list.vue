@@ -42,7 +42,7 @@
     <b>2020年の変則運転予定表</b>は、「運休」の項目がないため運休の場合も「意図的なデータ未入力(PDF見てください)」が表示されます。
   </div>
   <br>
-  <a href="./2021.html" style=" float: right;">2021年の過去データはこちら</a><br>
+  <a href="./2021" style=" float: right;">2021年の過去データはこちら</a><br>
 </footer>
 </div>
 </template>

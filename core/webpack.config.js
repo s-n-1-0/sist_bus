@@ -43,6 +43,10 @@ module.exports = {
     devServer: {
       static: {
         directory: path.join(__dirname, '../docs'),
+        publicPath: '/sist_bus'
+      },
+      historyApiFallback: {
+        index:"/sist_bus/index.html"
       },
       open:true,
       hot:true

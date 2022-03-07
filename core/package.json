@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack --mode=production --config ./webpack.config.js",
     "dev": "webpack --mode development --config ./webpack.config.js",
-    "server": "webpack-dev-server --history-api-fallback"
+    "server": "webpack-dev-server"
   },
   "author": "s-n-1-0",
   "license": "ISC",
