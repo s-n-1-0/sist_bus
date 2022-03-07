@@ -1,7 +1,6 @@
 import { createRouter,createWebHistory, RouteLocationNormalized } from "vue-router";
-import {createApp}from "vue";
+import {createApp,defineAsyncComponent}from "vue";
 import rootComponent from "./routes/index.vue";
-import listComponent from "./routes/list.vue";
 import { setMetaData,meta } from "./meta";
 let app = createApp({
     setup(){
@@ -31,7 +30,7 @@ const router = createRouter({
           return `【過去データ】SIST 静岡理工科大学${to.params.yyyy}年の時刻表を表示します。`;
         }
       }),
-      component:listComponent
+      component:defineAsyncComponent(()=> import("./routes/list.vue"))
     }
   ]
 });
