@@ -9,7 +9,7 @@
     "server": "webpack-dev-server"
   },
   "author": "s-n-1-0",
-  "license": "ISC",
+  "license": "",
   "dependencies": {
     "axios": "^0.26.0",
     "vue": "^3.2.31",
