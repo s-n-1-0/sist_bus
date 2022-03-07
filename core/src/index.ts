@@ -16,7 +16,8 @@ const router = createRouter({
       path: '/',
       meta:meta({
         title:()=>"SIST バスの時刻表示",
-        description:()=>"SIST 静岡理工科大学の交通アクセス。バス時刻をリアルタイムに表示します。個人用。2022年1月、2月、4月、5月...に対応します。"
+        description:()=>"SIST 静岡理工科大学の交通アクセス。バス時刻をリアルタイムに表示します。個人用。2022年1月、2月、4月、5月...に対応します。",
+        canonicalHref:()=>"https://s-n-1-0.github.io/sist_bus/"
       }),
       component: rootComponent
     },
@@ -24,11 +25,12 @@ const router = createRouter({
       path: '/list/:yyyy',
       meta:meta({
         title:(to:RouteLocationNormalized)=>{
-          return `【過去データ】${to.params.yyyy}年のSISTバス時刻`;
+          return `【過去データ】${encodeURIComponent(to.params.yyyy as string)}年のSISTバス時刻`;
         },
         description:(to:RouteLocationNormalized)=>{
-          return `【過去データ】SIST 静岡理工科大学${to.params.yyyy}年の時刻表を表示します。`;
-        }
+          return `【過去データ】SIST 静岡理工科大学${encodeURIComponent(to.params.yyyy as string)}年の時刻表を表示します。`;
+        },
+        canonicalHref:(to:RouteLocationNormalized)=>`https://s-n-1-0.github.io/sist_bus/list/${encodeURIComponent(to.params.yyyy as string)}`
       }),
       component:defineAsyncComponent(()=> import("./routes/list.vue"))
     }
