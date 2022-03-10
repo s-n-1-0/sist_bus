@@ -10,9 +10,9 @@ return rows.map(function(row,index) {
     return r;
   }).filter(Boolean);
 }
-function getSchedule(id) {
+function getSchedule(url) {
   
-  var sheets = SpreadsheetApp.openById(id).getSheets();
+  var sheets = SpreadsheetApp.openByUrl(url).getSheets();
  return sheets.map(function(sheet){
   var rows = sheet.getDataRange().getValues();
   //事前チェック
@@ -34,8 +34,8 @@ function getSchedule(id) {
    return {mode:mode,a2c:a2c,c2a:c2a}
   });
 }
-function getEx(id,sheetName){
-  var sheet = SpreadsheetApp.openById(id).getSheetByName(sheetName);
+function getEx(url,sheetName){
+  var sheet = SpreadsheetApp.openByUrl(url).getSheetByName(sheetName);
   var rows = sheet.getDataRange().getValues();
   if(!(rows[0][0] == 0)){
     throw new Error("Ex読み込みできるのはmode:0指定したシートのみです。");
@@ -52,12 +52,11 @@ function getEx(id,sheetName){
     return r;
   }).filter(Boolean);
 }
-function doGet(e) {
- //　第2引数はデータのある表のシート名です！
-  let id = "ここにファイルid";
-  console.log("処理するファイル名:" + SpreadsheetApp.openById(id).getName());
-  var exdata = getEx(id,'0');
-  var data = getSchedule(id);
+function getJson(url) {
+  console.log("処理するファイル名:" + SpreadsheetApp.openByUrl(url).getName());
+   //　第2引数はデータのある表のシート名です！
+  var exdata = getEx(url,'0');
+  var data = getSchedule(url);
   data = {ex:exdata,data:data};
   var output = ContentService.createTextOutput(JSON.stringify(data, null, 2));
   output.setMimeType(ContentService.MimeType.JSON);
