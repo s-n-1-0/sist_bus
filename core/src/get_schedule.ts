@@ -1,5 +1,5 @@
 import axios from "axios";
-export function checkAndGetSchedule(yyyy, MM,dd,day,ex, fgot) {
+export async function checkAndGetSchedule(yyyy:number, MM:number,dd:number,day:number,ex:any) {
     var mode = -1;
     /*土日ではないか*/
     if(day != 0 && day !=6){
@@ -20,27 +20,36 @@ export function checkAndGetSchedule(yyyy, MM,dd,day,ex, fgot) {
 
 
     if(mode == -1 || mode == -2){//最終モードが-1/-2なら取得しない(運休)
-        fgot(mode,null);
-        return;
+        return{
+            mode:mode,
+            schedule:null
+        }
     }
-    getSchedule(yyyy,MM,fgot,mode)
+    return await getSchedule(yyyy,MM,mode)
 }
-export function getSchedule(yyyy, MM,fgot,mode) { //データを取得する 全て取得する場合はmode未指定でも可= 0
-    axios.get("/sist_bus/unc/json/schedule/" + String(yyyy) + "_" + String(MM) + ".json").then((res)=>{
+export async function getSchedule(yyyy:number, MM:number,mode:number) { //データを取得する 全て取得する場合はmode未指定でも可= 0
+    try{
+    const res = await axios.get("/sist_bus/unc/json/schedule/" + String(yyyy) + "_" + String(MM) + ".json")
         let data = res.data;
         var sm2 = data["data"];
         for (var i in sm2) {
             if (sm2[i]["mode"] == String(mode)) {
-                fgot(mode, sm2[i]);
-                return;
+                return{
+                    mode:mode,
+                    schedule:sm2[i]
+                }
             }
         }
-    }).catch(err=>{
-        fgot(-1, null);
-    });
+    }catch(err){
+        return {
+            mode:-1,
+            schedule:null
+        }
+    }
 }
-export function getScheduleEx(yyyy, MM, fgot) {
-    axios.get("/sist_bus/unc/json/schedule/" + String(yyyy) + "_" + String(MM) + ".json").then(res=>{
+export async function getScheduleEx(yyyy:number, MM:number){
+    try{
+   const res = await axios.get("/sist_bus/unc/json/schedule/" + String(yyyy) + "_" + String(MM) + ".json")
         let data = res.data;
         var sm2 = data["ex"];
         for (let i in sm2){
@@ -60,13 +69,12 @@ export function getScheduleEx(yyyy, MM, fgot) {
             break;
             }
         }
-                fgot(sm2);
-                return;
-    }).catch(err=>{
-        fgot(null);
-    });
+        return sm2;
+    }catch(err){
+        return null;
+    };
 }
-export function schedule2ScheduleUI(schedule){
+export function schedule2ScheduleUI(schedule:any){
     for(let key in schedule){
         let i = Number(key);
     if (i == 0 || schedule[i - 1].HH != schedule[key].HH){

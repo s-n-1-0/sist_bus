@@ -109,11 +109,12 @@ export default defineComponent({
 	var next_interval = 0;
     var now = new Date();
     nowTitleRef.value = "アクセス時刻:" + now.toLocaleString('ja-JP') + "";
-    getScheduleEx(yyyy, MM, function(schedule) {
-        //console.log(JSON.stringify(schedule_ex));
+    getScheduleEx(yyyy, MM).then((schedule)=>{
+                //console.log(JSON.stringify(schedule_ex));
         scheduleExRef.value = schedule;
         //ex内部で実行(非同期後)
-        checkAndGetSchedule(yyyy, MM, dd, day_idx, schedule, function(pm, schedule) {
+        checkAndGetSchedule(yyyy, MM, dd, day_idx, schedule).then((result)=>{
+            const {mode:pm, schedule} = result;
             if (schedule != null) {
                 //読み込み後
                 mode = pm;
@@ -127,7 +128,7 @@ export default defineComponent({
             update(); //大学行きを初期画面とする。
             modeTitleRef.value = "本日(" + (String(yyyy) + "/" + String(MM) + "/" +
                 String(dd)) + ")" + ((mode == 0) ? "通常運転です" : "変則運転です");
-        });
+        })
     });
         var initialOffset = 280;
         var i = 0; //デバッグよう

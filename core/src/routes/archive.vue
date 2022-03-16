@@ -94,28 +94,29 @@ export default defineComponent({
             dropdown(MM){
             let i = titleRef.value.indexOf(MM)
             if (schedulesRef.value[i] === undefined){
-            getScheduleEx(yyyyRef.value, MM, function(schedule) {
+              getScheduleEx(yyyyRef.value, MM).then((schedule)=>{
             schedulesRef.value[i] = {}
             schedulesRef.value[i].schedule_ex = schedule;
                 //ex内部で実行(非同期後)
-                getSchedule(yyyyRef.value, MM,function(pm, schedule) {
+                getSchedule(yyyyRef.value, MM,0).then((result)=>{
+                  const {mode:pm, schedule} = result;
                     if (schedule != null) {
                         //読み込み後
                         var mode = pm;
                         schedulesRef.value[i].schedule_c =  schedule2ScheduleUI(schedule["a2c"]);
                         schedulesRef.value[i].schedule_a = schedule2ScheduleUI(schedule["c2a"]);
-            //console.log(mode)
-            if (mode != -1){
-            selectedScheduleRef.value = schedulesRef.value[i];
-            selectedMMRef.value = selectedMMRef.value ===MM ? "":MM;
-            }
+                        //console.log(mode)
+                        if (mode != -1){
+                        selectedScheduleRef.value = schedulesRef.value[i];
+                        selectedMMRef.value = selectedMMRef.value ===MM ? "":MM;
+                        }
                     }
-                },0);
+                });
             });
-                }else{
-                //console.log("読み込み済みのデータを表示");
-                selectedScheduleRef.value = schedulesRef.value[i];
-                selectedMMRef.value = selectedMMRef.value===MM ? "":MM;
+            }else{
+              //console.log("読み込み済みのデータを表示");
+              selectedScheduleRef.value = schedulesRef.value[i];
+              selectedMMRef.value = selectedMMRef.value===MM ? "":MM;
             }
             },
             onChange(iscs) { // クリックイベントでイベント発火
