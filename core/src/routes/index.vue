@@ -109,18 +109,18 @@ export default defineComponent({
 	var next_interval = 0;
     var now = new Date();
     nowTitleRef.value = "アクセス時刻:" + now.toLocaleString('ja-JP') + "";
-    getScheduleEx(yyyy, MM).then((schedule)=>{
+    getScheduleEx(yyyy, MM).then((scheduleEx)=>{
                 //console.log(JSON.stringify(schedule_ex));
-        scheduleExRef.value = schedule;
+        scheduleExRef.value = scheduleEx;
         //ex内部で実行(非同期後)
-        checkAndGetSchedule(yyyy, MM, dd, day_idx, schedule).then((result)=>{
+        checkAndGetSchedule(yyyy, MM, dd, day_idx, scheduleEx).then((result)=>{
             const {mode:pm, schedule} = result;
             if (schedule != null) {
                 //読み込み後
                 mode = pm;
                 modeSubTitleRef.value = (mode == 0) ? "" : "バス到着時間が通常運転とは異なる場合があります";
-                scheduleCRef.value = schedule2ScheduleUI(schedule["a2c"]);
-                scheduleARef.value = schedule2ScheduleUI(schedule["c2a"]);
+                scheduleCRef.value = schedule2ScheduleUI(schedule.a2c);
+                scheduleARef.value = schedule2ScheduleUI(schedule.c2a);
 
             } else {
                 isSleepRef.value = true;
