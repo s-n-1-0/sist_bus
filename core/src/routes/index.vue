@@ -41,7 +41,7 @@
 					<div class="introvert" v-if="isActive === '1'">大学行 </div>
 					<div class="introvert" v-else-if="isActive === '2'">駅行</div>
 					<div>{{nextTimeTitle}}</div>
-					<div>{{timerTitle}}</div> <a v-on:click="tapedDisclaimer()"  class="introvert" style="color: black;"><u>注意(免責事項)</u></a>					</div>
+					<div>{{timerTitle}}</div> <a v-on:click="tapedDisclaimer()"  class="introvert cur-ptr" style="color: black;"><u>注意(免責事項)</u></a>					</div>
 			</div>
             </div>
 			<div>{{modeTitle}}</div><hr>
@@ -271,5 +271,8 @@ svg {
   }
 .root{
   text-align:center;
+}
+.cur-ptr{
+  cursor: pointer;
 }
 </style>
