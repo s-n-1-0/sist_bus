@@ -12,6 +12,7 @@
   "license": "",
   "dependencies": {
     "axios": "^0.26.0",
+    "twemoji": "^14.0.2",
     "vue": "^3.2.31",
     "vue-router": "^4.0.13"
   },
