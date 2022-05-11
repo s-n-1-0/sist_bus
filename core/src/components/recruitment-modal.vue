@@ -41,7 +41,7 @@
 </template>
 <script>
 import { defineComponent,ref } from "vue";
-
+import twemoji from "twemoji";
 export default defineComponent({
     setup() {
         const rModalRef = ref(null)
@@ -49,7 +49,6 @@ export default defineComponent({
             rModal:rModalRef,
             showModal(){
                 if (rModalRef.value != null){
-                    //@ts-ignore
                     twemoji.parse(rModalRef.value);
                     var modal = new bootstrap.Modal(rModalRef.value, {})
                     modal.show();

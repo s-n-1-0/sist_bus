@@ -1,13 +1,9 @@
 import { createRouter,createWebHashHistory, RouteLocationNormalized } from "vue-router";
-import {createApp,defineAsyncComponent,onMounted}from "vue";
+import {createApp,defineAsyncComponent}from "vue";
 import rootComponent from "./routes/index.vue";
 import { setMetaData,meta } from "./meta";
 let app = createApp({
     setup(){
-        onMounted(()=>{
-           //@ts-ignore
-           twemoji?.parse(document.body);
-        })
         return {
            
         }

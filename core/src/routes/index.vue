@@ -76,13 +76,17 @@
     </div>
 </template>
 <script lang="ts">
-import { defineComponent,ref } from 'vue';
+import { defineComponent,ref,onMounted } from 'vue';
+import twemoji from "twemoji";
 import {getScheduleEx,checkAndGetSchedule,schedule2ScheduleUI} from "../get_schedule";
 import scheduleIrregularComponent from "../components/schedule-irregular.vue";
 import scheduleTimesComponent from "../components/schedule-times.vue";
 import recruitmentModal from "../components/recruitment-modal.vue";
 export default defineComponent({
     setup() {
+        onMounted(()=>{
+           twemoji?.parse(document.body);
+        })
         const isActiveRef =  ref('1'),
             isSleepRef = ref(false),
             scheduleCRef = ref([]),
