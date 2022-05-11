@@ -22,10 +22,10 @@
 			<div>
 				<div class="tabs">
 					<input type="radio" id="tab1" name="tab" value="1" v-model="isActive" v-on:change="onChange">
-					<label for="tab1">大学行</label>
+					<label for="tab1">🏫大学行</label>
 					<input type="radio" id="tab2" name="tab" value="2" v-model="isActive"
 					v-on:change="onChange">
-					<label for="tab2">駅行</label>
+					<label for="tab2">🚉駅行</label>
 				</div>
 			</div>
 			<div class="introvert2">{{nowTitle}}</div>
@@ -65,7 +65,7 @@
 		<hr />
 		<footer style="text-align: left;">
 			<div class="announce" style="padding: 10px">
-			<a id="yome">注意</a>
+			<a id="yome">❕注意</a>
 			<br/> 作成者個人用の時刻確認ページです。静岡理工科大学公式ではありません。表示時間にバスが来なくて遅刻・欠席が発生しても責任は取れません。
 			<br> 作成者に関係の無い予定は表示されない場合があります。
 			<br>
