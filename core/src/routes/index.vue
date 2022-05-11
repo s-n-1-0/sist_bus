@@ -5,8 +5,8 @@
 		<div class="col-auto hey">
 		<a href="https://www.sist.ac.jp/assets/schoolbus.pdf">バス時刻表PDF</a>
 		</div>
-		<div class="col-auto hey hey-border">
-		<a href="https://z-umon.net/space/id/wfhej0a3QzpEg1XX3EUr">サイト管理人募集</a>
+		<div class="col-auto hey hey-border cur-ptr">
+		<a class="site_color_text" v-on:click="showModal()">バスツール管理人募集中</a>
 		</div>
 		<!--<div class="col-auto hey">
 		<a href="https://z-umon.net/space/id/3COWcRHTb3lYsBInbB8o">C言語テスト支援</a>
@@ -72,6 +72,7 @@
             <router-link to="/archive/2021" style=" float: right;">過去の時刻表はこちら</router-link><br>
 			</div>
 		</footer>
+        <recruitment-modal ref="rModal"></recruitment-modal>
     </div>
 </template>
 <script lang="ts">
@@ -79,6 +80,7 @@ import { defineComponent,ref } from 'vue';
 import {getScheduleEx,checkAndGetSchedule,schedule2ScheduleUI} from "../get_schedule";
 import scheduleIrregularComponent from "../components/schedule-irregular.vue";
 import scheduleTimesComponent from "../components/schedule-times.vue";
+import recruitmentModal from "../components/recruitment-modal.vue";
 export default defineComponent({
     setup() {
         const isActiveRef =  ref('1'),
@@ -91,7 +93,8 @@ export default defineComponent({
             nowTitleRef = ref(""),
             modeTitleRef = ref(""),
             modeSubTitleRef = ref(""),
-            strokeDashoffsetRef = ref(0);
+            strokeDashoffsetRef = ref(0),
+            rModalRef = ref(null);
         const update = ()=>{ //isActiveを切り替えることで再描画される。
 				isActiveRef.value = ''; //一度他の値に書き換えて再描画をさせる
 				isActiveRef.value = '1';
@@ -199,6 +202,7 @@ export default defineComponent({
             modeTitle:modeTitleRef,
             modeSubTitle:modeSubTitleRef,
             strokeDashoffset:strokeDashoffsetRef,
+            rModal:rModalRef,
             onChange(event) { // クリックイベントでイベント発火
 				next = null;
 				next_end = null;
@@ -212,16 +216,23 @@ export default defineComponent({
                     top: targetOffsetTop,
                     behavior: "smooth"
                 });
+            },
+            showModal(){
+                rModalRef.value?.showModal();
             }
 		}
     },
     components:{
         "schedule-irregular":scheduleIrregularComponent,
-        "schedule-times":scheduleTimesComponent
+        "schedule-times":scheduleTimesComponent,
+        "recruitment-modal":recruitmentModal
     }
 })
 </script>
 <style scoped>
+.site_color_text{
+   color: #7d2927;
+}
 /*時刻表示枠全体*/
 .circle_root {
     position: relative;
