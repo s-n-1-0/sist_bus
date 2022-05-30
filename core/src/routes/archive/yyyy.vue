@@ -49,9 +49,9 @@
 <script lang="ts">
 import { defineComponent,ref } from 'vue'
 import {onBeforeRouteUpdate,useRoute,RouteLocationNormalized} from 'vue-router';
-import {getScheduleEx,getSchedule,schedule2ScheduleUI,getYearList} from "../get_schedule";
-import scheduleIrregularComponent from "../components/schedule-irregular.vue";
-import scheduleTimesComponent from "../components/schedule-times.vue";
+import {getScheduleEx,getSchedule,schedule2ScheduleUI,getYearList} from "../../get_schedule";
+import scheduleIrregularComponent from "../../components/schedule-irregular.vue";
+import scheduleTimesComponent from "../../components/schedule-times.vue";
    
 export default defineComponent({
     setup() {

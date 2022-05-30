@@ -26,7 +26,7 @@ const router = createRouter({
           return `【過去データ】${encodeURIComponent(to.params.yyyy as string)}年のSISTバス時刻`;
         }
       }),
-      component:defineAsyncComponent(()=> import("./routes/archive.vue"))
+      component:defineAsyncComponent(()=> import("./routes/archive/yyyy.vue"))
     }
   ]
 });
