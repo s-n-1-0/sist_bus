@@ -20,6 +20,15 @@ const router = createRouter({
       component: rootComponent
     },
     {
+      path: '/archive',
+      meta:meta({
+        title:(to:RouteLocationNormalized)=>{
+          return `【年別過去データ】SISTバス時刻`;
+        }
+      }),
+      component:defineAsyncComponent(()=> import("./routes/archive/index.vue"))
+    },
+    {
       path: '/archive/:yyyy',
       meta:meta({
         title:(to:RouteLocationNormalized)=>{

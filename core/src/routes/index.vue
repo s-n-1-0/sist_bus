@@ -69,7 +69,7 @@
 			<br/> 作成者個人用の時刻確認ページです。静岡理工科大学公式ではありません。表示時間にバスが来なくて遅刻・欠席が発生しても責任は取れません。
 			<br> 作成者に関係の無い予定は表示されない場合があります。
 			<br>
-            <router-link to="/archive/2021" style=" float: right;">過去の時刻表はこちら</router-link><br>
+            <router-link to="/archive" style=" float: right;">過去の時刻表はこちら</router-link><br>
 			</div>
 		</footer>
         <recruitment-modal ref="rModal"></recruitment-modal>
