@@ -55,12 +55,15 @@ function getEx(spreadsheet,sheetName){
     return r;
   }).filter(Boolean);
 }
-function getJson(spreadsheet){
+function getJson(spreadsheet,isNext = false){
   console.log("処理するファイル名:" + spreadsheet.getName());
   //　第2引数はデータのある表のシート名です！
   var exdata = getEx(spreadsheet,'0');
   var data = getSchedule(spreadsheet);
   data = {ex:exdata,data:data};
+  if (isNext){
+    data["ex"] = [];
+  }
   let json = JSON.stringify(data, null, 2);
   console.log(json)
   return json;
@@ -80,18 +83,27 @@ function getJsonByUrl(url) {
  */
 function onOpen() {
   var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+  var ui = SpreadsheetApp.getUi();
   var entries = [{
-    name:"json出力",
-    functionName:"openMenu"
+    name:"json仮出力(仮追加用)"
   }];
-  spreadsheet.addMenu("SISTバス", entries);
+  ui.createMenu("SISTバス")
+  .addItem("json通常出力", "openDownloadMenu")
+  .addSeparator()
+  .addSeparator()
+  .addSubMenu(ui.createMenu("仮追加").addItem("json仮出力","openNextDownloadMenu"))
+  .addToUi();
 }
-function openMenu(){
-    let html = HtmlService.createTemplateFromFile("dialog").evaluate();
-    SpreadsheetApp.getUi().showModalDialog(html, "Download!!");
+function openDownloadMenu(){
+  let html = HtmlService.createTemplateFromFile("download-dialog").evaluate();
+  SpreadsheetApp.getUi().showModalDialog(html, "Download!!");
 }
-function getJsonByMenu(){
+function openNextDownloadMenu(){
+  let html = HtmlService.createTemplateFromFile("next-download-dialog").evaluate();
+  SpreadsheetApp.getUi().showModalDialog(html, "Download!!");
+}
+function getJsonByMenu(isNext){
   let spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
-  let json = getJson(spreadsheet);
+  let json = getJson(spreadsheet,isNext);
   return json;
 }
