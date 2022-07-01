@@ -10,7 +10,7 @@
         var link = document.createElement('a');
         let blob = new Blob([ <?= getJsonByMenu(false) ?> ], { "type" : "application/json"});
         // ファイル名を GAS から取得する
-        link.download = <?= getActiveSpreadsheetName()+".json" ?>;
+        link.download = <?= getBusSpreadsheetName()+".json" ?>;
         link.href = window.URL.createObjectURL(blob);
         link.click();
         // ダイアログを閉じる

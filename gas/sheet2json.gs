@@ -1,5 +1,5 @@
-function getActiveSpreadsheetName() {
-  let spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+function getBusSpreadsheetName() {
+  let spreadsheet = getBusSpreadsheet();
   return spreadsheet.getName();
 }
 function getAorC(rows,sindex,eindex){
@@ -82,11 +82,7 @@ function getJsonByUrl(url) {
  * onOpen関数を用いたjson出力
  */
 function onOpen() {
-  var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
   var ui = SpreadsheetApp.getUi();
-  var entries = [{
-    name:"json仮出力(仮追加用)"
-  }];
   ui.createMenu("SISTバス")
   .addItem("json通常出力", "openDownloadMenu")
   .addSeparator()
@@ -103,7 +99,12 @@ function openNextDownloadMenu(){
   SpreadsheetApp.getUi().showModalDialog(html, "Download!!");
 }
 function getJsonByMenu(isNext){
-  let spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+  let spreadsheet = getBusSpreadsheet();
   let json = getJson(spreadsheet,isNext);
   return json;
+}
+function getBusSpreadsheet(){
+  let sheet = SpreadsheetApp.getActiveSheet();
+  let url = sheet.getRange(2,2).getValue();
+  return SpreadsheetApp.openByUrl(url);
 }
