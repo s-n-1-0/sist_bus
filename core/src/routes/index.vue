@@ -6,7 +6,7 @@
 		<a href="https://www.sist.ac.jp/assets/schoolbus.pdf">バス時刻表PDF</a>
 		</div>
 		<div class="col-auto hey hey-border cur-ptr">
-		<a class="site_color_text" v-on:click="showModal()">バスツール管理人募集中</a>
+		<a class="site_color_text" v-on:click="showModal()">管理メンバー募集中</a>
 		</div>
 		<!--<div class="col-auto hey">
 		<a href="https://z-umon.net/space/id/3COWcRHTb3lYsBInbB8o">C言語テスト支援</a>
