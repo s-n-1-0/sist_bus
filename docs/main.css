@@ -1,107 +1,106 @@
-li{
-    list-style: none;
-  }
-input{
-   display:none;
+li {
+  list-style: none;
+}
+input {
+  display: none;
 }
 body {
-  font-family: 'Noto Sans JP', sans-serif,Meiryo,
-  "Helvetica Neue",
-   Arial,
-   "Hiragino Kaku Gothic ProN",
-   "Hiragino Sans",
-   sans-serif;
+  font-family: "Noto Sans JP", sans-serif, Meiryo, "Helvetica Neue", Arial,
+    "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif;
 }
-h1 {color: #7d2927;}
-
-/*小文字表記*/
-.introvert{
-    font-size: 5vw;
-  }
-.introvert2{
-   color:#a9a9a9;
-}
-.introvert3{
-    font-size:5vw;
- }
-.announce{
-max-width: 80%;
-margin: auto;
-border: solid 3px #7d2927;
-border-radius: 10px;
-}
-.announce b{
+h1 {
   color: #7d2927;
 }
-  .tabs {
-    overflow: hidden;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-  }
- 
-  .tabs li,
-  .tabs label {
-    float: left;
-    padding: 10px 20px;
-    cursor: pointer;
-    transition: .2s;
-  }
-  .tabs li:not(:first-child),
-  .tabs label:not(:first-of-type) {
-    border-left: none;
-  }
-  .tabs li.active,
-  .tabs :checked + label {
-    background-color:  #7d2927;
-    border-color:  #7d2927;
-    border-radius: 10px;
-    color: #fff;
-    cursor: auto;
-  }
- table{
+
+/*小文字表記*/
+.introvert {
+  font-size: 5vw;
+}
+.introvert2 {
+  color: #a9a9a9;
+}
+.introvert3 {
+  font-size: 5vw;
+}
+.announce {
+  max-width: 80%;
+  margin: auto;
+  border: solid 3px #7d2927;
+  border-radius: 10px;
+}
+.announce b {
+  color: #7d2927;
+}
+.tabs {
+  overflow: hidden;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+.tabs li,
+.tabs label {
+  float: left;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.tabs li:not(:first-child),
+.tabs label:not(:first-of-type) {
+  border-left: none;
+}
+.tabs li.active,
+.tabs :checked + label {
+  background-color: #7d2927;
+  border-color: #7d2927;
+  border-radius: 10px;
+  color: #fff;
+  cursor: auto;
+}
+table {
   width: 100%;
   border-collapse: collapse;
   border-spacing: 0;
 }
-table th{
-  color:  #7d2927;
+table th {
+  color: #7d2927;
 }
-table th,table td{
+table th,
+table td {
   padding: 10px 0;
   text-align: center;
 }
 
-table tr:nth-child(odd){
-  background-color: #eaf4fc
+table tr:nth-child(odd) {
+  background-color: #eaf4fc;
 }
 
 /*誘導*/
-.row{
+.row {
   justify-content: center;
   align-items: center;
 }
-.hey{
-  --bs-gutter-x:2px;
+.hey {
+  --bs-gutter-x: 2px;
 }
-.hey a{
+.hey a {
   text-align: center;
   padding: 5px;
   white-space: nowrap;
-font-size: 3vw;
-background-color: #7d2927;
-border: solid 2px #7d2927;
-border-radius: 5px;
-text-decoration: none;
-color: white;
+  font-size: 3vw;
+  background-color: #7d2927;
+  border: solid 2px #7d2927;
+  border-radius: 5px;
+  text-decoration: none;
+  color: white;
 }
-@media screen and (min-width: 800px){
-  .hey a{
+@media screen and (min-width: 800px) {
+  .hey a {
     display: block;
     font-size: 14px;
   }
 }
-.hey-border a{
+.hey-border a {
   background-color: transparent;
   text-decoration: none;
   color: #7d2927;
@@ -112,6 +111,16 @@ color: white;
 img.emoji {
   height: 1em;
   width: 1em;
-  margin: 0 .05em 0 .1em;
+  margin: 0 0.05em 0 0.1em;
   vertical-align: -0.1em;
+}
+.user-icon {
+  display: inline-block;
+  max-height: 30px;
+  max-width: 30px;
+}
+.user-icon img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
 }
