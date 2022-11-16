@@ -1,39 +1,66 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ja">
-<head>
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-179563722-3"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-179563722-3"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
 
-  gtag('config', 'UA-179563722-3');
-</script>
-	<meta http-equiv="content-type" charset="utf-8">
-	<title>SIST スクールバスの時刻表示</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-	<meta name="description" content="SIST 静岡理工科大学の交通アクセス情報。バス時刻をリアルタイムに表示します。2022年10月、11月、12月と2023年...に対応します。">
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="/sist_bus/main.css">
-	<link rel="icon" type="image/png" href="/sist_bus/icon.png">
-	<link rel="canonical" href="https://s-n-1-0.github.io/sist_bus/">
-</head>
-<body>
+      gtag("config", "UA-179563722-3");
+    </script>
+    <meta http-equiv="content-type" charset="utf-8" />
+    <title>SIST スクールバスの時刻表示</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta
+      name="description"
+      content="SIST 静岡理工科大学の交通アクセス情報。バス時刻をリアルタイムに表示します。2022年10月、11月、12月と2023年...に対応します。"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/sist_bus/main.css" />
+    <link rel="icon" type="image/png" href="/sist_bus/icon.png" />
+    <link rel="canonical" href="https://s-n-1-0.github.io/sist_bus/" />
+  </head>
+  <body>
     <div id="app" v-cloak>
-        <router-view></router-view>
-		<p class="text-center"><a class="text-secondary" href="https://github.com/s-n-1-0/sist_bus">リポジトリ</a></p>
+      <router-view></router-view>
+      <p class="text-center">
+        <a class="text-secondary" href="https://github.com/s-n-1-0/sist_bus"
+          >リポジトリ</a
+        >
+      </p>
     </div>
-</body>
-<script>
-	window.announceTitle = "アナウンス(11/1)";
-	window.announceContent = `
+  </body>
+  <script>
+    window.announceTitle = "アナウンス(11/1)";
+    window.announceContent = `
 	11月更新しました。19日は表示しませんが特別運行があります。
 	`;
-</script>
-<script src="/sist_bus/bundle/index.js"></script>
+  </script>
+  <script src="/sist_bus/bundle/index.js"></script>
 </html>
