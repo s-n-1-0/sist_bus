@@ -1,7 +1,7 @@
 declare global {
-    interface Window{
-        announceTitle:string;
-	    announceContent:string;
-    }
+  interface Window {
+    announceTitle: string;
+    announceContent: string;
+  }
 }
-export {}
+export {};
