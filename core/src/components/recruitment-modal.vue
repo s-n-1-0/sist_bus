@@ -65,7 +65,9 @@ export default defineComponent({
       rModal: rModalRef,
       showModal() {
         if (rModalRef.value != null) {
-          twemoji.parse(rModalRef.value);
+          twemoji.parse(rModalRef.value, {
+            base: "https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/",
+          });
           var modal = new bootstrap.Modal(rModalRef.value, {});
           modal.show();
         }

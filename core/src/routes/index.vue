@@ -122,20 +122,22 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref, onMounted } from "vue";
 import twemoji from "twemoji";
-import {
-  getScheduleEx,
-  checkAndGetSchedule,
-  schedule2ScheduleUI,
-} from "../get_schedule";
+import { defineComponent, onMounted, ref } from "vue";
+import recruitmentModal from "../components/recruitment-modal.vue";
 import scheduleIrregularComponent from "../components/schedule-irregular.vue";
 import scheduleTimesComponent from "../components/schedule-times.vue";
-import recruitmentModal from "../components/recruitment-modal.vue";
+import {
+  checkAndGetSchedule,
+  getScheduleEx,
+  schedule2ScheduleUI,
+} from "../get_schedule";
 export default defineComponent({
   setup() {
     onMounted(() => {
-      twemoji?.parse(document.body);
+      twemoji?.parse(document.body, {
+        base: "https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/",
+      });
     });
     const isActiveRef = ref("1"),
       isSleepRef = ref(false),
