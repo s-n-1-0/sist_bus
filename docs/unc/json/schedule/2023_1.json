@@ -1,6 +1,54 @@
 {
   "ex": [
     {
+      "dd": 2,
+      "exception": -2
+    },
+    {
+      "dd": 3,
+      "exception": -2
+    },
+    {
+      "dd": 4,
+      "exception": -2
+    },
+    {
+      "dd": 5,
+      "exception": -2
+    },
+    {
+      "dd": 9,
+      "exception": -2
+    },
+    {
+      "dd": 13,
+      "exception": -1
+    },
+    {
+      "dd": 15,
+      "exception": -1
+    },
+    {
+      "dd": 24,
+      "exception": -1
+    },
+    {
+      "dd": 25,
+      "exception": -1
+    },
+    {
+      "dd": 26,
+      "exception": -1
+    },
+    {
+      "dd": 27,
+      "exception": -1
+    },
+    {
+      "dd": 30,
+      "exception": -1
+    },
+    {
       "dd": 31,
       "exception": 1
     }
