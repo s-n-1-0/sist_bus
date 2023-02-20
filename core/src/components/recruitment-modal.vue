@@ -19,27 +19,36 @@
           ></button>
         </div>
         <div class="modal-body text-start">
+          <p class="mb-2 alert alert-info text-center">
+            現在のメンバー :
+
+            <a class="user-icon" href="https://github.com/026KANAYAMA"
+              ><img
+                class="rounded"
+                src="https://github.com/026KANAYAMA.png" /></a
+            ><small class="ms-1">(新管理)</small> ・
+            <a class="user-icon" href="https://github.com/s-n-1-0"
+              ><img class="rounded" src="https://github.com/s-n-1-0.png" /></a
+            ><small class="ms-1">(サポート)</small>
+          </p>
           現在本サイトの管理メンバーを募集しています。<br />
-          バス時刻の更新などをしますが、基本ブラウザ操作なので簡単です。もし興味がございましたら下記リンクへ連絡ください。<br />
+          バス時刻の更新をしますが、基本ブラウザ操作なので簡単です。もし興味がございましたら下記リンクへ連絡ください。<br />
           週数百ユーザーが利用しているのでたぶん就活とかに書けるかもしれません。<br />
           <br />
           ちなみに管理にプログラミング知識は不要です。<br />
-          (もちろん知識があったらサイトを好きにいじれます)<br />
+          (もちろん知識があったらサイトを好きにいじれます。GitやWeb開発の知識も獲得できます)<br />
           <br />
-          <h3>募集条件や仕事内容</h3>
+          <h3>募集条件や内容</h3>
           <ul>
             <li>募集 : 2年生以下(学部学科問わない)</li>
-            <li>仕事内容 : 月初めにバスサイトの更新(5分程度のコピペ)</li>
-            <ul>
-              <li style="list-style: circle">
-                長い間更新作業が行われていない場合、サイトが閉鎖される可能性があります。
-              </li>
-            </ul>
+            <li>内容 : 月初めにバスサイトの更新(5分程度のコピペ)</li>
           </ul>
           <br />
           <h3>備考</h3>
           <ul>
-            <li>プログラミング知識不要(あるとサイトを好きにいじれます)</li>
+            <li>
+              プログラミング知識<b>不要</b>(あるとサイトを好きにいじれます)
+            </li>
             <li>Googleアカウント必須</li>
             <li>GitHubアカウント必須 (GitHubがわからない方は説明します)</li>
           </ul>
