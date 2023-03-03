@@ -83,7 +83,8 @@ table tr:nth-child(odd) {
 .hey {
   --bs-gutter-x: 2px;
 }
-.hey a {
+.hey a,
+button {
   text-align: center;
   padding: 5px;
   white-space: nowrap;
@@ -95,7 +96,8 @@ table tr:nth-child(odd) {
   color: white;
 }
 @media screen and (min-width: 800px) {
-  .hey a {
+  .hey a,
+  button {
     display: block;
     font-size: 14px;
   }

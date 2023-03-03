@@ -10,9 +10,16 @@
           >管理メンバー募集中</a
         >
       </div>
-      <!--<div class="col-auto hey">
-		<a href="https://z-umon.net/space/id/3COWcRHTb3lYsBInbB8o">C言語テスト支援</a>
-		</div>-->
+      <div class="col-auto hey">
+        <button
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasTools"
+          aria-controls="offcanvasTools"
+        >
+          その他のツール
+        </button>
+      </div>
     </div>
     <br />
     <h1 class="h3">現在のSISTバス時刻</h1>
@@ -119,6 +126,41 @@
       </div>
     </footer>
     <recruitment-modal ref="rModal"></recruitment-modal>
+    <div
+      class="offcanvas offcanvas-start"
+      tabindex="-1"
+      id="offcanvasTools"
+      aria-labelledby="offcanvasToolsLabel"
+    >
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasToolsLabel"><b>Tools</b></h5>
+        <button
+          type="button"
+          class="btn-close text-reset"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="offcanvas-body">
+        <div class="pb-2">
+          大学に関係するツール一覧で、全てOSSです。<br />
+          誰でも改善に参加できるようになっています。
+        </div>
+        <ul class="list-group text-start">
+          <a
+            class="text-decoration-none"
+            href="https://026kanayama.github.io/Library-search-extention/"
+          >
+            <li class="list-group-item">
+              📚 SIST 図書館検索拡張機能<br />
+              <small class="text-secondary"
+                >個人で本を買う前にAmazonのURLから大学に本が置いてあるか調べることができます。</small
+              >
+            </li>
+          </a>
+        </ul>
+      </div>
+    </div>
   </div>
 </template>
 <script lang="ts">
