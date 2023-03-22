@@ -1,3 +1,7 @@
+/**
+ * ページ遷移時にタイトル等を変更します
+ * ※サイトはSPA形式のためSEO的には意味がないです
+ */
 import { RouteLocationNormalized, RouteMeta, Router } from "vue-router";
 
 export interface Meta extends RouteMeta {

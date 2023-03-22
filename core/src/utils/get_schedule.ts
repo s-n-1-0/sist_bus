@@ -1,4 +1,42 @@
+/**
+ * json形式のスケジュールを取得して処理します。
+ */
+
 import axios from "axios";
+/**
+ * 指定した日付のスケジュールデータを取得します。(存在しなかったりしたらnull)
+ * @param yyyy
+ * @param MM
+ */
+export async function getScheduleEx(yyyy: number, MM: number) {
+  try {
+    const res = await axios.get(
+      `/sist_bus/unc/json/schedule/${String(yyyy)}_${String(MM)}.json`
+    );
+    let json: ScheduleJson = res.data;
+    var ex = json.ex; //変則運転情報
+    for (let i in ex) {
+      ex[i].comment = "";
+      switch (ex[i].exception) {
+        case -2:
+          ex[i].comment = "運休"; //確実に運休の場合
+          break;
+        case -1:
+          ex[i].comment = "意図的なデータ未入力(PDF見てください)";
+          break;
+        case 0:
+          ex[i].comment = "通常運転(本来は運休)";
+          break;
+        default:
+          ex[i].comment = "変則運転";
+          break;
+      }
+    }
+    return ex;
+  } catch (err) {
+    return null;
+  }
+}
 export async function checkAndGetSchedule(
   yyyy: number,
   MM: number,
@@ -85,35 +123,7 @@ interface ScheduleRow {
   /** 後から追加されたコメント */
   isShowHH: boolean;
 }
-export async function getScheduleEx(yyyy: number, MM: number) {
-  try {
-    const res = await axios.get(
-      "/sist_bus/unc/json/schedule/" + String(yyyy) + "_" + String(MM) + ".json"
-    );
-    let json = res.data as ScheduleJson;
-    var sm2 = json.ex;
-    for (let i in sm2) {
-      sm2[i].comment = "";
-      switch (sm2[i].exception) {
-        case -2:
-          sm2[i].comment = "運休"; //確実に運休の場合
-          break;
-        case -1:
-          sm2[i].comment = "意図的なデータ未入力(PDF見てください)";
-          break;
-        case 0:
-          sm2[i].comment = "通常運転(本来は運休)";
-          break;
-        default:
-          sm2[i].comment = "変則運転";
-          break;
-      }
-    }
-    return sm2;
-  } catch (err) {
-    return null;
-  }
-}
+
 export function schedule2ScheduleUI(schedule: ScheduleRow[]) {
   for (let key in schedule) {
     let i = Number(key);

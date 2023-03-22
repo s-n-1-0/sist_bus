@@ -90,7 +90,7 @@ import {
   getSchedule,
   schedule2ScheduleUI,
   getYearList,
-} from "../../get_schedule";
+} from "../../utils/get_schedule";
 import scheduleIrregularComponent from "../../components/ScheduleIrregular.vue";
 import scheduleTimesComponent from "../../components/ScheduleTimes.vue";
 

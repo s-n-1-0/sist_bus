@@ -19,7 +19,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref } from "vue";
-import { getYearList } from "../../get_schedule";
+import { getYearList } from "../../utils/get_schedule";
 export default defineComponent({
   setup() {
     const isLoadedRef = ref(null); //読み込みに成功した場合true 失敗ならfalse

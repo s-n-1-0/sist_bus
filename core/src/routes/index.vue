@@ -173,7 +173,7 @@ import {
   checkAndGetSchedule,
   getScheduleEx,
   schedule2ScheduleUI,
-} from "../get_schedule";
+} from "../utils/get_schedule";
 export default defineComponent({
   setup() {
     onMounted(() => {
@@ -214,7 +214,7 @@ export default defineComponent({
     getScheduleEx(yyyy, MM).then((scheduleEx) => {
       //console.log(JSON.stringify(schedule_ex));
       scheduleExRef.value = scheduleEx;
-      //ex内部で実行(非同期後)
+      //
       checkAndGetSchedule(yyyy, MM, dd, day_idx, scheduleEx).then((result) => {
         const { mode: pm, schedule } = result;
         if (schedule != null) {

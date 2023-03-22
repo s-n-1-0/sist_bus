@@ -4,8 +4,8 @@ import {
   createWebHashHistory,
   RouteLocationNormalized,
 } from "vue-router";
-import { meta, setMetaData } from "./meta";
 import rootComponent from "./routes/index.vue";
+import { meta, setMetaData } from "./utils/meta";
 let app = createApp({
   setup() {
     return {};
