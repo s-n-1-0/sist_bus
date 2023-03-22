@@ -169,11 +169,7 @@ import { defineComponent, onMounted, ref } from "vue";
 import recruitmentModal from "../components/RecruitmentModal.vue";
 import scheduleIrregularComponent from "../components/ScheduleIrregular.vue";
 import scheduleTimesComponent from "../components/ScheduleTimes.vue";
-import {
-  checkAndGetSchedule,
-  getScheduleEx,
-  schedule2ScheduleUI,
-} from "../utils/get_schedule";
+import { checkAndfilterSchedule, getScheduleJson } from "../utils/get_schedule";
 export default defineComponent({
   setup() {
     onMounted(() => {
@@ -204,36 +200,31 @@ export default defineComponent({
     let MM = nd.getMonth() + 1;
     let dd = nd.getDate();
     // dd = 1;
-    let day_idx = nd.getDay();
-    let comment = "";
     var next = null;
     var next_end = null;
     var next_interval = 0;
     var now = new Date();
     nowTitleRef.value = "アクセス時刻:" + now.toLocaleString("ja-JP") + "";
-    getScheduleEx(yyyy, MM).then((scheduleEx) => {
-      //console.log(JSON.stringify(schedule_ex));
-      scheduleExRef.value = scheduleEx;
-      //
-      checkAndGetSchedule(yyyy, MM, dd, day_idx, scheduleEx).then((result) => {
-        const { mode: pm, schedule } = result;
-        if (schedule != null) {
-          //読み込み後
-          mode = pm;
-          modeSubTitleRef.value =
-            mode == 0 ? "" : "バス到着時間が通常運転とは異なる場合があります";
-          scheduleCRef.value = schedule2ScheduleUI(schedule.a2c);
-          scheduleARef.value = schedule2ScheduleUI(schedule.c2a);
-        } else {
-          isSleepRef.value = true;
-        }
-        update(); //大学行きを初期画面とする。
-        modeTitleRef.value =
-          "本日(" +
-          (String(yyyy) + "/" + String(MM) + "/" + String(dd)) +
-          ")" +
-          (mode == 0 ? "通常運転です" : "変則運転です");
-      });
+    getScheduleJson(yyyy, MM).then((scheduleRes) => {
+      scheduleExRef.value = scheduleRes.data.ex;
+      let result = checkAndfilterSchedule(scheduleRes, dd);
+      const { mode: pm, schedule } = result;
+      if (schedule != null) {
+        //読み込み後
+        mode = pm;
+        modeSubTitleRef.value =
+          mode == 0 ? "" : "バス到着時間が通常運転とは異なる場合があります";
+        scheduleCRef.value = schedule.a2c;
+        scheduleARef.value = schedule.c2a;
+      } else {
+        isSleepRef.value = true;
+      }
+      update(); //大学行きを初期画面とする。
+      modeTitleRef.value =
+        "本日(" +
+        (String(yyyy) + "/" + String(MM) + "/" + String(dd)) +
+        ")" +
+        (mode == 0 ? "通常運転です" : "変則運転です");
     });
     var initialOffset = 280;
     var i = 0; //デバッグよう
@@ -333,7 +324,7 @@ export default defineComponent({
       modeSubTitle: modeSubTitleRef,
       strokeDashoffset: strokeDashoffsetRef,
       rModal: rModalRef,
-      onChange(event) {
+      onChange() {
         // クリックイベントでイベント発火
         next = null;
         next_end = null;

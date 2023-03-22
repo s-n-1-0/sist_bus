@@ -4,46 +4,50 @@
 
 import axios from "axios";
 /**
+ * 過去のスケジュール情報をまとめたリストを取得する
+ */
+export async function getYearList() {
+  try {
+    const res = await axios.get("/sist_bus/unc/json/schedule/yyyy.json");
+    return res.data;
+  } catch {
+    return null;
+  }
+}
+
+/**
  * 指定した日付のスケジュールデータを取得します。(存在しなかったりしたらnull)
  * @param yyyy
  * @param MM
  */
-export async function getScheduleEx(yyyy: number, MM: number) {
+export async function getScheduleJson(
+  yyyy: number,
+  MM: number
+): Promise<ScheduleResponse> {
   try {
     const res = await axios.get(
       `/sist_bus/unc/json/schedule/${String(yyyy)}_${String(MM)}.json`
     );
     let json: ScheduleJson = res.data;
-    var ex = json.ex; //変則運転情報
-    for (let i in ex) {
-      ex[i].comment = "";
-      switch (ex[i].exception) {
-        case -2:
-          ex[i].comment = "運休"; //確実に運休の場合
-          break;
-        case -1:
-          ex[i].comment = "意図的なデータ未入力(PDF見てください)";
-          break;
-        case 0:
-          ex[i].comment = "通常運転(本来は運休)";
-          break;
-        default:
-          ex[i].comment = "変則運転";
-          break;
-      }
-    }
-    return ex;
+    return {
+      yyyy,
+      MM,
+      data: json,
+    };
   } catch (err) {
     return null;
   }
 }
-export async function checkAndGetSchedule(
-  yyyy: number,
-  MM: number,
-  dd: number,
-  day: number,
-  ex: ScheduleEx[]
-) {
+
+/**
+ *  指定した日付が運行しているかどうかのチェック
+ * @param schedule
+ * @param dd 日
+ * @returns
+ */
+export function checkAndfilterSchedule(schedule: ScheduleResponse, dd: number) {
+  let day = new Date(schedule.yyyy, schedule.MM - 1, dd, 0, 0, 0).getDay();
+  const ex = schedule.data.ex;
   var mode = -1;
   /*土日ではないか*/
   if (day != 0 && day != 6) {
@@ -67,15 +71,13 @@ export async function checkAndGetSchedule(
       schedule: null,
     };
   }
-  return await getSchedule(yyyy, MM, mode);
+  //通常運転または変則運転情報のみ取得
+  return filterSchedule(schedule, mode);
 }
-export async function getSchedule(yyyy: number, MM: number, mode: number) {
+export function filterSchedule(schedule: ScheduleResponse, mode: number) {
   //データを取得する 全て取得する場合はmode未指定でも可= 0
   try {
-    const res = await axios.get(
-      "/sist_bus/unc/json/schedule/" + String(yyyy) + "_" + String(MM) + ".json"
-    );
-    let json = res.data as ScheduleJson;
+    let json = schedule.data;
     var sm2 = json.data;
     for (var i in sm2) {
       if (sm2[i].mode == mode) {
@@ -92,6 +94,11 @@ export async function getSchedule(yyyy: number, MM: number, mode: number) {
     };
   }
 }
+interface ScheduleResponse {
+  yyyy: number;
+  MM: number;
+  data: ScheduleJson;
+}
 interface ScheduleJson {
   ex: ScheduleEx[];
   data: ScheduleData[];
@@ -99,11 +106,9 @@ interface ScheduleJson {
 /**
  * 変数はjsonルールに従います。
  */
-interface ScheduleEx {
+export interface ScheduleEx {
   dd: number;
   exception: number;
-  /** 後から追加されたコメント */
-  comment: string;
 }
 /**
  * 変数はjsonルールに従います。
@@ -116,31 +121,8 @@ interface ScheduleData {
 /**
  * 変数はjsonルールに従います。
  */
-interface ScheduleRow {
+export interface ScheduleRow {
   HH: number;
   mm: number;
   arrival_mm: number;
-  /** 後から追加されたコメント */
-  isShowHH: boolean;
-}
-
-export function schedule2ScheduleUI(schedule: ScheduleRow[]) {
-  for (let key in schedule) {
-    let i = Number(key);
-    if (i == 0 || schedule[i - 1].HH != schedule[key].HH) {
-      schedule[key].isShowHH = true;
-    } else {
-      schedule[key].isShowHH = false;
-    }
-  }
-  return schedule;
-}
-
-export async function getYearList() {
-  try {
-    const res = await axios.get("/sist_bus/unc/json/schedule/yyyy.json");
-    return res.data;
-  } catch {
-    return null;
-  }
 }

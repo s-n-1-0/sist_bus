@@ -86,10 +86,9 @@ import {
   RouteLocationNormalized,
 } from "vue-router";
 import {
-  getScheduleEx,
-  getSchedule,
-  schedule2ScheduleUI,
+  filterSchedule,
   getYearList,
+  getScheduleJson,
 } from "../../utils/get_schedule";
 import scheduleIrregularComponent from "../../components/ScheduleIrregular.vue";
 import scheduleTimesComponent from "../../components/ScheduleTimes.vue";
@@ -135,28 +134,24 @@ export default defineComponent({
       dropdown(MM) {
         let i = titleRef.value.indexOf(MM);
         if (schedulesRef.value[i] === undefined) {
-          getScheduleEx(yyyyRef.value, MM).then((schedule) => {
+          getScheduleJson(yyyyRef.value, MM).then((scheduleRes) => {
             schedulesRef.value[i] = {};
-            schedulesRef.value[i].schedule_ex = schedule;
+            schedulesRef.value[i].schedule_ex = scheduleRes;
             //ex内部で実行(非同期後)
-            getSchedule(yyyyRef.value, MM, 0).then((result) => {
-              const { mode: pm, schedule } = result;
-              if (schedule != null) {
-                //読み込み後
-                var mode = pm;
-                schedulesRef.value[i].schedule_c = schedule2ScheduleUI(
-                  schedule["a2c"]
-                );
-                schedulesRef.value[i].schedule_a = schedule2ScheduleUI(
-                  schedule["c2a"]
-                );
-                //console.log(mode)
-                if (mode != -1) {
-                  selectedScheduleRef.value = schedulesRef.value[i];
-                  selectedMMRef.value = selectedMMRef.value === MM ? "" : MM;
-                }
+            let result = filterSchedule(scheduleRes, 0);
+            const { mode: pm, schedule } = result;
+            if (schedule != null) {
+              //読み込み後
+              var mode = pm;
+              schedulesRef.value[i].schedule_c = schedule["a2c"];
+              schedulesRef.value[i].schedule_a = schedule["c2a"];
+
+              //console.log(mode)
+              if (mode != -1) {
+                selectedScheduleRef.value = schedulesRef.value[i];
+                selectedMMRef.value = selectedMMRef.value === MM ? "" : MM;
               }
-            });
+            }
           });
         } else {
           //console.log("読み込み済みのデータを表示");
