@@ -154,8 +154,14 @@
             <li class="list-group-item">
               📚 SIST 図書館検索拡張機能<br />
               <small class="text-secondary"
-                >個人で本を買う前にAmazonのURLから大学に本が置いてあるか調べることができます。</small
-              >
+                >個人で本を買う前にAmazonのURLから大学に本が置いてあるか調べることができます。
+                <p class="text-end">
+                  <span class="user-icon">
+                    <img
+                      class="rounded"
+                      src="https://github.com/026KANAYAMA.png"
+                  /></span></p
+              ></small>
             </li>
           </a>
         </ul>
