@@ -88,10 +88,10 @@
       <div>{{ modeTitle }}</div>
       <hr />
       <div>{{ modeSubTitle }}</div>
-      <schedule-times
+      <ScheduleTimes
         :to-c="isActive === '1'"
         :schedule="{ schedule_a, schedule_c }"
-      ></schedule-times>
+      ></ScheduleTimes>
     </div>
     <div v-show="isSleep" style="display: none">
       <div style="display: inline-block; text-align: left">
@@ -105,7 +105,7 @@
       </div>
     </div>
     <hr />
-    <schedule-irregular :schedule="{ schedule_ex }"></schedule-irregular>
+    <ScheduleIrregular :schedule="{ schedule_ex }"></ScheduleIrregular>
     <hr />
     愛野駅の電車時刻表は<a
       href="https://ekitan.com/timetable/railway/line-station/149-147/d1"
@@ -125,7 +125,7 @@
         ><br />
       </div>
     </footer>
-    <recruitment-modal ref="rModal"></recruitment-modal>
+    <RecruitmentModal ref="rModal"></RecruitmentModal>
     <div
       class="offcanvas offcanvas-start"
       tabindex="-1"
@@ -166,9 +166,9 @@
 <script lang="ts">
 import twemoji from "twemoji";
 import { defineComponent, onMounted, ref } from "vue";
-import recruitmentModal from "../components/recruitment-modal.vue";
-import scheduleIrregularComponent from "../components/schedule-irregular.vue";
-import scheduleTimesComponent from "../components/schedule-times.vue";
+import recruitmentModal from "../components/RecruitmentModal.vue";
+import scheduleIrregularComponent from "../components/ScheduleIrregular.vue";
+import scheduleTimesComponent from "../components/ScheduleTimes.vue";
 import {
   checkAndGetSchedule,
   getScheduleEx,
@@ -355,9 +355,9 @@ export default defineComponent({
     };
   },
   components: {
-    "schedule-irregular": scheduleIrregularComponent,
-    "schedule-times": scheduleTimesComponent,
-    "recruitment-modal": recruitmentModal,
+    ScheduleIrregular: scheduleIrregularComponent,
+    ScheduleTimes: scheduleTimesComponent,
+    RecruitmentModal: recruitmentModal,
   },
 });
 </script>

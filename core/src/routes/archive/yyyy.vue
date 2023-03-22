@@ -19,9 +19,9 @@
             <div v-if="selectedMM === MM">
               <div style="padding: 10px">
                 <div>
-                  <schedule-irregular
+                  <ScheduleIrregular
                     :schedule="selectedSchedule"
-                  ></schedule-irregular>
+                  ></ScheduleIrregular>
                   <hr />
                   <div class="text-center">
                     <div class="tabs">
@@ -45,10 +45,10 @@
                       <label for="tab2">駅行</label>
                     </div>
                   </div>
-                  <schedule-times
+                  <ScheduleTimes
                     :to-c="isCorS"
                     :schedule="selectedSchedule"
-                  ></schedule-times>
+                  ></ScheduleTimes>
                 </div>
               </div>
             </div>
@@ -91,8 +91,8 @@ import {
   schedule2ScheduleUI,
   getYearList,
 } from "../../get_schedule";
-import scheduleIrregularComponent from "../../components/schedule-irregular.vue";
-import scheduleTimesComponent from "../../components/schedule-times.vue";
+import scheduleIrregularComponent from "../../components/ScheduleIrregular.vue";
+import scheduleTimesComponent from "../../components/ScheduleTimes.vue";
 
 export default defineComponent({
   setup() {
@@ -171,8 +171,8 @@ export default defineComponent({
     };
   },
   components: {
-    "schedule-irregular": scheduleIrregularComponent,
-    "schedule-times": scheduleTimesComponent,
+    ScheduleIrregular: scheduleIrregularComponent,
+    ScheduleTimes: scheduleTimesComponent,
   },
 });
 </script>
