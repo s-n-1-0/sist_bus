@@ -448,36 +448,6 @@
           "arrival_mm": 36
         },
         {
-          "HH": 15,
-          "mm": 15,
-          "arrival_mm": 21
-        },
-        {
-          "HH": 15,
-          "mm": 27,
-          "arrival_mm": 33
-        },
-        {
-          "HH": "",
-          "mm": 39,
-          "arrival_mm": 45
-        },
-        {
-          "HH": 15,
-          "mm": 51,
-          "arrival_mm": 57
-        },
-        {
-          "HH": 16,
-          "mm": 3,
-          "arrival_mm": 9
-        },
-        {
-          "HH": 16,
-          "mm": 15,
-          "arrival_mm": 21
-        },
-        {
           "HH": 17,
           "mm": 15,
           "arrival_mm": 21
