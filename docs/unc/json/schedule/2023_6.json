@@ -141,13 +141,13 @@
         },
         {
           "HH": 16,
-          "mm": 36,
-          "arrival_mm": 42
+          "mm": 22,
+          "arrival_mm": 28
         },
         {
           "HH": 16,
-          "mm": 50,
-          "arrival_mm": 56
+          "mm": 47,
+          "arrival_mm": 53
         },
         {
           "HH": 17,
@@ -258,13 +258,18 @@
         },
         {
           "HH": 16,
-          "mm": 22,
-          "arrival_mm": 28
+          "mm": 20,
+          "arrival_mm": 26
         },
         {
           "HH": 16,
           "mm": 34,
           "arrival_mm": 40
+        },
+        {
+          "HH": 16,
+          "mm": 40,
+          "arrival_mm": 46
         },
         {
           "HH": 17,
