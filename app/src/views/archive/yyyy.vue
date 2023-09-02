@@ -83,24 +83,24 @@ import { defineComponent, ref } from "vue";
 import {
   onBeforeRouteUpdate,
   useRoute,
-  RouteLocationNormalized,
+  type RouteLocationNormalized,
 } from "vue-router";
-import {
-  filterSchedule,
-  getYearList,
-  getScheduleJson,
-} from "../../utils/get_schedule";
 import scheduleIrregularComponent from "../../components/ScheduleIrregular.vue";
 import scheduleTimesComponent from "../../components/ScheduleTimes.vue";
+import {
+  filterSchedule,
+  getScheduleJson,
+  getYearList,
+} from "../../utils/get_schedule";
 
 export default defineComponent({
   setup() {
-    let titleRef = ref([]);
+    let titleRef = ref<string[]>([]);
     const schedulesRef = ref(Array(titleRef.value.length)),
       yyyyRef = ref(0),
       isCorSRef = ref(true),
-      isGetListDataRef = ref(null),
-      selectedScheduleRef = ref(null),
+      isGetListDataRef = ref<boolean | null>(null),
+      selectedScheduleRef = ref<any>(null),
       selectedMMRef = ref("");
     const loadList = (route: RouteLocationNormalized) => {
       const _yyyy = Number(route.params?.yyyy ?? "");
@@ -109,7 +109,7 @@ export default defineComponent({
       getYearList().then((data) => {
         let list = data.yyyy;
         if (list?.[`${yyyy}`]) {
-          titleRef.value = list[yyyy].map((item) => `${item}`);
+          titleRef.value = list[yyyy].map((item: string) => `${item}`);
           schedulesRef.value = Array(titleRef.value.length);
           isGetListDataRef.value = true;
         } else {
@@ -131,13 +131,14 @@ export default defineComponent({
       isCorS: isCorSRef,
       isGetListData: isGetListDataRef, // null = 未確認 false = 失敗  true= 成功
       selectedMM: selectedMMRef,
-      dropdown(MM) {
+      dropdown(MM: string) {
         let i = titleRef.value.indexOf(MM);
         if (schedulesRef.value[i] === undefined) {
-          getScheduleJson(yyyyRef.value, MM).then((scheduleRes) => {
+          getScheduleJson(yyyyRef.value, parseInt(MM)).then((scheduleRes) => {
+            if (!scheduleRes) return;
             schedulesRef.value[i] = {};
-            schedulesRef.value[i].schedule_ex = scheduleRes;
-            //ex内部で実行(非同期後)
+            schedulesRef.value[i].schedule_ex = scheduleRes.data.ex;
+            //ex内部で実行
             let result = filterSchedule(scheduleRes, 0);
             const { mode: pm, schedule } = result;
             if (schedule != null) {
@@ -159,7 +160,7 @@ export default defineComponent({
           selectedMMRef.value = selectedMMRef.value === MM ? "" : MM;
         }
       },
-      onChange(iscs) {
+      onChange(iscs: boolean) {
         // クリックイベントでイベント発火
         isCorSRef.value = iscs;
       },

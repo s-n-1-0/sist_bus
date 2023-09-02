@@ -175,7 +175,12 @@ import { defineComponent, onMounted, ref } from "vue";
 import recruitmentModal from "../components/RecruitmentModal.vue";
 import scheduleIrregularComponent from "../components/ScheduleIrregular.vue";
 import scheduleTimesComponent from "../components/ScheduleTimes.vue";
-import { checkAndfilterSchedule, getScheduleJson } from "../utils/get_schedule";
+import {
+  checkAndfilterSchedule,
+  getScheduleJson,
+  type ScheduleEx,
+  type ScheduleRow,
+} from "../utils/get_schedule";
 export default defineComponent({
   setup() {
     onMounted(() => {
@@ -185,9 +190,9 @@ export default defineComponent({
     });
     const isActiveRef = ref("1"),
       isSleepRef = ref(false),
-      scheduleCRef = ref([]),
-      scheduleARef = ref([]),
-      scheduleExRef = ref([]),
+      scheduleCRef = ref<ScheduleRow[]>([]),
+      scheduleARef = ref<ScheduleRow[]>([]),
+      scheduleExRef = ref<ScheduleEx[]>([]),
       nextTimeTitleRef = ref("取得中"),
       timerTitleRef = ref(""),
       nowTitleRef = ref(""),
@@ -206,12 +211,13 @@ export default defineComponent({
     let MM = nd.getMonth() + 1;
     let dd = nd.getDate();
     // dd = 1;
-    var next = null;
+    var next: Date | null = null;
     var next_end = null;
     var next_interval = 0;
     var now = new Date();
     nowTitleRef.value = "アクセス時刻:" + now.toLocaleString("ja-JP") + "";
     getScheduleJson(yyyy, MM).then((scheduleRes) => {
+      if (!scheduleRes) return;
       scheduleExRef.value = scheduleRes.data.ex;
       let result = checkAndfilterSchedule(scheduleRes, dd);
       const { mode: pm, schedule } = result;
@@ -299,7 +305,7 @@ export default defineComponent({
             }
           }
           next = min_date;
-          next_interval = (next.getTime() - now.getTime()) / 1000; //現在と次のバスが来るまでの時間差
+          next_interval = (next!.getTime() - now.getTime()) / 1000; //現在と次のバスが来るまでの時間差
         }
       } else {
         let ll = (next.getTime() - now.getTime()) / 1000; //次が「来るまで」の時間(s)
@@ -340,13 +346,14 @@ export default defineComponent({
       tapedDisclaimer() {
         const targetElement = document.getElementById("yome");
         const targetOffsetTop =
-          window.pageYOffset + targetElement.getBoundingClientRect().top;
+          window.pageYOffset + targetElement!.getBoundingClientRect().top;
         window.scrollTo({
           top: targetOffsetTop,
           behavior: "smooth",
         });
       },
       showModal() {
+        //@ts-ignore
         rModalRef.value?.showModal();
       },
     };

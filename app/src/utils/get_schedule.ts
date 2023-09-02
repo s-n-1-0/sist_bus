@@ -23,7 +23,7 @@ export async function getYearList() {
 export async function getScheduleJson(
   yyyy: number,
   MM: number
-): Promise<ScheduleResponse> {
+): Promise<ScheduleResponse | null> {
   try {
     const res = await axios.get(
       `/sist_bus/unc/json/schedule/${String(yyyy)}_${String(MM)}.json`
@@ -76,23 +76,20 @@ export function checkAndfilterSchedule(schedule: ScheduleResponse, dd: number) {
 }
 export function filterSchedule(schedule: ScheduleResponse, mode: number) {
   //データを取得する 全て取得する場合はmode未指定でも可= 0
-  try {
-    let json = schedule.data;
-    var sm2 = json.data;
-    for (var i in sm2) {
-      if (sm2[i].mode == mode) {
-        return {
-          mode: mode,
-          schedule: sm2[i],
-        };
-      }
+  let json = schedule.data;
+  var sm2 = json.data;
+  for (var i in sm2) {
+    if (sm2[i].mode == mode) {
+      return {
+        mode: mode,
+        schedule: sm2[i],
+      };
     }
-  } catch (err) {
-    return {
-      mode: -1,
-      schedule: null,
-    };
   }
+  return {
+    mode: -1,
+    schedule: null,
+  };
 }
 interface ScheduleResponse {
   yyyy: number;

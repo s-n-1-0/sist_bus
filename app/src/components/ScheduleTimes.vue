@@ -50,7 +50,7 @@
   </div>
 </template>
 <script lang="ts">
-import { ScheduleRow } from "utils/get_schedule";
+import { type ScheduleRow } from "@/utils/get_schedule";
 import { defineComponent } from "vue";
 export default defineComponent({
   props: ["toC", "schedule"],

@@ -64,9 +64,10 @@
     </div>
   </div>
 </template>
-<script>
-import { defineComponent, ref } from "vue";
+<script lang="ts">
+//@ts-ignore
 import twemoji from "twemoji";
+import { defineComponent, ref } from "vue";
 export default defineComponent({
   setup() {
     const rModalRef = ref(null);
@@ -76,7 +77,7 @@ export default defineComponent({
         if (rModalRef.value != null) {
           twemoji.parse(rModalRef.value, {
             base: "https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/",
-          });
+          }); //@ts-ignore
           var modal = new bootstrap.Modal(rModalRef.value, {});
           modal.show();
         }

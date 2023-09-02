@@ -22,8 +22,8 @@ import { defineComponent, ref } from "vue";
 import { getYearList } from "../../utils/get_schedule";
 export default defineComponent({
   setup() {
-    const isLoadedRef = ref(null); //読み込みに成功した場合true 失敗ならfalse
-    const yearsRef = ref([]);
+    const isLoadedRef = ref<boolean | null>(null); //読み込みに成功した場合true 失敗ならfalse
+    const yearsRef = ref<string[]>([]);
     getYearList()
       .then((data) => {
         yearsRef.value = Object.keys(data["yyyy"]).reverse();

@@ -22,7 +22,7 @@
   </div>
 </template>
 <script lang="ts">
-import { ScheduleEx } from "utils/get_schedule";
+import { type ScheduleEx } from "@/utils/get_schedule";
 import { defineComponent } from "vue";
 export default defineComponent({
   props: ["schedule"],
