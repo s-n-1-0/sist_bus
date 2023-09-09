@@ -17,16 +17,13 @@ Google スプレッドシートに打ち込んだデータを GAS で json 形�
 
 # リポジトリについて
 
-app フォルダの階層で以下のコマンドを使用できます。
+appフォルダ内にVueプロジェクトがあります。
 
-### ローカルサーバー の立ち上げ
+### セットアップ方法など
+[https://github.com/s-n-1-0/sist_bus/tree/main/app](https://github.com/s-n-1-0/sist_bus/blob/main/app/README.md)を参照
 
-```
-npm run dev
-```
-
-### 注意事項
+# 注意事項
 
 GitHub Pages は pages ブランチで管理しています。pages ブランチに対して**プルリクエストを作成しないと**反映されないようにしています。
 
-Actions で自動的にビルドするので npm run build は不要です。
+Actions で自動的にビルドするので npm run build 及びビルド用コミットは不要です。
