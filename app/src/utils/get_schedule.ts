@@ -8,7 +8,7 @@ import axios from "axios";
  */
 export async function getYearList() {
   try {
-    const res = await axios.get("/sist_bus/json/schedules/yyyy.json");
+    const res = await axios.get("/sist_bus/unc/json/schedule/yyyy.json");
     return res.data;
   } catch {
     return null;
@@ -26,9 +26,7 @@ export async function getScheduleJson(
 ): Promise<ScheduleResponse | null> {
   try {
     const res = await axios.get(
-      `/sist_bus/json/schedules/${String(yyyy)}/${String(yyyy)}_${String(
-        MM
-      )}.json`
+      `/sist_bus/unc/json/schedule/${String(yyyy)}_${String(MM)}.json`
     );
     let json: ScheduleJson = res.data;
     return {

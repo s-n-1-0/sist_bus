@@ -7,9 +7,6 @@ import { defineConfig } from "vite";
 export default defineConfig({
   base: "/sist_bus",
   plugins: [vue()],
-  build: {
-    outDir: "../docs",
-  },
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
