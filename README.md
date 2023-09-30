@@ -3,7 +3,11 @@
 大学のバスの時刻を GitHub Pages で表示しています。<br>
 https://s-n-1-0.github.io/sist_bus/
 
-※Git の学習も兼ねているのでログがごちゃっとしてます
+# リポジトリ内ショートカット
+
+1. [アナウンスの更新場所](./app/src/components/AnnouncementBlock.vue)
+
+2. [時刻表データの保存場所](./app/public/json/schedules/)
 
 # 時刻表データについて
 
@@ -13,28 +17,13 @@ Google スプレッドシートに打ち込んだデータを GAS で json 形�
 
 # リポジトリについて
 
-core フォルダの階層で以下のコマンドを使用できます。
+appフォルダ内にVueプロジェクトがあります。
 
-### Webpack DevServer の立ち上げ
+### セットアップ方法など
+[https://github.com/s-n-1-0/sist_bus/tree/main/app](https://github.com/s-n-1-0/sist_bus/blob/main/app/README.md)を参照
 
-```
-npm run dev
-```
+# 注意事項
 
-別ターミナルで
+GitHub Pages は pages ブランチで管理しています。pages ブランチに対して**プルリクエストを作成しないと**反映されないようにしています。
 
-```
-npm run server
-```
-
-### 注意事項
-
-GitHub Pages は pages ブランチで管理しています。pages ブランチにマージしないと変更は反映されません。
-core フォルダ内の変更は
-
-```
-npm run build
-```
-
-を実行してビルドしてください。  
-※docs フォルダ内の変更(例えば時刻変更)はビルド不要
+Actions で自動的にビルドするので npm run build 及びビルド用コミットは不要です。

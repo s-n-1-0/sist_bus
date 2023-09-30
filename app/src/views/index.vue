@@ -23,12 +23,7 @@
     </div>
     <br />
     <h1 class="h3">現在のSISTバス時刻</h1>
-    <div class="announce">
-      <p class="mb-0 pb-0">
-        <b>{{ announceTitle }}</b>
-      </p>
-      <div v-html="announceContnt"></div>
-    </div>
+    <AnnouncementBlock />
     <br />
     <div v-show="!isSleep">
       <div>
@@ -170,6 +165,7 @@
   </div>
 </template>
 <script lang="ts">
+import AnnouncementBlock from "@/components/AnnouncementBlock.vue";
 import twemoji from "twemoji";
 import { defineComponent, onMounted, ref } from "vue";
 import recruitmentModal from "../components/RecruitmentModal.vue";
@@ -322,8 +318,6 @@ export default defineComponent({
       }
     }, 1000);
     return {
-      announceTitle: window.announceTitle,
-      announceContnt: window.announceContent,
       isActive: isActiveRef,
       isSleep: isSleepRef,
       schedule_ex: scheduleExRef,
@@ -362,6 +356,7 @@ export default defineComponent({
     ScheduleIrregular: scheduleIrregularComponent,
     ScheduleTimes: scheduleTimesComponent,
     RecruitmentModal: recruitmentModal,
+    AnnouncementBlock,
   },
 });
 </script>
