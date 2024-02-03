@@ -19,45 +19,40 @@
           ></button>
         </div>
         <div class="modal-body text-start">
-          <p class="mb-2 alert alert-info text-center">
+          <h4>現在本バスサイトの管理人を募集しています。</h4>
+          <br />
+          プログラミングができなくても大丈夫です。週数百人が利用しているのでたぶん就活とかに書けるかもしれません。<br />
+          もちろん学習意欲があれば、本サイトを通してGitやWeb開発の基礎などを学ぶことができます。<br />
+          <div class="my-2 alert alert-info text-center">
             現在のメンバー :
 
             <a class="user-icon" href="https://github.com/026KANAYAMA"
               ><img
                 class="rounded"
                 src="https://github.com/026KANAYAMA.png" /></a
-            ><small class="ms-1">(新管理)</small> ・
+            ><small class="ms-1">(管理人)</small> ・
             <a class="user-icon" href="https://github.com/s-n-1-0"
               ><img class="rounded" src="https://github.com/s-n-1-0.png" /></a
             ><small class="ms-1">(サポート)</small>
-          </p>
-          現在本サイトの管理メンバーを募集しています。<br />
-          バス時刻の更新をしますが、基本ブラウザ操作なので簡単です。もし興味がございましたら下記リンクへ連絡ください。<br />
-          週数百ユーザーが利用しているのでたぶん就活とかに書けるかもしれません。<br />
-          <br />
-          ちなみに管理にプログラミング知識は不要です。<br />
-          (もちろん知識があったらサイトを好きにいじれます。GitやWeb開発の知識も獲得できます)<br />
-          <br />
+          </div>
           <h3>募集条件や内容</h3>
           <ul>
-            <li>募集 : 2年生以下(学部学科問わない)</li>
-            <li>内容 : 月初めにバスサイトの更新(5分程度のコピペ)</li>
-          </ul>
-          <br />
-          <h3>備考</h3>
-          <ul>
             <li>
-              プログラミング知識<b>不要</b>(あるとサイトを好きにいじれます)
+              条件 :
+              応募時点で理工科大学に2年以上通う必要がある人(学部学科問わない)
             </li>
-            <li>Googleアカウント必須</li>
-            <li>GitHubアカウント必須 (GitHubがわからない方は説明します)</li>
+            <li>
+              やること : 月初めにバスサイトの更新(月1で5分程度)<br />
+              いきなり全てを任せることはしないのでご安心ください。
+            </li>
           </ul>
+
           <br />
           <hr />
           <h3>📧連絡先</h3>
-          <a href="https://forms.office.com/r/E5p7tNmeic">ここのフォーム</a
+          興味があれば
+          <a href="https://forms.gle/b9VFcBePbxHVLJEu7">ここのフォーム</a
           >にお願いします。<br />
-          ※大学用Microsoftアカウント以外はアクセスできません。
           <br />
         </div>
       </div>
