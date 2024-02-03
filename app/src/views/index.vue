@@ -6,9 +6,7 @@
         <a href="https://www.sist.ac.jp/assets/schoolbus.pdf">バス時刻表PDF</a>
       </div>
       <div class="col-auto hey hey-border cur-ptr">
-        <a class="site_color_text" v-on:click="showModal()"
-          >管理メンバー募集中</a
-        >
+        <a class="site_color_text" v-on:click="showModal()">⚙メンバー募集中⚙</a>
       </div>
       <div class="col-auto hey">
         <button
@@ -17,7 +15,7 @@
           data-bs-target="#offcanvasTools"
           aria-controls="offcanvasTools"
         >
-          その他のツール
+          その他
         </button>
       </div>
     </div>
