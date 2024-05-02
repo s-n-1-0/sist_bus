@@ -1,5 +1,14 @@
 {
-  "ex": [],
+  "ex": [
+    {
+      "dd": 3,
+      "exception": -2
+    },
+    {
+      "dd": 6,
+      "exception": -2
+    }
+  ],
   "data": [
     {
       "mode": 0,
@@ -23,6 +32,11 @@
           "HH": 8,
           "mm": 12,
           "arrival_mm": 18
+        },
+        {
+          "HH": 8,
+          "mm": 25,
+          "arrival_mm": 31
         },
         {
           "HH": 8,
@@ -168,8 +182,8 @@
       "c2a": [
         {
           "HH": 8,
-          "mm": 51,
-          "arrival_mm": 57
+          "mm": 45,
+          "arrival_mm": 51
         },
         {
           "HH": 9,
