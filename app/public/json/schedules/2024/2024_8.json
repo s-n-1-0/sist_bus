@@ -584,11 +584,6 @@
           "arrival_mm": 6
         },
         {
-          "HH": "",
-          "mm": 20,
-          "arrival_mm": 26
-        },
-        {
           "HH": 15,
           "mm": 40,
           "arrival_mm": 46
@@ -609,7 +604,7 @@
           "arrival_mm": 26
         },
         {
-          "HH": "",
+          "HH": 16,
           "mm": 34,
           "arrival_mm": 40
         },
