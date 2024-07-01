@@ -1,18 +1,5 @@
 {
-  "ex": [
-    {
-      "dd": 29,
-      "exception": -1
-    },
-    {
-      "dd": 30,
-      "exception": -1
-    },
-    {
-      "dd": 31,
-      "exception": -1
-    }
-  ],
+  "ex": [],
   "data": [
     {
       "mode": 0,
