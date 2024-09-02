@@ -1,58 +1,5 @@
 {
-  "ex": [
-    {
-      "dd": 2,
-      "exception": 1
-    },
-    {
-      "dd": 3,
-      "exception": 1
-    },
-    {
-      "dd": 4,
-      "exception": 1
-    },
-    {
-      "dd": 5,
-      "exception": 1
-    },
-    {
-      "dd": 6,
-      "exception": 1
-    },
-    {
-      "dd": 9,
-      "exception": -2
-    },
-    {
-      "dd": 10,
-      "exception": -2
-    },
-    {
-      "dd": 11,
-      "exception": 1
-    },
-    {
-      "dd": 12,
-      "exception": 1
-    },
-    {
-      "dd": 13,
-      "exception": -2
-    },
-    {
-      "dd": 16,
-      "exception": -2
-    },
-    {
-      "dd": 17,
-      "exception": 1
-    },
-    {
-      "dd": 18,
-      "exception": 1
-    }
-  ],
+  "ex": [],
   "data": [
     {
       "mode": 0,

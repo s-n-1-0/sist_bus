@@ -1,11 +1,10 @@
 <template>
   <div class="announce">
     <p class="mb-0 pb-0">
-      <b>アナウンス(8/01)</b>
+      <b>アナウンス(9/02)</b>
     </p>
     <div>
-      8月更新しました。<br />
-      テスト期間は表示しません。<br />
+      9月更新しました。<br />
     </div>
   </div>
 </template>
