@@ -9,8 +9,8 @@
       今後もサービスを提供し続けるために、手伝っていただける方を<span
         v-on:click="showModal"
         class="site_color_text"
-        ><u>募集しています。</u></span
-      >
+        ><u>募集</u></span
+      >しています。
     </div>
   </div>
 </template>
