@@ -21,7 +21,7 @@
     </div>
     <br />
     <h1 class="h3">現在のSISTバス時刻</h1>
-    <AnnouncementBlock />
+    <AnnouncementBlock :show-modal="showModal" />
     <br />
     <div v-show="!isSleep">
       <div>
