@@ -47,7 +47,7 @@ h1 {
   font-size: 5vw;
 }
 .announce {
-  max-width: 80%;
+  max-width: 650px;
   margin: auto;
   border: solid 3px #7d2927;
   border-radius: 10px;
