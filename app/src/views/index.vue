@@ -3,7 +3,7 @@
     <br />
     <div class="row">
       <div class="col-auto hey">
-        <a href="https://www.sist.ac.jp/assets/schoolbus.pdf">バス時刻表PDF</a>
+        <a href="https://www.sist.ac.jp/media/schoolbus202412.pdf">バス時刻表PDF</a>
       </div>
       <div class="col-auto hey hey-border cur-ptr">
         <a class="site_color_text" v-on:click="showModal()">⚙メンバー募集中⚙</a>
