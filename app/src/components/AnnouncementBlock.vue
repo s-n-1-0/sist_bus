@@ -1,10 +1,13 @@
 <template>
   <div class="announce">
     <p class="mb-0 pb-0">
-      <b>アナウンス(12/02)</b>
+      <b>アナウンス(1/14)</b>
     </p>
     <div>
-      <p class="mb-2">12月更新しました。</p>
+      <p class="mb-2">
+        1月更新しました。<br>
+        テスト期間は表示しません。
+      </p>
       本サイトは4周年を迎えました🎉<br />
       今後もサービスを提供し続けるために、手伝っていただける方を<span
         v-on:click="showModal"
