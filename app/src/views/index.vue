@@ -3,7 +3,7 @@
     <br />
     <div class="row">
       <div class="col-auto hey">
-        <a href="https://www.sist.ac.jp/media/schoolbus202412.pdf">バス時刻表PDF</a>
+        <a :href="pdfLink">バス時刻表PDF</a>
       </div>
       <div class="col-auto hey hey-border cur-ptr">
         <a class="site_color_text" v-on:click="showModal()">⚙メンバー募集中⚙</a>
@@ -315,7 +315,17 @@ export default defineComponent({
           (next_interval - ll) * (initialOffset / next_interval);
       }
     }, 1000);
+
+    const yearMonth = new Intl.DateTimeFormat("ja-JP", {
+      year: "numeric",
+      month: "2-digit",
+    })
+      .format(new Date())
+      .replace(/\//g, "");
+    const pdfLink = `https://www.sist.ac.jp/media/schoolbus${yearMonth}.pdf`;
+
     return {
+      pdfLink,
       isActive: isActiveRef,
       isSleep: isSleepRef,
       schedule_ex: scheduleExRef,
