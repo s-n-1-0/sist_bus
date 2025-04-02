@@ -1,18 +1,16 @@
 <template>
   <div class="announce">
     <p class="mb-0 pb-0">
-      <b>アナウンス(2/5)</b>
+      <b>アナウンス(4/2)</b>
     </p>
-    <div>
-      <p class="mb-2">
-        2月更新しました。<br>
-      </p>
+    <div class="px-2">
+      <p class="mb-2">ご入学おめでとうございます。4月更新しました。<br /></p>
       本サイトは4周年を迎えました🎉<br />
-      今後もサービスを提供し続けるために、手伝っていただける方を<span
+      運営者の卒業に伴い、新たにサイトを盛り上げてくれる後任の運営者を<span
         v-on:click="showModal"
         class="site_color_text"
         ><u>募集</u></span
-      >しています。
+      >しています！
     </div>
   </div>
 </template>
