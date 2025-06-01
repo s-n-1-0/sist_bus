@@ -322,7 +322,7 @@ export default defineComponent({
     })
       .format(new Date())
       .replace(/\//g, "");
-    const pdfLink = `https://www.sist.ac.jp/media/schoolbus${yearMonth}-2.pdf`;
+    const pdfLink = `https://www.sist.ac.jp/media/schoolbus${yearMonth}.pdf`;
 
     return {
       pdfLink,
