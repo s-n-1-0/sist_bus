@@ -1,18 +1,12 @@
 <template>
   <div class="announce">
     <p class="mb-0 pb-0">
-      <b>アナウンス(5/1)</b>
+      <b>アナウンス(7/10)</b>
     </p>
     <div class="px-2">
       <p class="mb-2">
-        5月更新しました。<br />
-        今回の更新から新しい管理メンバーが参加しました🎉<br />
-        <a class="user-icon" href="https://github.com/2x255"
-          ><img class="rounded" src="https://github.com/2x255.png"
-        /></a>
-        <a class="user-icon" href="https://github.com/TAKESHIMA723"
-          ><img class="rounded" src="https://github.com/TAKESHIMA723.png"
-        /></a>
+        7月更新しました。<br />
+        試験期間は時刻を表示しません。↑のPDFから時刻を確認してください。
       </p>
     </div>
   </div>
