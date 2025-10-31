@@ -1,0 +1,352 @@
+{
+  "ex": [
+    {
+      "dd": 15,
+      "exception": -1
+    }
+  ],
+  "data": [
+    {
+      "mode": 0,
+      "a2c": [
+        {
+          "HH": 7,
+          "mm": 50,
+          "arrival_mm": 56
+        },
+        {
+          "HH": 7,
+          "mm": 58,
+          "arrival_mm": 4
+        },
+        {
+          "HH": 8,
+          "mm": 8,
+          "arrival_mm": 14
+        },
+        {
+          "HH": 8,
+          "mm": 12,
+          "arrival_mm": 18
+        },
+        {
+          "HH": 8,
+          "mm": 25,
+          "arrival_mm": 31
+        },
+        {
+          "HH": 8,
+          "mm": 38,
+          "arrival_mm": 44
+        },
+        {
+          "HH": 8,
+          "mm": 52,
+          "arrival_mm": 58
+        },
+        {
+          "HH": 9,
+          "mm": 5,
+          "arrival_mm": 11
+        },
+        {
+          "HH": 9,
+          "mm": 25,
+          "arrival_mm": 31
+        },
+        {
+          "HH": 9,
+          "mm": 55,
+          "arrival_mm": 1
+        },
+        {
+          "HH": 10,
+          "mm": 7,
+          "arrival_mm": 13
+        },
+        {
+          "HH": 10,
+          "mm": 15,
+          "arrival_mm": 21
+        },
+        {
+          "HH": 10,
+          "mm": 20,
+          "arrival_mm": 26
+        },
+        {
+          "HH": 10,
+          "mm": 27,
+          "arrival_mm": 33
+        },
+        {
+          "HH": 11,
+          "mm": 5,
+          "arrival_mm": 11
+        },
+        {
+          "HH": 11,
+          "mm": 45,
+          "arrival_mm": 51
+        },
+        {
+          "HH": 12,
+          "mm": 5,
+          "arrival_mm": 11
+        },
+        {
+          "HH": 12,
+          "mm": 25,
+          "arrival_mm": 31
+        },
+        {
+          "HH": 12,
+          "mm": 45,
+          "arrival_mm": 51
+        },
+        {
+          "HH": 13,
+          "mm": 5,
+          "arrival_mm": 11
+        },
+        {
+          "HH": 13,
+          "mm": 35,
+          "arrival_mm": 41
+        },
+        {
+          "HH": 14,
+          "mm": 7,
+          "arrival_mm": 13
+        },
+        {
+          "HH": 14,
+          "mm": 27,
+          "arrival_mm": 33
+        },
+        {
+          "HH": 14,
+          "mm": 42,
+          "arrival_mm": 48
+        },
+        {
+          "HH": 15,
+          "mm": 15,
+          "arrival_mm": 21
+        },
+        {
+          "HH": 15,
+          "mm": 50,
+          "arrival_mm": 56
+        },
+        {
+          "HH": 16,
+          "mm": 7,
+          "arrival_mm": 13
+        },
+        {
+          "HH": 16,
+          "mm": 22,
+          "arrival_mm": 28
+        },
+        {
+          "HH": 16,
+          "mm": 47,
+          "arrival_mm": 53
+        },
+        {
+          "HH": 17,
+          "mm": 25,
+          "arrival_mm": 31
+        },
+        {
+          "HH": 18,
+          "mm": 7,
+          "arrival_mm": 13
+        },
+        {
+          "HH": 19,
+          "mm": 18,
+          "arrival_mm": 24
+        },
+        {
+          "HH": 20,
+          "mm": 11,
+          "arrival_mm": 17
+        }
+      ],
+      "c2a": [
+        {
+          "HH": 8,
+          "mm": 45,
+          "arrival_mm": 51
+        },
+        {
+          "HH": 9,
+          "mm": 40,
+          "arrival_mm": 46
+        },
+        {
+          "HH": 10,
+          "mm": 40,
+          "arrival_mm": 46
+        },
+        {
+          "HH": 11,
+          "mm": 30,
+          "arrival_mm": 36
+        },
+        {
+          "HH": 11,
+          "mm": 55,
+          "arrival_mm": 1
+        },
+        {
+          "HH": 12,
+          "mm": 15,
+          "arrival_mm": 21
+        },
+        {
+          "HH": 12,
+          "mm": 35,
+          "arrival_mm": 41
+        },
+        {
+          "HH": 12,
+          "mm": 55,
+          "arrival_mm": 1
+        },
+        {
+          "HH": 13,
+          "mm": 15,
+          "arrival_mm": 21
+        },
+        {
+          "HH": 14,
+          "mm": 0,
+          "arrival_mm": 6
+        },
+        {
+          "HH": 14,
+          "mm": 17,
+          "arrival_mm": 23
+        },
+        {
+          "HH": 14,
+          "mm": 35,
+          "arrival_mm": 41
+        },
+        {
+          "HH": 14,
+          "mm": 50,
+          "arrival_mm": 56
+        },
+        {
+          "HH": 15,
+          "mm": 0,
+          "arrival_mm": 6
+        },
+        {
+          "HH": 15,
+          "mm": 40,
+          "arrival_mm": 46
+        },
+        {
+          "HH": 16,
+          "mm": 0,
+          "arrival_mm": 6
+        },
+        {
+          "HH": 16,
+          "mm": 15,
+          "arrival_mm": 21
+        },
+        {
+          "HH": 16,
+          "mm": 20,
+          "arrival_mm": 26
+        },
+        {
+          "HH": 16,
+          "mm": 30,
+          "arrival_mm": 36
+        },
+        {
+          "HH": 16,
+          "mm": 40,
+          "arrival_mm": 46
+        },
+        {
+          "HH": 17,
+          "mm": 0,
+          "arrival_mm": 6
+        },
+        {
+          "HH": 17,
+          "mm": 25,
+          "arrival_mm": 31
+        },
+        {
+          "HH": 17,
+          "mm": 40,
+          "arrival_mm": 46
+        },
+        {
+          "HH": 17,
+          "mm": 55,
+          "arrival_mm": 1
+        },
+        {
+          "HH": 18,
+          "mm": 0,
+          "arrival_mm": 6
+        },
+        {
+          "HH": 18,
+          "mm": 20,
+          "arrival_mm": 26
+        },
+        {
+          "HH": 18,
+          "mm": 35,
+          "arrival_mm": 41
+        },
+        {
+          "HH": 18,
+          "mm": 50,
+          "arrival_mm": 56
+        },
+        {
+          "HH": 19,
+          "mm": 10,
+          "arrival_mm": 16
+        },
+        {
+          "HH": 19,
+          "mm": 25,
+          "arrival_mm": 31
+        },
+        {
+          "HH": 19,
+          "mm": 45,
+          "arrival_mm": 51
+        },
+        {
+          "HH": 20,
+          "mm": 4,
+          "arrival_mm": 10
+        },
+        {
+          "HH": 20,
+          "mm": 26,
+          "arrival_mm": 32
+        },
+        {
+          "HH": 20,
+          "mm": 45,
+          "arrival_mm": 51
+        }
+      ]
+    }
+  ]
+}
