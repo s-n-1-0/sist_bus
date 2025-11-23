@@ -93,10 +93,17 @@ table th,
 table td {
   padding: 10px 0;
   text-align: center;
+  white-space: pre;
 }
 
 table tr:nth-child(odd) {
   background-color: #eaf4fc;
+}
+
+.table-notes{
+  font-size: 17px;
+  opacity: 65%;
+  white-space: pre-line;
 }
 
 /*誘導*/
