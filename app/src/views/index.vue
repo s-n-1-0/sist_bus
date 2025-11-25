@@ -78,12 +78,12 @@
           </div>
         </div>
       </div>
-      <div>{{ modeTitle }}</div>
+      <div><pre>{{ modeTitle }}</pre></div>
       <hr />
       <div>{{ modeSubTitle }}</div>
       <ScheduleTimes
         :to-c="isActive === '1'"
-        :schedule="{ schedule_a, schedule_c }"
+        :schedule="{ schedule_bus_a, schedule_bus_c, schedule_jr_u, schedule_jr_d, defTransferTimeMust }"
       ></ScheduleTimes>
     </div>
     <div v-show="isSleep" style="display: none">
@@ -98,7 +98,7 @@
       </div>
     </div>
     <hr />
-    <ScheduleIrregular :schedule="{ schedule_ex }"></ScheduleIrregular>
+    <ScheduleIrregular :schedule="{ schedule_bus_ex }"></ScheduleIrregular>
     <hr />
     愛野駅の電車時刻表は<a
       href="https://ekitan.com/timetable/railway/line-station/149-147/d1"
@@ -109,9 +109,12 @@
       <div class="announce" style="padding: 10px">
         <a id="yome">❕注意</a>
         <br />
-        作成者個人用の時刻確認ページです。静岡理工科大学公式ではありません。表示時間にバスが来なくて遅刻・欠席が発生しても責任は取れません。
+        ・作成者個人用の時刻確認ページです。静岡理工科大学公式ではありません。
+        <br>
+        ・バス、電車ともに遅延や運休には対応していません。
+        表示時間通りに来なくて遅刻・欠席が発生しても責任は取れません。
         <br />
-        作成者に関係の無い予定は表示されない場合があります。
+        ・作成者に関係の無い予定は表示されない場合があります。
         <br />
         <router-link to="/archive" style="float: right"
           >過去の時刻表はこちら</router-link
@@ -173,7 +176,7 @@ import {
   checkAndfilterSchedule,
   getScheduleJson,
   type ScheduleEx,
-  type ScheduleRow,
+  type ScheduleRow
 } from "../utils/get_schedule";
 export default defineComponent({
   setup() {
@@ -184,16 +187,20 @@ export default defineComponent({
     });
     const isActiveRef = ref("1"),
       isSleepRef = ref(false),
-      scheduleCRef = ref<ScheduleRow[]>([]),
-      scheduleARef = ref<ScheduleRow[]>([]),
-      scheduleExRef = ref<ScheduleEx[]>([]),
+      scheduleBusCRef = ref<ScheduleRow[]>([]),
+      scheduleBusARef = ref<ScheduleRow[]>([]),
+      scheduleJRURef = ref<ScheduleRow[]>([]),
+      scheduleJRDRef = ref<ScheduleRow[]>([]),
+      scheduleBusExRef = ref<ScheduleEx[]>([]),
+      scheduleJRExRef = ref<ScheduleEx[]>([]),
       nextTimeTitleRef = ref("取得中"),
       timerTitleRef = ref(""),
       nowTitleRef = ref(""),
       modeTitleRef = ref(""),
       modeSubTitleRef = ref(""),
       strokeDashoffsetRef = ref(0),
-      rModalRef = ref(null);
+      rModalRef = ref(null),
+      defTransferTimeMust = ref(5);/*2025.11 追加 既定の乗り換え所要時間*/
     const update = () => {
       //isActiveを切り替えることで再描画される。
       isActiveRef.value = ""; //一度他の値に書き換えて再描画をさせる
@@ -204,47 +211,74 @@ export default defineComponent({
     let yyyy = nd.getFullYear();
     let MM = nd.getMonth() + 1;
     let dd = nd.getDate();
-    // dd = 1;
     var next: Date | null = null;
     var next_end = null;
     var next_interval = 0;
     var now = new Date();
     nowTitleRef.value = "アクセス時刻:" + now.toLocaleString("ja-JP") + "";
-    getScheduleJson(yyyy, MM).then((scheduleRes) => {
+    /*バスの時刻表を取得*/
+    getScheduleJson(yyyy, MM, "Bus").then((scheduleRes) => {
       if (!scheduleRes) return;
-      scheduleExRef.value = scheduleRes.data.ex;
+      scheduleBusExRef.value = scheduleRes.data.ex;
       let result = checkAndfilterSchedule(scheduleRes, dd);
-      const { mode: pm, schedule } = result;
-      if (schedule != null) {
+      const { mode: pmBus, schedule: scheduleBus } = result;
+      if (scheduleBus != null) {
         //読み込み後
-        mode = pm;
+        mode = pmBus;
         modeSubTitleRef.value =
           mode == 0 ? "" : "バス到着時間が通常運転とは異なる場合があります";
-        scheduleCRef.value = schedule.a2c;
-        scheduleARef.value = schedule.c2a;
+        scheduleBusCRef.value = scheduleBus.a2c;
+        scheduleBusARef.value = scheduleBus.c2a;
       } else {
+        // 読み込み失敗
         isSleepRef.value = true;
       }
       update(); //大学行きを初期画面とする。
-      modeTitleRef.value =
-        "本日(" +
+      if(modeTitleRef.value != ""){
+        modeTitleRef.value += "\n";
+      }
+      modeTitleRef.value +=
+        "バスは本日(" +
         (String(yyyy) + "/" + String(MM) + "/" + String(dd)) +
         ")" +
-        (mode == 0 ? "通常運転です" : "変則運転です");
+        (pmBus == 0 ? "通常運転です" : "変則運転です");
+    });
+    /*JR線の時刻表を取得*/
+    getScheduleJson(yyyy, MM, "JR").then((scheduleRes) => {
+      if (!scheduleRes) return;
+      scheduleJRExRef.value = scheduleRes.data.ex;
+      let result = checkAndfilterSchedule(scheduleRes, dd);
+      const { mode: pmJR, schedule: scheduleJR } = result;
+      if (scheduleJR != null) {
+        //読み込み後
+        scheduleJRURef.value = scheduleJR.a2c;
+        scheduleJRDRef.value = scheduleJR.c2a;
+      } else {
+        // 読み込み失敗
+        isSleepRef.value = true;
+      }
+      if(modeTitleRef.value != ""){
+        modeTitleRef.value += "\n";
+      }
+      modeTitleRef.value +=
+      "電車は本日(" +
+        (String(yyyy) + "/" + String(MM) + "/" + String(dd)) +
+        ")" +
+        (pmJR == 0 ? "平日運転です" : "休日運転です");
     });
     var initialOffset = 280;
     var i = 0; //デバッグよう
     setInterval(function () {
       if (mode == -1) return;
       var now = new Date();
-      //now = new Date(yyyy,MM,dd,0,11); //デバッグよう
+      // now = new Date(yyyy,MM,dd,0,11); //デバッグよう
       //now.setMinutes(now.getMinutes() + i); //デバッグよう
       i++;
       if (next == null || next < now) {
         strokeDashoffsetRef.value = 280;
         if (next != null) timerTitleRef.value = "出発"; //初期表示を防ぐ
         let schedule =
-          isActiveRef.value == "1" ? scheduleCRef.value : scheduleARef.value;
+          isActiveRef.value == "1" ? scheduleBusCRef.value : scheduleBusARef.value;
         let bemybaby = [];
         for (let key in schedule) {
           var baby = schedule[key];
@@ -328,9 +362,11 @@ export default defineComponent({
       pdfLink,
       isActive: isActiveRef,
       isSleep: isSleepRef,
-      schedule_ex: scheduleExRef,
-      schedule_c: scheduleCRef,
-      schedule_a: scheduleARef,
+      schedule_bus_ex: scheduleBusExRef,
+      schedule_bus_c: scheduleBusCRef,
+      schedule_bus_a: scheduleBusARef,
+      schedule_jr_u: scheduleJRURef,
+      schedule_jr_d: scheduleJRDRef,
       nextTimeTitle: nextTimeTitleRef,
       timerTitle: timerTitleRef,
       nowTitle: nowTitleRef,
@@ -338,6 +374,7 @@ export default defineComponent({
       modeSubTitle: modeSubTitleRef,
       strokeDashoffset: strokeDashoffsetRef,
       rModal: rModalRef,
+      defTransferTimeMust: defTransferTimeMust,
       onChange() {
         // クリックイベントでイベント発火
         next = null;
@@ -380,7 +417,7 @@ export default defineComponent({
   /*background-color: red;*/
   width: 100%;
 }
-/*園内テキスト*/
+/*円内テキスト*/
 .circle_text {
   text-align: center;
   position: absolute;
@@ -395,7 +432,7 @@ export default defineComponent({
 }
 @media screen and (min-width: 800px) {
   .circle_root {
-    width: 600px;
+    width: 500px;
   }
   .circle_text {
     font-size: 40px;

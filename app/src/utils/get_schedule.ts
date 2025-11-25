@@ -19,17 +19,21 @@ export async function getYearList() {
  * 指定した日付のスケジュールデータを取得します。(存在しなかったりしたらnull)
  * @param yyyy
  * @param MM
+ * @param prefix
  */
 export async function getScheduleJson(
   yyyy: number,
-  MM: number
+  MM: number,
+  prefix: string,
 ): Promise<ScheduleResponse | null> {
   try {
-    const res = await axios.get(
-      `/sist_bus/json/schedules/${String(yyyy)}/${String(yyyy)}_${String(
-        MM
-      )}.json`
-    );
+    let filePath = "/sist_bus/json/schedules/" + String(yyyy) + "/" + String(yyyy) + "_" + String(MM);;
+    if(prefix != ""){
+      filePath += "_" + String(prefix) + ".json";
+    }else{
+      filePath += ".json";
+    }
+    const res = await axios.get(filePath);
     let json: ScheduleJson = res.data;
     return {
       yyyy,
@@ -76,6 +80,7 @@ export function checkAndfilterSchedule(schedule: ScheduleResponse, dd: number) {
   //通常運転または変則運転情報のみ取得
   return filterSchedule(schedule, mode);
 }
+// 指定したmodeの時刻表を取得
 export function filterSchedule(schedule: ScheduleResponse, mode: number) {
   //データを取得する 全て取得する場合はmode未指定でも可= 0
   let json = schedule.data;
@@ -113,10 +118,20 @@ export interface ScheduleEx {
  * 変数はjsonルールに従います。
  */
 interface ScheduleData {
-  mode: number;
-  a2c: ScheduleRow[];
-  c2a: ScheduleRow[];
+  mode: number;/*バス: -n:運休, 0:通常運転, 1~, 変則運転 / JR線: -n:運休, 0:平日運転, 1:休日運転: 2~:変則運転*/
+  a2c: ScheduleRow[];/*バス: 大学行 / JR線: 上り*/
+  c2a: ScheduleRow[];/*バス: 駅行 / JR線: 下り*/
 }
+/*
+* 2025.11 追加
+*/
+export interface ScheduleViewLine {
+  busA: ScheduleRow;
+  busC: ScheduleRow;
+  jrU: ScheduleRow;
+  jrD: ScheduleRow;
+}
+
 /**
  * 変数はjsonルールに従います。
  */
