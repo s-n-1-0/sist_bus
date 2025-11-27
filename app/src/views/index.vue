@@ -83,7 +83,7 @@
       <div>{{ modeSubTitle }}</div>
       <ScheduleTimes
         :to-c="isActive === '1'"
-        :schedule="{ schedule_bus_a, schedule_bus_c, schedule_jr_u, schedule_jr_d, defTransferTimeMust }"
+        :schedule="{ schedule_bus_sist_a, schedule_bus_sist_c, schedule_jr_u, schedule_jr_d, defTransferTimeMust }"
       ></ScheduleTimes>
     </div>
     <div v-show="isSleep" style="display: none">
@@ -217,7 +217,7 @@ export default defineComponent({
     var now = new Date();
     nowTitleRef.value = "アクセス時刻:" + now.toLocaleString("ja-JP") + "";
     /*バスの時刻表を取得*/
-    getScheduleJson(yyyy, MM, "Bus").then((scheduleRes) => {
+    getScheduleJson(yyyy, MM).then((scheduleRes) => {
       if (!scheduleRes) return;
       scheduleBusExRef.value = scheduleRes.data.ex;
       let result = checkAndfilterSchedule(scheduleRes, dd);
@@ -363,8 +363,8 @@ export default defineComponent({
       isActive: isActiveRef,
       isSleep: isSleepRef,
       schedule_bus_ex: scheduleBusExRef,
-      schedule_bus_c: scheduleBusCRef,
-      schedule_bus_a: scheduleBusARef,
+      schedule_bus_sist_c: scheduleBusCRef,
+      schedule_bus_sist_a: scheduleBusARef,
       schedule_jr_u: scheduleJRURef,
       schedule_jr_d: scheduleJRDRef,
       nextTimeTitle: nextTimeTitleRef,

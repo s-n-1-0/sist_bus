@@ -18,26 +18,25 @@ export async function getYearList() {
 /**
  * 指定した日付のスケジュールデータを取得します。(存在しなかったりしたらnull)
  * @param yyyy
- * @param MM
- * @param prefix
+ * @param MM 
+ * @param prefix 2025.11 追加.""ならバス時刻表(下位互換性維持のためデフォルト引数で"")、そうでない(種別が明記されている)ならその種別の時刻表
  */
 export async function getScheduleJson(
   yyyy: number,
   MM: number,
-  prefix: string,
+  prefix: string = "",
 ): Promise<ScheduleResponse | null> {
   try {
-    let filePath = "/sist_bus/json/schedules/" + String(yyyy) + "/" + String(yyyy) + "_" + String(MM);;
-    if(prefix != ""){
-      filePath += "_" + String(prefix) + ".json";
-    }else{
-      filePath += ".json";
+    let filePath = "/sist_bus/json/schedules/" + String(yyyy) + "/" + String(yyyy) + "_" + String(MM);
+    if(prefix != ""){/*大学バス以外*/
+      filePath += "_" + String(prefix);
     }
+    filePath += ".json";
     const res = await axios.get(filePath);
     let json: ScheduleJson = res.data;
     return {
-      yyyy,
-      MM,
+      yyyy: yyyy,
+      MM: MM,
       data: json,
     };
   } catch (err) {

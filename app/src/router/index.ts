@@ -10,13 +10,13 @@ const router = createRouter({
     },
     {
       path: "/archive",
-      component: defineAsyncComponent(
+      component: /*2025.11コメントアウトdefineAsyncComponent*/(
         () => import("@/views/archive/index.vue")
       ),
     },
     {
       path: "/archive/:yyyy",
-      component: defineAsyncComponent(() => import("@/views/archive/yyyy.vue")),
+      component: /*2025.11コメントアウトdefineAsyncComponent*/(() => import("@/views/archive/yyyy.vue")),
     },
   ],
 });

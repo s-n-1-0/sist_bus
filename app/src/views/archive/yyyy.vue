@@ -144,8 +144,8 @@ export default defineComponent({
             if (schedule != null) {
               //読み込み後
               var mode = pm;
-              schedulesRef.value[i].schedule_c = schedule["a2c"];
-              schedulesRef.value[i].schedule_a = schedule["c2a"];
+              schedulesRef.value[i].schedule_bus_sist_c = schedule["a2c"];
+              schedulesRef.value[i].schedule_bus_sist_a = schedule["c2a"];
 
               //console.log(mode)
               if (mode != -1) {

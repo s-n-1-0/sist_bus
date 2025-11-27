@@ -18,9 +18,9 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(row, i) in schedule.schedule_bus_c" :key="row">
+          <tr v-for="(row, i) in schedule.schedule_bus_sist_c" :key="row">
             <td>
-              <b v-if="checkShowHH(i, schedule.schedule_bus_c)">{{ row.HH }}時</b>
+              <b v-if="checkShowHH(i, schedule.schedule_bus_sist_c)">{{ row.HH }}時</b>
             </td>
             <td>{{ showDepartureTime(row) }}</td>
             <td>→</td>
@@ -36,23 +36,23 @@
         <thead>
           <tr>
             <th>　時刻　</th>
-            <th>　大学発　</th>
+            <th> 大学発 </th>
             <th></th>
-            <th>　愛野駅着　</th>
-            <th>JR下り</th>
-            <th>JR上り</th>
+            <th>愛野駅着</th>
+            <th v-if="'schedule_jr_d' in schedule">JR下り</th>
+            <th v-if="'schedule_jr_u' in schedule">JR上り</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(row, i) in schedule.schedule_bus_a" :key="row">
+          <tr v-for="(row, i) in schedule.schedule_bus_sist_a" :key="row">
             <td>
-              <b v-if="checkShowHH(i, schedule.schedule_bus_a)">{{ row.HH }}時</b>
+              <b v-if="checkShowHH(i, schedule.schedule_bus_sist_a)">{{ row.HH }}時</b>
             </td>
             <td>{{ showDepartureTime(row) }}</td>
             <td>→</td>
             <td>{{ showArrivalTime(row) }}</td>
-            <td>{{ showNextJR(row, schedule.schedule_jr_d, schedule.defTransferTimeMust, false) }}</td>
-            <td>{{ showNextJR(row, schedule.schedule_jr_u, schedule.defTransferTimeMust, true) }}</td>
+            <td v-if="'schedule_jr_d' in schedule">{{ showNextJR(row, schedule.schedule_jr_d, schedule.defTransferTimeMust, false) }}</td>
+            <td v-if="'schedule_jr_u' in schedule">{{ showNextJR(row, schedule.schedule_jr_u, schedule.defTransferTimeMust, true) }}</td>
           </tr>
         </tbody>
       </table>
