@@ -110,17 +110,20 @@ export default defineComponent({
       showNextJR(rowBus: ScheduleRow, rowArrayJR: ScheduleRow[], transferTimeMust: number/*最小乗り換え所要時間*/, fUpperLine: boolean) {
         let nextTrain: string = "";
         let returnText: string = "";
+        let rowBus_arrival_HH: number = rowBus.HH + (rowBus.mm > rowBus.arrival_mm ? 1 : 0);/*rowBus.HHは出発時刻の時間hだがこれは到着時刻の時間h*/
+
         for (let i = 0, transferTime = 0/*乗り換え所要時間*/; i < rowArrayJR.length; i++){
-          if (rowBus.HH < rowArrayJR[i].HH || (rowBus.HH == rowArrayJR[i].HH && (rowBus.arrival_mm) < rowArrayJR[i].mm)){
+          if (rowBus_arrival_HH < rowArrayJR[i].HH || (rowBus_arrival_HH == rowArrayJR[i].HH && (rowBus.arrival_mm) <= rowArrayJR[i].mm)){
             /*乗り換え時間を計算*/
-            if(rowBus.HH < rowArrayJR[i].HH){
+            if(rowBus_arrival_HH < rowArrayJR[i].HH){
               transferTime += 60;
             }
             transferTime += rowArrayJR[i].mm - rowBus.arrival_mm;
             /*nextTrainに次の列車の時刻(と行き先)を書き込み*/
             nextTrain = "";
+            // nextTrain = String(rowArrayJR[i].HH) + ":";デバッグ用.
             if (rowArrayJR[i].mm < 10) {
-              nextTrain += " 0"; //0詰め
+              nextTrain += "0"; //0詰め
             }
             if (fUpperLine) {/*上り線*/
               nextTrain = nextTrain + String(rowArrayJR[i].mm) + " " + GetStationName(rowArrayJR[i].arrival_mm);
