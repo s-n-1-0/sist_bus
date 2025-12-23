@@ -3,7 +3,7 @@
     <div class="text-center">
       <a
         class="introvert2"
-        href="https://forms.office.com/Pages/ResponsePage.aspx?id=Bb0r1yPrmEGObOE4I--qiDTo6qug1SlGruWNB4fcjXxUNElKS1BBMU9WRUpQV1RPM0lGNzU5QzNKQS4u"
+        href="https://forms.office.com/r/ScTPv7aquy"
         >時刻表示ミスがある場合の報告</a
       ><br />
     </div>
