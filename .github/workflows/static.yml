@@ -3,10 +3,11 @@ name: Deploy static content to Pages
 
 on:
   # pagesへのPRがマージされた時に実行(32行目くらいのifでも管理)
-  pull_request:
+  #pull_request: 一時的な回避策(20260114)
+  push:
     branches:
       - pages
-    types: [closed]
+    #types: [closed] 一時的な回避策(20260114)
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
