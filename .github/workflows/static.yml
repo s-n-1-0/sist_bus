@@ -2,7 +2,7 @@
 name: Deploy static content to Pages
 
 on:
-  # pagesへのPRがマージされた時に実行(32行目くらいのifでも管理)
+   # pagesへのPRがマージされた時に実行(32行目くらいのifでも管理)
   #pull_request: 一時的な回避策(20260114)
   push:
     branches:
@@ -30,7 +30,8 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    if: "${{ github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.merged == true}}"
+    #if: "${{ github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.merged == true}}" 一時的な回避策
+    if: "${{contains(github.event.head_commit.message, 'Merge pull request')}}"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
