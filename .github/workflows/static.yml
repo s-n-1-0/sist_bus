@@ -3,8 +3,7 @@ name: Deploy static content to Pages
 
 on:
   # pagesへのPRがマージされた時に実行(32行目くらいのifでも管理)
-  #pull_request: 一時的な回避策(20260114)
-  push:
+  pull_request:
     branches:
       - pages
     #types: [closed] 一時的な回避策(20260114)
