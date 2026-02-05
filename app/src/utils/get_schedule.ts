@@ -20,14 +20,20 @@ export async function getYearList() {
  * @param yyyy
  * @param MM 
  * @param prefix 2025.11 追加.""ならバス時刻表(下位互換性維持のためデフォルト引数で"")、そうでない(種別が明記されている)ならその種別の時刻表
+ * @param MM0Padding 2026.02 追加.ファイル名のMM部分について、これがtrueなら2桁で0埋めをする
  */
 export async function getScheduleJson(
   yyyy: number,
   MM: number,
   prefix: string = "",
+  MM0Padding: boolean = false,
 ): Promise<ScheduleResponse | null> {
   try {
-    let filePath = "/sist_bus/json/schedules/" + String(yyyy) + "/" + String(yyyy) + "_" + String(MM);
+    let filePath = "/sist_bus/json/schedules/" + String(yyyy) + "/" + String(yyyy) + "_";
+    if(MM0Padding){/*MMの2桁0埋め*/
+      filePath += "0";
+    }
+    filePath += String(MM);
     if(prefix != ""){/*大学バス以外*/
       filePath += "_" + String(prefix);
     }
@@ -40,7 +46,11 @@ export async function getScheduleJson(
       data: json,
     };
   } catch (err) {
-    return null;
+    if(!MM0Padding){
+      return getScheduleJson(yyyy, MM, prefix, true);
+    }else{
+      return null;
+    }
   }
 }
 
