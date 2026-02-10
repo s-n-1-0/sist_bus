@@ -1,7 +1,7 @@
 <template>
   <div class="announce">
     <p class="mb-0 pb-0">
-      <b>アナウンス(12/30)</b>
+      <b>アナウンス(2/6)</b>
     </p>
     <div class="px-2">
       <p class="mb-2">
