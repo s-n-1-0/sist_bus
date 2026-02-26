@@ -16,6 +16,7 @@
     + 0 : 通常運転(土日で通常運転する場合)
     + -1 : 意図的なデータ未入力(運転情報が確定していない場合やその日限定の変則運転を入力するのが面倒な場合)
     + -2 : 運休
+    + -3 : 改正ダイヤ適用日
     + 1以上の整数 : 変則運転(別シートに変則運転用のシートを作成必須)
 
 ### 作成
@@ -23,9 +24,12 @@
 + 通常運転シートと同じルールで時刻を入力
 
 ### 作成されたjsonファイルのパス
-リポジトリ/docs/unc/json/schedule/yyyy/yyyy_m.json  
-または  
-リポジトリ/docs/unc/json/schedule/yyyy/yyyy_mm.json  
+#### 月初めからの運転ダイヤシート
++ リポジトリ/docs/unc/json/schedule/yyyy/yyyy_mm.json  
+mmは0詰め/非0詰めに対応、ddは0詰めに未対応  
+#### 月途中での改正後ダイヤシート
++ リポジトリ/docs/unc/json/schedule/yyyy/yyyy_mm_dd.json  
+mmは0詰め/非0詰めに対応、ddは0詰めに未対応  
 
 # JR線時刻表
 ## 通常運転シートの作成(任意)
@@ -40,6 +44,7 @@
     + [補助機能 > 行先を駅番号に変換] を押し、入力した駅名を数値にします(これは、先に存在したバス時刻表のフォーマットを流用したためにc,e列の値が数値である必要があるため、この操作が必要です。なお、変換後の数値はJRが定める各駅に割り降られる駅番号(東海道本線の場合CA～)の～の部分の値です)
 
 ### 作成されたjsonファイルのパス
-リポジトリ/docs/unc/json/schedule/yyyy/yyyy_m_JR.json  
-または  
-リポジトリ/docs/unc/json/schedule/yyyy/yyyy_mm_JR.json  
+リポジトリ/docs/unc/json/schedule/yyyy/yyyy_mm_JR.json 　
+または
+リポジトリ/docs/unc/json/schedule/yyyy/yyyy_mm_dd_JR.json 　
+(mmは0詰め/非0詰めに対応、ddは0詰めに未対応) 

@@ -19,13 +19,15 @@ export async function getYearList() {
  * 指定した日付のスケジュールデータを取得します。(存在しなかったりしたらnull)
  * @param yyyy
  * @param mm 
- * @param prefix 2025.11 追加.""ならバス時刻表(下位互換性維持のためデフォルト引数で"")、そうでない(種別が明記されている)ならその種別の時刻表
+ * @param dd 2026.02 追加.指定日よりダイヤ変更により別のjsonに時刻表が入っている場合の検知に使用。下位互換性維持のためデフォルト引数は1。
+ * @param suffix 2025.11 追加.""なら月初めのバス時刻表(下位互換性維持のためデフォルト引数で"")、そうでない(種別が明記されている)ならその(改正)ダイヤの適用開始日又はその時刻表の種別若しくはその両方
  * @param mm0Padding 2026.02 追加.ファイル名のmm部分について、これがtrueなら2桁で0埋めをする
  */
 export async function getScheduleJson(
   yyyy: number,
   mm: number,
-  prefix: string = "",
+  dd: number = 1,
+  suffix: string = "",
   mm0Padding: boolean = false,
 ): Promise<ScheduleResponse | null> {
   try {
@@ -34,12 +36,22 @@ export async function getScheduleJson(
       filePath += "0";
     }
     filePath += String(mm);
-    if(prefix != ""){/*大学バス以外*/
-      filePath += "_" + String(prefix);
+    if(suffix != ""){
+      filePath += "_" + String(suffix);
     }
     filePath += ".json";
     const res = await axios.get(filePath);
     let json: ScheduleJson = res.data;
+    /*読み込んだ時刻表にダイヤ改正があるかを確認 (下のcheckAndFilterScheduleにも同じようなループがあるが大きな変更を避けるため据え置き)*/
+    if (json.ex != null) {
+      for (let idx in json.ex) {
+        if (json.ex[idx].exception == -3) {
+          if (json.ex[idx].dd >= dd) {
+            return getScheduleJson(yyyy, mm, dd, String(dd) + "_" + suffix, false);
+          }
+        }
+      }
+    }
     return {
       yyyy: yyyy,
       mm: mm,
@@ -47,7 +59,7 @@ export async function getScheduleJson(
     };
   } catch (err) {
     if(!mm0Padding){
-      return getScheduleJson(yyyy, mm, prefix, true);
+      return getScheduleJson(yyyy, mm, dd, suffix, true);
     }else{
       return null;
     }
@@ -63,8 +75,8 @@ export async function getScheduleJson(
 export function checkAndfilterSchedule(schedule: ScheduleResponse, dd: number) {
   let day = new Date(schedule.yyyy, schedule.mm - 1, dd, 0, 0, 0).getDay();
   const ex = schedule.data.ex;
+  /*土日なら既定で運休、平日なら既定で通常運転*/
   var mode = -1;
-  /*土日ではないか*/
   if (day != 0 && day != 6) {
     mode = 0;
   }
