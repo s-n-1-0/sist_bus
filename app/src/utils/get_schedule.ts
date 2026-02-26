@@ -18,22 +18,22 @@ export async function getYearList() {
 /**
  * 指定した日付のスケジュールデータを取得します。(存在しなかったりしたらnull)
  * @param yyyy
- * @param MM 
+ * @param mm 
  * @param prefix 2025.11 追加.""ならバス時刻表(下位互換性維持のためデフォルト引数で"")、そうでない(種別が明記されている)ならその種別の時刻表
- * @param MM0Padding 2026.02 追加.ファイル名のMM部分について、これがtrueなら2桁で0埋めをする
+ * @param mm0Padding 2026.02 追加.ファイル名のmm部分について、これがtrueなら2桁で0埋めをする
  */
 export async function getScheduleJson(
   yyyy: number,
-  MM: number,
+  mm: number,
   prefix: string = "",
-  MM0Padding: boolean = false,
+  mm0Padding: boolean = false,
 ): Promise<ScheduleResponse | null> {
   try {
     let filePath = "/sist_bus/json/schedules/" + String(yyyy) + "/" + String(yyyy) + "_";
-    if(MM0Padding){/*MMの2桁0埋め*/
+    if(mm0Padding){/*mmの2桁0埋め*/
       filePath += "0";
     }
-    filePath += String(MM);
+    filePath += String(mm);
     if(prefix != ""){/*大学バス以外*/
       filePath += "_" + String(prefix);
     }
@@ -42,12 +42,12 @@ export async function getScheduleJson(
     let json: ScheduleJson = res.data;
     return {
       yyyy: yyyy,
-      MM: MM,
+      mm: mm,
       data: json,
     };
   } catch (err) {
-    if(!MM0Padding){
-      return getScheduleJson(yyyy, MM, prefix, true);
+    if(!mm0Padding){
+      return getScheduleJson(yyyy, mm, prefix, true);
     }else{
       return null;
     }
@@ -61,7 +61,7 @@ export async function getScheduleJson(
  * @returns
  */
 export function checkAndfilterSchedule(schedule: ScheduleResponse, dd: number) {
-  let day = new Date(schedule.yyyy, schedule.MM - 1, dd, 0, 0, 0).getDay();
+  let day = new Date(schedule.yyyy, schedule.mm - 1, dd, 0, 0, 0).getDay();
   const ex = schedule.data.ex;
   var mode = -1;
   /*土日ではないか*/
@@ -109,7 +109,7 @@ export function filterSchedule(schedule: ScheduleResponse, mode: number) {
 }
 interface ScheduleResponse {
   yyyy: number;
-  MM: number;
+  mm: number;
   data: ScheduleJson;
 }
 interface ScheduleJson {
