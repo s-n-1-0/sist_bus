@@ -217,7 +217,7 @@ export default defineComponent({
     var now = new Date();
     nowTitleRef.value = "アクセス時刻:" + now.toLocaleString("ja-JP") + "";
     /*バスの時刻表を取得*/
-    getScheduleJson(yyyy, mm).then((scheduleRes) => {
+    getScheduleJson(yyyy, mm, dd).then((scheduleRes) => {
       if (!scheduleRes) return;
       scheduleBusExRef.value = scheduleRes.data.ex;
       let result = checkAndfilterSchedule(scheduleRes, dd);
