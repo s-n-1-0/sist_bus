@@ -209,7 +209,7 @@ export default defineComponent({
     var nd = new Date();
     var mode = -1;
     let yyyy = nd.getFullYear();
-    let MM = nd.getMonth() + 1;
+    let mm = nd.getMonth() + 1;
     let dd = nd.getDate();
     var next: Date | null = null;
     var next_end = null;
@@ -217,7 +217,7 @@ export default defineComponent({
     var now = new Date();
     nowTitleRef.value = "アクセス時刻:" + now.toLocaleString("ja-JP") + "";
     /*バスの時刻表を取得*/
-    getScheduleJson(yyyy, MM).then((scheduleRes) => {
+    getScheduleJson(yyyy, mm, dd).then((scheduleRes) => {
       if (!scheduleRes) return;
       scheduleBusExRef.value = scheduleRes.data.ex;
       let result = checkAndfilterSchedule(scheduleRes, dd);
@@ -239,12 +239,12 @@ export default defineComponent({
       }
       modeTitleRef.value +=
         "バスは本日(" +
-        (String(yyyy) + "/" + String(MM) + "/" + String(dd)) +
+        (String(yyyy) + "/" + String(mm) + "/" + String(dd)) +
         ")" +
         (pmBus == 0 ? "通常運転です" : "変則運転です");
     });
     /*JR線の時刻表を取得*/
-    getScheduleJson(yyyy, MM, "JR").then((scheduleRes) => {
+    getScheduleJson(yyyy, mm, dd, "JR").then((scheduleRes) => {
       if (!scheduleRes) return;
       scheduleJRExRef.value = scheduleRes.data.ex;
       let result = checkAndfilterSchedule(scheduleRes, dd);
@@ -262,7 +262,7 @@ export default defineComponent({
       }
       modeTitleRef.value +=
       "電車は本日(" +
-        (String(yyyy) + "/" + String(MM) + "/" + String(dd)) +
+        (String(yyyy) + "/" + String(mm) + "/" + String(dd)) +
         ")" +
         (pmJR == 0 ? "平日運転です" : "休日運転です");
     });
@@ -271,7 +271,7 @@ export default defineComponent({
     setInterval(function () {
       if (mode == -1) return;
       var now = new Date();
-      // now = new Date(yyyy,MM,dd,0,11); //デバッグよう
+      // now = new Date(yyyy,mm,dd,0,11); //デバッグよう
       //now.setMinutes(now.getMinutes() + i); //デバッグよう
       i++;
       if (next == null || next < now) {
@@ -303,7 +303,7 @@ export default defineComponent({
             var baby = bemybaby[key];
             var d = new Date(
               yyyy,
-              MM - 1,
+              mm - 1,
               dd,
               Number(baby.HH),
               Number(baby.mm)
@@ -315,16 +315,16 @@ export default defineComponent({
               min_date = d;
               min_end_date = new Date(
                 yyyy,
-                MM - 1,
+                mm - 1,
                 dd,
                 Number(baby.HH),
                 Number(baby.arrival_mm)
               );
               if (min_date > min_end_date) {
-                //到着時間の方が小さくなるケース (yyyy,MM,dd,5,55) > (yyyy,MM,dd,5,1) <-右側は時間がカウントされている
+                //到着時間の方が小さくなるケース (yyyy,mm,dd,5,55) > (yyyy,mm,dd,5,1) <-右側は時間がカウントされている
                 min_end_date = new Date(
                   yyyy,
-                  MM - 1,
+                  mm - 1,
                   dd,
                   Number(baby.HH) + 1,
                   Number(baby.arrival_mm)

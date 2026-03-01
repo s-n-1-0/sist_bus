@@ -18,36 +18,48 @@ export async function getYearList() {
 /**
  * 指定した日付のスケジュールデータを取得します。(存在しなかったりしたらnull)
  * @param yyyy
- * @param MM 
- * @param prefix 2025.11 追加.""ならバス時刻表(下位互換性維持のためデフォルト引数で"")、そうでない(種別が明記されている)ならその種別の時刻表
- * @param MM0Padding 2026.02 追加.ファイル名のMM部分について、これがtrueなら2桁で0埋めをする
+ * @param mm 
+ * @param dd 2026.02 追加.指定日よりダイヤ変更により別のjsonに時刻表が入っている場合の検知に使用。下位互換性維持のためデフォルト引数は1。
+ * @param suffix 2025.11 追加.""なら月初めのバス時刻表(下位互換性維持のためデフォルト引数で"")、そうでない(種別が明記されている)ならその(改正)ダイヤの適用開始日又はその時刻表の種別若しくはその両方
+ * @param mm0Padding 2026.02 追加.ファイル名のmm部分について、これがtrueなら2桁で0埋めをする
  */
 export async function getScheduleJson(
   yyyy: number,
-  MM: number,
-  prefix: string = "",
-  MM0Padding: boolean = false,
+  mm: number,
+  dd: number = 1,
+  suffix: string = "",
+  mm0Padding: boolean = false,
 ): Promise<ScheduleResponse | null> {
   try {
     let filePath = "/sist_bus/json/schedules/" + String(yyyy) + "/" + String(yyyy) + "_";
-    if(MM0Padding){/*MMの2桁0埋め*/
+    if(mm0Padding){/*mmの2桁0埋め*/
       filePath += "0";
     }
-    filePath += String(MM);
-    if(prefix != ""){/*大学バス以外*/
-      filePath += "_" + String(prefix);
+    filePath += String(mm);
+    if(suffix != ""){
+      filePath += "_" + String(suffix);
     }
     filePath += ".json";
     const res = await axios.get(filePath);
     let json: ScheduleJson = res.data;
+    /*読み込んだ時刻表にダイヤ改正があるかを確認 (下のcheckAndFilterScheduleにも同じようなループがあるが大きな変更を避けるため据え置き)*/
+    if (json.ex != null) {
+      for (let idx in json.ex) {
+        if (json.ex[idx].exception == -3) {
+          if (json.ex[idx].dd >= dd) {
+            return getScheduleJson(yyyy, mm, dd, String(dd) + "_" + suffix, false);
+          }
+        }
+      }
+    }
     return {
       yyyy: yyyy,
-      MM: MM,
+      mm: mm,
       data: json,
     };
   } catch (err) {
-    if(!MM0Padding){
-      return getScheduleJson(yyyy, MM, prefix, true);
+    if(!mm0Padding){
+      return getScheduleJson(yyyy, mm, dd, suffix, true);
     }else{
       return null;
     }
@@ -61,10 +73,10 @@ export async function getScheduleJson(
  * @returns
  */
 export function checkAndfilterSchedule(schedule: ScheduleResponse, dd: number) {
-  let day = new Date(schedule.yyyy, schedule.MM - 1, dd, 0, 0, 0).getDay();
+  let day = new Date(schedule.yyyy, schedule.mm - 1, dd, 0, 0, 0).getDay();
   const ex = schedule.data.ex;
+  /*土日なら既定で運休、平日なら既定で通常運転*/
   var mode = -1;
-  /*土日ではないか*/
   if (day != 0 && day != 6) {
     mode = 0;
   }
@@ -109,7 +121,7 @@ export function filterSchedule(schedule: ScheduleResponse, mode: number) {
 }
 interface ScheduleResponse {
   yyyy: number;
-  MM: number;
+  mm: number;
   data: ScheduleJson;
 }
 interface ScheduleJson {
