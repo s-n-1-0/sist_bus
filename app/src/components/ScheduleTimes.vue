@@ -22,9 +22,21 @@
             <td>
               <b v-if="checkShowHH(i, schedule.schedule_bus_sist_c)">{{ row.HH }}時</b>
             </td>
-            <td>{{ showDepartureTime(row) }}</td>
-            <td>→</td>
-            <td>{{ showArrivalTime(row) }}</td>
+            <template v-if="getShowType(row) === 'normal'">
+              <td>{{ showDepartureTime(row) }}</td>
+              <td>→</td>
+              <td>{{ showArrivalTime(row) }}</td>
+            </template>
+            <template v-else-if="getShowType(row) === 'piston'">
+              <td>{{ showDepartureTime(row, 100) }}</td>
+              <td>～</td>
+              <td>{{ showArrivalTime(row) }}</td>
+            </template>
+            <template v-else>
+              <td></td>
+              <td></td>
+              <td></td>
+            </template>
           </tr>
         </tbody>
       </table>
@@ -48,11 +60,28 @@
             <td>
               <b v-if="checkShowHH(i, schedule.schedule_bus_sist_a)">{{ row.HH }}時</b>
             </td>
-            <td>{{ showDepartureTime(row) }}</td>
-            <td>→</td>
-            <td>{{ showArrivalTime(row) }}</td>
-            <td v-if="'schedule_jr_d' in schedule">{{ showNextJR(row, schedule.schedule_jr_d, schedule.defTransferTimeMust, false) }}</td>
-            <td v-if="'schedule_jr_u' in schedule">{{ showNextJR(row, schedule.schedule_jr_u, schedule.defTransferTimeMust, true) }}</td>
+            <template v-if="getShowType(row) === 'normal'">
+              <td>{{ showDepartureTime(row) }}</td>
+              <td>→</td>
+              <td>{{ showArrivalTime(row) }}</td>
+              <td v-if="'schedule_jr_d' in schedule">{{ showNextJR(row, schedule.schedule_jr_d, schedule.defTransferTimeMust, false) }}</td>
+              <td v-if="'schedule_jr_u' in schedule">{{ showNextJR(row, schedule.schedule_jr_u, schedule.defTransferTimeMust, true) }}</td>
+            </template>
+            <template v-else-if="getShowType(row) === 'piston'">
+              <td>{{ showDepartureTime(row, 100) }}</td>
+              <td>～</td>
+              <td>{{ showArrivalTime(row) }}迄<br>ピストン運行</td>
+              <td v-if="'schedule_jr_d' in schedule">{{ showNextJR(getDepartureScheduleRow(row, 100), schedule.schedule_jr_d, row.arrival_mm, false) + "\n" + showNextJR(row, schedule.schedule_jr_d, schedule.defTransferTimeMust, false) }}</td>
+              <td v-if="'schedule_jr_u' in schedule">{{ showNextJR(getDepartureScheduleRow(row, 100), schedule.schedule_jr_u, row.arrival_mm, true) + "\n" + showNextJR(row, schedule.schedule_jr_d, schedule.defTransferTimeMust, true) }}</td>
+            </template>
+            <template v-else>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </template>
+            
           </tr>
         </tbody>
       </table>
@@ -84,41 +113,84 @@ export default defineComponent({
       checkShowHH(i: number, rows: ScheduleRow[]) {
         return i == 0 || rows[i - 1].HH != rows[i].HH;
       },
+      /*2026.03 追加*/
+      getShowType(row: ScheduleRow) {
+        if(0 <= row.mm && row.mm <= 60){/*通常の時刻データ*/
+          return 'normal';
+        }else if(100 <= row.mm && row.mm <= 160){/*ピストン運行*/
+          return 'piston';
+        }
+        return 'undefined';
+      },
       /*2025.11 追加*/
       /*出発時刻を表示、0埋めしない*/
-      showDepartureTime(row: ScheduleRow) {
+      showDepartureTime(row: ScheduleRow, base: number = 0) {
         let returnText: string = "";
-        returnText += String(row.mm);
+        returnText += String(row.mm - base);
         return returnText;
       },
       /*2025.11 追加*/
       /*到着時刻を表示、時間(h)をまたぐ場合は時間も表示*/
       showArrivalTime(row: ScheduleRow) {
         let returnText: string = "";
-        if (row.mm > row.arrival_mm) {
+        let arrival_mm = row.arrival_mm;
+        if(row.arrival_mm >= 60){/*13:03を12:63と表記することにも対応(ピストン運行用のデータで60分間以上の際こちらで対応)*/
+          let additionalHours: number = 0;
+          do{
+            additionalHours++;
+            arrival_mm -= 60;
+          }while(arrival_mm >= 60);
+          returnText += String(row.HH+additionalHours) + ":"
+          if (arrival_mm < 10) {
+            returnText += "0";
+          }
+          returnText += String(arrival_mm);
+          
+        }else if (row.mm > row.arrival_mm) {/*:59発:05着などの場合*/
           returnText += String(row.HH+1) + ":"
           /*0分を跨ぐ時だけ1桁分に0をつける*/
           if (row.arrival_mm < 10) {
             returnText += "0";
           }
+          returnText += String(row.arrival_mm);
+        }else{
+          returnText += String(row.arrival_mm);
         }
-        returnText += String(row.arrival_mm);
         return returnText;
+      },
+      /*2026.03 追加*/
+      getDepartureScheduleRow(row: ScheduleRow, mmBase: number = 0){
+        const newRow: ScheduleRow = {
+          HH: row.HH,
+          mm: row.mm - mmBase,
+          arrival_mm: row.mm - mmBase};
+        return newRow;
       },
       /*2025.11 追加*/
       /*バス到着時刻以降に出発するJR線の電車と行き先を返す*/
-      showNextJR(rowBus: ScheduleRow, rowArrayJR: ScheduleRow[], transferTimeMust: number/*最小乗り換え所要時間*/, fUpperLine: boolean) {
+      showNextJR(rowBus: ScheduleRow, rowArrayJR: ScheduleRow[], transferTimeMustAfter: number/*最小乗り換え所要時間*/, fUpperLine: boolean) {
         let nextTrain: string = "";
         let returnText: string = "";
-        let rowBus_arrival_HH: number = rowBus.HH + (rowBus.mm > rowBus.arrival_mm ? 1 : 0);/*rowBus.HHは出発時刻の時間hだがこれは到着時刻の時間h*/
+        let rowBus_arrival_HH: number = rowBus.HH;
+        let rowBus_arrival_mm: number = rowBus.arrival_mm;
+        if(rowBus_arrival_mm >= 60){/*arrival_mmを「分間」として使うとき*/
+          let additionalHours = 0;
+          do{
+            additionalHours++;
+            rowBus_arrival_mm -= 60;
+          }while(rowBus_arrival_mm >= 60);
+          rowBus_arrival_HH += additionalHours;
+        }else if(rowBus.mm > rowBus_arrival_mm){/*rowBus.HHは出発時刻の時間hだがこれは到着時刻の時間h*/
+          rowBus_arrival_HH++;
+        }
 
         for (let i = 0, transferTime = 0/*乗り換え所要時間*/; i < rowArrayJR.length; i++){
-          if (rowBus_arrival_HH < rowArrayJR[i].HH || (rowBus_arrival_HH == rowArrayJR[i].HH && (rowBus.arrival_mm) <= rowArrayJR[i].mm)){
+          if (rowBus_arrival_HH < rowArrayJR[i].HH || (rowBus_arrival_HH == rowArrayJR[i].HH && (rowBus_arrival_mm) <= rowArrayJR[i].mm)){
             /*乗り換え時間を計算*/
             if(rowBus_arrival_HH < rowArrayJR[i].HH){
               transferTime += 60;
             }
-            transferTime += rowArrayJR[i].mm - rowBus.arrival_mm;
+            transferTime += rowArrayJR[i].mm - rowBus_arrival_mm;
             /*nextTrainに次の列車の時刻(と行き先)を書き込み*/
             nextTrain = "";
             // nextTrain = String(rowArrayJR[i].HH) + ":";デバッグ用.
@@ -133,7 +205,7 @@ export default defineComponent({
             /*returnTextの最後に追加*/
             returnText += nextTrain;
             /*乗り換え時間が最小乗り換え時間より短い場合、恐らく乗れないため表示はするが後発も表示する(breakしない)*/
-            if(transferTime >= transferTimeMust){
+            if(transferTime >= transferTimeMustAfter){
               break;
             }
             returnText += "\n";

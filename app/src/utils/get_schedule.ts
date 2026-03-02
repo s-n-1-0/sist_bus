@@ -46,8 +46,8 @@ export async function getScheduleJson(
     if (json.ex != null) {
       for (let idx in json.ex) {
         if (json.ex[idx].exception == -3) {
-          if (json.ex[idx].dd >= dd) {
-            return getScheduleJson(yyyy, mm, dd, String(dd) + "_" + suffix, false);
+          if (json.ex[idx].dd <= dd) {
+            return getScheduleJson(yyyy, mm, dd, String(json.ex[idx].dd) + "_" + suffix, false);
           }
         }
       }
@@ -70,13 +70,14 @@ export async function getScheduleJson(
  *  指定した日付が運行しているかどうかのチェック
  * @param schedule
  * @param dd 日
+ * @param holidayDefMode 
  * @returns
  */
-export function checkAndfilterSchedule(schedule: ScheduleResponse, dd: number) {
+export function checkAndfilterSchedule(schedule: ScheduleResponse, dd: number, holidayDefMode: number) {
   let day = new Date(schedule.yyyy, schedule.mm - 1, dd, 0, 0, 0).getDay();
   const ex = schedule.data.ex;
   /*土日なら既定で運休、平日なら既定で通常運転*/
-  var mode = -1;
+  var mode = holidayDefMode;
   if (day != 0 && day != 6) {
     mode = 0;
   }
