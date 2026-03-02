@@ -220,7 +220,7 @@ export default defineComponent({
     getScheduleJson(yyyy, mm, dd).then((scheduleRes) => {
       if (!scheduleRes) return;
       scheduleBusExRef.value = scheduleRes.data.ex;
-      let result = checkAndfilterSchedule(scheduleRes, dd);
+      let result = checkAndfilterSchedule(scheduleRes, dd, -1);
       const { mode: pmBus, schedule: scheduleBus } = result;
       if (scheduleBus != null) {
         //読み込み後
@@ -247,7 +247,7 @@ export default defineComponent({
     getScheduleJson(yyyy, mm, dd, "JR").then((scheduleRes) => {
       if (!scheduleRes) return;
       scheduleJRExRef.value = scheduleRes.data.ex;
-      let result = checkAndfilterSchedule(scheduleRes, dd);
+      let result = checkAndfilterSchedule(scheduleRes, dd, 1);
       const { mode: pmJR, schedule: scheduleJR } = result;
       if (scheduleJR != null) {
         //読み込み後
