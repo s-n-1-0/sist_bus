@@ -29,6 +29,10 @@ function setArrivalTime() {
     //愛野駅発
     if(data[l][0] === undefined || data[l][0] === ""){
       data[l][1] = "";
+    }else if(100 <= Number(data[l][0]) && Number(data[l][0]) < 160){
+      if(data[l][1] === undefined || data[l][1] === ""){
+        data[l][1] = "ピストン運行する時間[分]を入力してください";
+      }
     }else{
       data[l][1] = String((Number(data[l][0])+6) % 60);
     }
@@ -36,6 +40,10 @@ function setArrivalTime() {
     //大学発
     if(data[l][2] === undefined || data[l][2] === ""){
       data[l][3] = "";
+    }else if(100 <= Number(data[l][2]) && Number(data[l][2]) < 160){
+      if(data[l][3] === undefined || data[l][3] === ""){
+        data[l][3] = "ピストン運行する時間[分]を入力してください";
+      }
     }else{
       data[l][3] = String((Number(data[l][2])+6) % 60);
     }
