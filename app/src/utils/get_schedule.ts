@@ -46,7 +46,7 @@ export async function getScheduleJson(
     if (json.ex != null) {
       for (let idx in json.ex) {
         if (json.ex[idx].exception == -3) {
-          if (json.ex[idx].dd >= dd) {
+          if (json.ex[idx].dd <= dd) {
             return getScheduleJson(yyyy, mm, dd, String(dd) + "_" + suffix, false);
           }
         }
