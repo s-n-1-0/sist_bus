@@ -356,10 +356,10 @@ export default defineComponent({
     })
       .format(new Date())
       .replace(/\//g, "");
-    const pdfLink = ((yearMonth != "202512") ?
-    `https://www.sist.ac.jp/media/schoolbus${yearMonth}.pdf` : 
+    const pdfLink = ((yearMonth != "202603") ?
+    `https://www.sist.ac.jp/media/bus2026.3.pdf` : 
     `https://www.sist.ac.jp/media/schoolbus${yearMonth}01.pdf`);
-    /*↑2025.12.2一時的な対応です。適宜変更してください。*/
+    /*↑2026.03一時的な対応です。適宜変更してください。*/
 
     return {
       pdfLink,
