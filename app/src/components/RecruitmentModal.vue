@@ -23,17 +23,40 @@
           <br />
           プログラミングができなくても大丈夫です。週数百人が利用しているのでたぶん就活とかに書けるかもしれません。<br />
           もちろん学習意欲があれば、本サイトを通してGitやWeb開発の基礎などを学ぶことができます。<br />
-          <div class="my-2 alert alert-info text-center">
+          <div class="my-2 d-flex justify-content-center">
+          <div class="alert alert-info text-center">
             現在のメンバー :
-
-            <a class="user-icon" href="https://github.com/026KANAYAMA"
-              ><img
-                class="rounded"
-                src="https://github.com/026KANAYAMA.png" /></a
-            ><small class="ms-1">(管理人)</small> ・
-            <a class="user-icon" href="https://github.com/s-n-1-0"
-              ><img class="rounded" src="https://github.com/s-n-1-0.png" /></a
-            ><small class="ms-1">(サポート)</small>
+            <div class="d-flex justify-content-center gap-3 mt-1">
+              <div class="member">
+                <a class="user-icon" href="https://github.com/2x255"
+                  ><img class="rounded" src="https://github.com/2x255.png"
+                /></a>
+                <small class="d-block">管理人</small>
+              </div>
+              <div class="member">
+                <a class="user-icon" href="https://github.com/TAKESHIMA723"
+                  ><img
+                    class="rounded"
+                    src="https://github.com/TAKESHIMA723.png"
+                /></a>
+                <small class="d-block">管理人</small>
+              </div>
+              <div class="member">
+                <a class="user-icon" href="https://github.com/026KANAYAMA"
+                  ><img
+                    class="rounded"
+                    src="https://github.com/026KANAYAMA.png"
+                /></a>
+                <small class="d-block">サポート</small>
+              </div>
+              <div class="member">
+                <a class="user-icon" href="https://github.com/s-n-1-0"
+                  ><img class="rounded" src="https://github.com/s-n-1-0.png"
+                /></a>
+                <small class="d-block">サポート</small>
+              </div>
+            </div>
+          </div>
           </div>
           <h3>募集条件や内容</h3>
           <ul>
@@ -93,5 +116,8 @@ export default defineComponent({
 <style scoped>
 li {
   list-style: disc;
+}
+.member small {
+  font-size: 0.8rem;
 }
 </style>
