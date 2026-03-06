@@ -7,7 +7,7 @@
     tabindex="-1"
     aria-hidden="true"
   >
-    <div class="modal-dialog modal-fullscreen">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">🚌バスツール運営募集</h5>
@@ -19,14 +19,19 @@
           ></button>
         </div>
         <div class="modal-body text-start">
-          <h4>現在本バスサイトの管理人を募集しています。</h4>
-          <br />
-          プログラミングができなくても大丈夫です。週数百人が利用しているのでたぶん就活とかに書けるかもしれません。<br />
-          もちろん学習意欲があれば、本サイトを通してGitやWeb開発の基礎などを学ぶことができます。<br />
-          <div class="my-2 d-flex justify-content-center">
-          <div class="alert alert-info text-center">
-            現在のメンバー :
-            <div class="d-flex justify-content-center gap-3 mt-1">
+          <h4>バスサイトの運営メンバーを募集中!</h4>
+          <p>
+            毎週数百人が利用しているバスサイトを一緒に運営しませんか?
+          </p>
+          <p>
+            プログラミングの経験は不要です。
+            学習意欲があれば、GitやWeb開発の基礎を実践的に学べる環境です。
+            運営経験は就活でもアピールできるポイントになります。
+          </p>
+          <div class="my-3 d-flex justify-content-center">
+          <div class="alert alert-info text-center mb-0">
+            現在のメンバー
+            <div class="d-flex justify-content-center gap-4 mt-2">
               <div class="member">
                 <a class="user-icon" href="https://github.com/2x255"
                   ><img class="rounded" src="https://github.com/2x255.png"
@@ -58,34 +63,36 @@
             </div>
           </div>
           </div>
-          <h3>募集条件や内容</h3>
-          <ul>
+          <h5 class="mt-4">募集条件と内容</h5>
+          <ul class="ms-2">
             <li>
-              条件 :
-              応募時点で理工科大学に2年以上通う必要がある人(学部学科問わない)
+              <strong>対象</strong> :
+              応募時点で理工科大学に2年以上在籍予定の方（学部・学科不問）
             </li>
             <li>
-              基本的なやること : 月初めにバスサイトの更新(月1で5分程度)<br />
-              いきなり全てを任せることはしないのでご安心ください。
+              <strong>主な作業</strong> : 月初めに時刻表データの更新（月1回・5分程度）
+              <p class="mb-1 mt-1">最初は丁寧にサポートするので安心してください。</p>
             </li>
             <li>
-              興味があれば取り組んでみてほしい :
-              本サイトのフロントエンド開発(Vue→Reactリプレイス、SPA→SSG移行)
-              <ul>
-                <li>
-                  興味があれば任せたいです。ちゃんとした開発なので就活のネタになると思います。
-                </li>
-              </ul>
+              <strong>やってみたい方歓迎</strong> :
+              サイトのフロントエンド開発（Vue → React リプレイス、SPA → SSG 移行など）
+              <p class="mb-1 mt-1">実際のプロダクト開発に携われるので、就活でのアピール材料にもなります。</p>
             </li>
           </ul>
 
-          <br />
-          <hr />
-          <h3>📧連絡先</h3>
-          興味があれば
-          <a href="https://forms.gle/b9VFcBePbxHVLJEu7">ここのフォーム</a
-          >にお願いします。<br />
-          <br />
+          <hr class="my-3" />
+          <h5>📧連絡先</h5>
+          <p>
+            少しでも興味があれば、気軽にご連絡ください!
+          </p>
+          <div class="text-center mb-2">
+            <a
+              href="https://forms.gle/b9VFcBePbxHVLJEu7"
+              class="btn btn-primary"
+              target="_blank"
+              rel="noopener noreferrer"
+            >応募フォームはこちら</a>
+          </div>
         </div>
       </div>
     </div>
@@ -119,5 +126,9 @@ li {
 }
 .member small {
   font-size: 0.8rem;
+}
+.member :deep(.user-icon) {
+  max-height: 40px;
+  max-width: 40px;
 }
 </style>
