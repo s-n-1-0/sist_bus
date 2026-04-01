@@ -134,7 +134,13 @@ export default defineComponent({
       showArrivalTime(row: ScheduleRow) {
         let returnText: string = "";
         let arrival_mm = row.arrival_mm;
-        if(row.arrival_mm >= 60){/*13:03を12:63と表記することにも対応(ピストン運行用のデータで60分間以上の際こちらで対応)*/
+        if(arrival_mm >= 60){/*13:03を12:63と表記することにも対応(ピストン運行用のデータで60分間以上の際こちらで対応)*/
+          if(row.mm < 100){
+            /*なにもしない(通常運行時)*/
+          }else if(row.mm < 200){
+            /*ピストン運行時*/
+            arrival_mm += row.mm % 100;
+          }
           let additionalHours: number = 0;
           do{
             additionalHours++;
