@@ -254,8 +254,7 @@ export default defineComponent({
         scheduleJRURef.value = scheduleJR.a2c;
         scheduleJRDRef.value = scheduleJR.c2a;
       } else {
-        // 読み込み失敗
-        isSleepRef.value = true;
+        /* 読み込み失敗、ただしバスに時刻表がある限りJR部分が空白のまま表\示はする*/
       }
       if(modeTitleRef.value != ""){
         modeTitleRef.value += "\n";
