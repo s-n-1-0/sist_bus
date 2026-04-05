@@ -358,7 +358,7 @@ export default defineComponent({
       .replace(/\//g, "");
     const pdfLink = ((yearMonth == "202603") ?
     `https://www.sist.ac.jp/media/bus2026.3.pdf` : 
-    `https://www.sist.ac.jp/media/schoolbus${yearMonth}01.pdf`);
+    `https://www.sist.ac.jp/media/${yearMonth}bus.pdf`);
     /*↑2026.03一時的な対応です。適宜変更してください。*/
 
     return {
