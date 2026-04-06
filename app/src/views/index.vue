@@ -254,8 +254,7 @@ export default defineComponent({
         scheduleJRURef.value = scheduleJR.a2c;
         scheduleJRDRef.value = scheduleJR.c2a;
       } else {
-        // 読み込み失敗
-        isSleepRef.value = true;
+        /* 読み込み失敗、ただしバスに時刻表がある限りJR部分が空白のまま表\示はする*/
       }
       if(modeTitleRef.value != ""){
         modeTitleRef.value += "\n";
@@ -358,7 +357,7 @@ export default defineComponent({
       .replace(/\//g, "");
     const pdfLink = ((yearMonth == "202603") ?
     `https://www.sist.ac.jp/media/bus2026.3.pdf` : 
-    `https://www.sist.ac.jp/media/schoolbus${yearMonth}01.pdf`);
+    `https://www.sist.ac.jp/media/${yearMonth}bus.pdf`);
     /*↑2026.03一時的な対応です。適宜変更してください。*/
 
     return {
