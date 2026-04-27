@@ -1,11 +1,11 @@
 <template>
   <div class="announce">
     <p class="mb-0 pb-0">
-      <b>アナウンス(4/1)</b>
+      <b>アナウンス(5/1)</b>
     </p>
     <div class="px-2">
       <p class="mb-2">
-        4月分に対応いたしました。<br />
+        5月分に対応いたしました。<br />
         試験期間は時刻を表示しません。↑のPDFから時刻を確認してください。
       </p>
     </div>
