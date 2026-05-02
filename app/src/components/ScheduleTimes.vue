@@ -240,7 +240,7 @@ export default defineComponent({
               /*nextTrainに次の列車の時刻(と行き先)を書き込み*/
               nextTrain = "";
               /*全ての電車を表示する場合始発前と終バスのところだけ時刻部分を付加*/
-              if(1 || (displayStyle == 1 && (busIndex == -1 || busIndex+1 >= rowArrayBus.length))){
+              if(displayStyle == 1 && (busIndex == -1 || busIndex+1 >= rowArrayBus.length)){
                 nextTrain = String(rowArrayJR[i].HH) + ":";
               }
               /*0詰め*/
