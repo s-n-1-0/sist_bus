@@ -112,7 +112,6 @@
 </template>
 <script lang="ts">
 import { type ScheduleRow } from "@/utils/get_schedule";
-import { assert } from "console";
 import { defineComponent, ref } from "vue";
 const stationName: string[] = [
   /* 各駅の駅番号(CA**の**の部分)をindexとする */
@@ -268,7 +267,6 @@ export default defineComponent({
             break;
           }
         }
-
         return returnText;
       },
       /*2025.11 追加*/

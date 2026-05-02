@@ -377,7 +377,6 @@ export default defineComponent({
       strokeDashoffset: strokeDashoffsetRef,
       rModal: rModalRef,
       defTransferTimeMust: defTransferTimeMustRef,
-      
       onChange() {
         // クリックイベントでイベント発火
         next = null;
