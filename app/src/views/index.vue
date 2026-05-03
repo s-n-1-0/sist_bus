@@ -206,16 +206,15 @@ export default defineComponent({
       isActiveRef.value = ""; //一度他の値に書き換えて再描画をさせる
       isActiveRef.value = "1";
     };
-    var nd = new Date();
+    var today = new Date();
     var mode = -1;
-    let yyyy = nd.getFullYear();
-    let mm = nd.getMonth() + 1;
-    let dd = nd.getDate();
+    let yyyy = today.getFullYear();
+    let mm = today.getMonth() + 1;
+    let dd = today.getDate();
     var next: Date | null = null;
     var next_end = null;
     var next_interval = 0;
-    var now = new Date();
-    nowTitleRef.value = "アクセス時刻:" + now.toLocaleString("ja-JP") + "";
+    nowTitleRef.value = "アクセス時刻:" + today.toLocaleString("ja-JP") + "";
     /*バスの時刻表を取得*/
     getScheduleJson(yyyy, mm, dd).then((scheduleRes) => {
       if (!scheduleRes) return;
@@ -266,13 +265,12 @@ export default defineComponent({
         (pmJR == 0 ? "平日運転です" : "休日運転です");
     });
     var initialOffset = 280;
-    var i = 0; //デバッグよう
     setInterval(function () {
       if (mode == -1) return;
       var now = new Date();
-      // now = new Date(yyyy,mm,dd,0,11); //デバッグよう
-      //now.setMinutes(now.getMinutes() + i); //デバッグよう
-      i++;
+      now.setFullYear(yyyy);
+      now.setMonth(mm-1);
+      now.setDate(dd);
       if (next == null || next < now) {
         strokeDashoffsetRef.value = 280;
         if (next != null) timerTitleRef.value = "出発"; //初期表示を防ぐ
@@ -301,9 +299,9 @@ export default defineComponent({
           for (let key in bemybaby) {
             var baby = bemybaby[key];
             var d = new Date(
-              yyyy,
-              mm - 1,
-              dd,
+              now.getFullYear(),
+              now.getMonth(),
+              now.getDate(),
               Number(baby.HH),
               Number(baby.mm)
             );
@@ -336,13 +334,23 @@ export default defineComponent({
         }
       } else {
         let ll = (next.getTime() - now.getTime()) / 1000; //次が「来るまで」の時間(s)
-        nextTimeTitleRef.value =
-          "次|" + String(next.getHours()) + ":" + String(next.getMinutes());
-        timerTitleRef.value =
-          "あと" +
-          (ll / 60 > 0 ? String(Math.floor(ll / 60)) + "分" : "") +
-          String(Math.floor(ll % 60)) +
-          "秒";
+        /*次: */
+        let strllHour = String(next.getHours());
+        let strllMinutes = String(next.getMinutes());
+        if(strllMinutes.length < 2){
+          strllMinutes = `0${strllMinutes}`;
+        }
+        nextTimeTitleRef.value = 
+          "次|" + strllHour + ":" + strllMinutes;
+        /*あと: */
+        let strRemainingMinutes = ((ll / 60) > 0 ? String(Math.floor(ll / 60)) : "");
+        let strRemainingSeconds = String(Math.floor(ll % 60));
+        if(strRemainingMinutes != "0" && strRemainingSeconds.length < 2){
+          strRemainingSeconds = `0${strRemainingSeconds}`;
+        }
+        timerTitleRef.value = 
+          "あと " + (strRemainingMinutes == "0" ? "" : (strRemainingMinutes + "分")) + strRemainingSeconds + "秒";
+        /*免責事項*/
         strokeDashoffsetRef.value =
           initialOffset -
           (next_interval - ll) * (initialOffset / next_interval);
