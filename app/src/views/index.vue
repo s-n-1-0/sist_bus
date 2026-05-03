@@ -200,7 +200,7 @@ export default defineComponent({
       modeSubTitleRef = ref(""),
       strokeDashoffsetRef = ref(0),
       rModalRef = ref(null),
-      defTransferTimeMust = ref(5);/*2025.11 追加 既定の乗り換え所要時間*/
+      defTransferTimeMustRef = ref(5);/*2025.11 追加 既定の乗り換え所要時間*/
     const update = () => {
       //isActiveを切り替えることで再描画される。
       isActiveRef.value = ""; //一度他の値に書き換えて再描画をさせる
@@ -376,7 +376,7 @@ export default defineComponent({
       modeSubTitle: modeSubTitleRef,
       strokeDashoffset: strokeDashoffsetRef,
       rModal: rModalRef,
-      defTransferTimeMust: defTransferTimeMust,
+      defTransferTimeMust: defTransferTimeMustRef,
       onChange() {
         // クリックイベントでイベント発火
         next = null;

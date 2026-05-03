@@ -105,6 +105,17 @@ table tr:nth-child(odd) {
   opacity: 65%;
   white-space: pre-line;
 }
+.table-JRSchedule-displayStyle select{
+  background-color: #eaf4fc;
+  border-color: transparent;
+  color: #7d2927;
+  font-weight: bolder;
+}
+.table-JRSchedule-displayStyle select option{
+  background-color: #eaf4fc;
+  color: #7d2927;
+  font-weight: bolder;
+}
 
 /*誘導*/
 .row {
