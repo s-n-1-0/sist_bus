@@ -418,6 +418,15 @@ export default defineComponent({
         strokeDashoffsetRef.value =
           initialOffset -
           (next_interval - ll) * (initialOffset / next_interval);
+        if(selectAlermTime && selectAlermBus){
+          let strSelectAlermBusStructInDialogMinutes = String(selectAlermBus.getMinutes());
+          if(strSelectAlermBusStructInDialogMinutes.length < 2){
+            strSelectAlermBusStructInDialogMinutes = `0${strSelectAlermBusStructInDialogMinutes}`;
+          }
+          alermTextRef.value = "アラーム: " + String(selectAlermBus.getHours()) + ":" + strSelectAlermBusStructInDialogMinutes + "発 の " + String(selectAlermTime) + "分前";
+        }else{
+          alermTextRef.value = "";
+        }
       }
     }, 1000);
 
