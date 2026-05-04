@@ -551,8 +551,7 @@ export default defineComponent({
   margin-left: auto;
   margin-right: auto;
   font-size: 1em;
-  left: 20%-1vw;
-  width: 13em;
+  width: min(13em, 70vw);
   height: 4em;
   text-align: inherit;
 }
@@ -561,8 +560,7 @@ export default defineComponent({
   margin-left: auto;
   margin-right: auto;
   font-size: 1em;
-  left: 20%-1vw;
-  width: 13em;
+  width: min(13em, 70vw);
   height: 2.3em;
   text-align: inherit;
 }
@@ -582,7 +580,7 @@ export default defineComponent({
 }
 @media screen and (min-width: 200px) {
   .circle_root {
-    width: 500px;
+    width: min(500px,100%);
   }
   .circle_text {
     font-size: 40px;
