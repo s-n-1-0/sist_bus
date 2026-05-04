@@ -46,11 +46,20 @@
           <label for="tab2">🚉駅行</label>
         </div>
       </div>
+      <dialog ref="selectAlermDialog" class="selectAlermDialog">
+        <form method="dialog">
+          <span class="sideText">選択したバス: </span><span>{{ selectAlermBusTextInDialog }}</span><span class="sideText">発</span><br>
+          <span class="sideText">アラームを設定: </span><select><!--動的に追加--></select> <span class="sideText">分前</span><br>
+          <div class="smallText">(アラームはバイブレーションのみです。アラームの瞬間サイトの画面を表示していないと鳴りません。)</div>
+          <button id="OKButton">OK</button>
+          <button id="CancelButton">キャンセル</button>
+        </form>
+      </dialog>
       <div class="introvert2">{{ nowTitle }}</div>
       <div>
         <div class="circle_root">
           <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <g>
+            <g v-on:click='setAlermVibration("next", 0)'>
               <circle
                 id="circle"
                 class="timer-circle"
@@ -65,10 +74,13 @@
             </g>
           </svg>
           <div class="circle_text">
-            <div class="introvert" v-if="isActive === '1'">大学行</div>
-            <div class="introvert" v-else-if="isActive === '2'">駅行</div>
-            <div>{{ nextTimeTitle }}</div>
-            <div>{{ timerTitle }}</div>
+            <div v-on:click='setAlermVibration("next", 0)'>
+              <div class="introvert" v-if="isActive === '1'">大学行</div>
+              <div class="introvert" v-else-if="isActive === '2'">駅行</div>
+              <div>{{ nextTimeTitle }}</div>
+              <div>{{ timerTitle }}</div>
+              <div class="alermText">{{ alermText }}</div><!--文字を表示する時だけclass="alermText"を動的に追加-->
+            </div>
             <a
               v-on:click="tapedDisclaimer()"
               class="introvert cur-ptr"
@@ -84,6 +96,7 @@
       <ScheduleTimes
         :to-c="isActive === '1'"
         :schedule="{ schedule_bus_sist_a, schedule_bus_sist_c, schedule_jr_u, schedule_jr_d, defTransferTimeMust }"
+        :setAlermVibration="(line: String, index: number) => setAlermVibration(line, index)"
       ></ScheduleTimes>
     </div>
     <div v-show="isSleep" style="display: none">
@@ -180,10 +193,47 @@ import {
 } from "../utils/get_schedule";
 export default defineComponent({
   setup() {
+    /*2026.05 追加 */
+    const selectAlermDialogRef = ref<HTMLDialogElement | null>(null);/*2026.05 追加 onMounted()で初期化*/
+    let selectAlermTime = 0;
+    let selectAlermBus: Date = new Date();
+    let selectAlermBusStructInDialog: Date = new Date();
+
     onMounted(() => {
       twemoji?.parse(document.body, {
         base: "https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/",
       });
+      /*2026.05 追加 */
+      if(selectAlermDialogRef.value){
+        const select = selectAlermDialogRef.value.querySelector<HTMLSelectElement>('form select');
+        if(select && select.options.length === 0){
+          select.appendChild(new Option("なし", "0", false));
+          for(let i = 1; i < 11; i++){
+            select.appendChild(new Option(String(i), String(i), i == 5, i == 5));
+          }
+          select.appendChild(new Option("15", "15", false));
+          select.appendChild(new Option("20", "20", false));
+          select.appendChild(new Option("30", "30", false));
+        }
+        const OKButton = selectAlermDialogRef.value.querySelector<HTMLButtonElement>('form #OKButton');
+        OKButton?.addEventListener('click', (() => {
+          if(Number.isNaN(Number(select?.value))){
+            selectAlermTime = 0;
+          }else{
+            selectAlermBus = new Date(selectAlermBusStructInDialog.getTime());
+            selectAlermTime = Number(select?.value);
+            let currentTime = new Date();
+            currentTime.setDate(selectAlermBus.getDate());
+            if(selectAlermBus.getTime() - selectAlermTime * 60 * 1000 <= currentTime.getTime()){/*既に過ぎた時刻に設定した場合*/
+              navigator.vibrate([50, 50, 50, 50, 50, 50, 50]);
+              selectAlermTime = 0;/*取り消す*/
+            }else{/*正しい時刻に設定した場合*/
+              navigator.vibrate([100, 100, 100]);
+            }
+          }
+        }));
+        // const CancelButton = selectAlermDialogRef.value.querySelector<HTMLButtonElement>('form #CancelButton');なにもしないので、何も設定しない
+      }
     });
     const isActiveRef = ref("1"),
       isSleepRef = ref(false),
@@ -198,9 +248,11 @@ export default defineComponent({
       nowTitleRef = ref(""),
       modeTitleRef = ref(""),
       modeSubTitleRef = ref(""),
+      alermTextRef = ref(""),
       strokeDashoffsetRef = ref(0),
       rModalRef = ref(null),
-      defTransferTimeMustRef = ref(5);/*2025.11 追加 既定の乗り換え所要時間*/
+      defTransferTimeMustRef = ref(5),/*2025.11 追加 既定の乗り換え所要時間*/
+      selectAlermBusTextInDialogRef = ref("");/*2026.05 追加 ダイアログに表示する用。*/
     const update = () => {
       //isActiveを切り替えることで再描画される。
       isActiveRef.value = ""; //一度他の値に書き換えて再描画をさせる
@@ -215,6 +267,10 @@ export default defineComponent({
     var next_end = null;
     var next_interval = 0;
     var now = new Date();
+    /*2026.05.末まで表示とする、それ以降の更新で消してよい*/
+    if(yyyy <= 2026 && mm <= 5){
+      alermTextRef.value = "アラーム機能が追加！時刻表をタップ";
+    }
     nowTitleRef.value = "アクセス時刻:" + now.toLocaleString("ja-JP") + "";
     /*バスの時刻表を取得*/
     getScheduleJson(yyyy, mm, dd).then((scheduleRes) => {
@@ -274,6 +330,7 @@ export default defineComponent({
       //now.setMinutes(now.getMinutes() + i); //デバッグよう
       i++;
       if (next == null || next < now) {
+        selectAlermTime = 0;/*アラームをリセット*/
         strokeDashoffsetRef.value = 280;
         if (next != null) timerTitleRef.value = "出発"; //初期表示を防ぐ
         let schedule =
@@ -335,6 +392,12 @@ export default defineComponent({
           next_interval = (next!.getTime() - now.getTime()) / 1000; //現在と次のバスが来るまでの時間差
         }
       } else {
+        if(selectAlermTime && selectAlermBus && (selectAlermBus.getTime() - now.getTime()) / (60 * 1000) <= selectAlermTime){
+          // console.log("A: " + String(selectAlermBus.getMonth()+1) + "/" + String(selectAlermBus.getDate()) + " " + String(selectAlermBus.getHours()) + ":" + String(selectAlermBus.getMinutes()));
+          // console.log("N: " + String(now.getMonth()+1) + "/" + String(now.getDate()) + " " + String(now.getHours()) + ":" + String(now.getMinutes()));
+          navigator.vibrate(2000);
+          selectAlermTime = 0;
+        }
         let ll = (next.getTime() - now.getTime()) / 1000; //次が「来るまで」の時間(s)
         nextTimeTitleRef.value =
           "次|" + String(next.getHours()) + ":" + String(next.getMinutes());
@@ -343,6 +406,15 @@ export default defineComponent({
           (ll / 60 > 0 ? String(Math.floor(ll / 60)) + "分" : "") +
           String(Math.floor(ll % 60)) +
           "秒";
+        if(selectAlermTime && selectAlermBus){
+          let strSelectAlermBusStructInDialogMinutes = String(selectAlermBus.getMinutes());
+          if(strSelectAlermBusStructInDialogMinutes.length < 2){
+            strSelectAlermBusStructInDialogMinutes = `0${strSelectAlermBusStructInDialogMinutes}`;
+          }
+          alermTextRef.value = "アラーム: " + String(selectAlermBus.getHours()) + ":" + strSelectAlermBusStructInDialogMinutes + "発 の " + String(selectAlermTime) + "分前";
+        }else{
+          alermTextRef.value = "";
+        }
         strokeDashoffsetRef.value =
           initialOffset -
           (next_interval - ll) * (initialOffset / next_interval);
@@ -375,14 +447,41 @@ export default defineComponent({
       modeTitle: modeTitleRef,
       modeSubTitle: modeSubTitleRef,
       strokeDashoffset: strokeDashoffsetRef,
+      alermText: alermTextRef,
       rModal: rModalRef,
       defTransferTimeMust: defTransferTimeMustRef,
+      selectAlermDialog: selectAlermDialogRef,
+      selectAlermBusTextInDialog: selectAlermBusTextInDialogRef,
       onChange() {
         // クリックイベントでイベント発火
         next = null;
         next_end = null;
         nextTimeTitleRef.value = "取得中";
         timerTitleRef.value = "あと?分";
+      },
+      setAlermVibration(line: String, index: number){
+        selectAlermBusStructInDialog.setFullYear(yyyy);
+        selectAlermBusStructInDialog.setMonth(mm-1);
+        selectAlermBusStructInDialog.setDate(dd);
+        if(line == "a2c"){
+          selectAlermBusStructInDialog.setHours(scheduleBusARef.value[index].HH);
+          selectAlermBusStructInDialog.setMinutes(scheduleBusARef.value[index].mm);
+        }else if(line == "c2a"){
+          selectAlermBusStructInDialog.setHours(scheduleBusCRef.value[index].HH);
+          selectAlermBusStructInDialog.setMinutes(scheduleBusCRef.value[index].mm);
+        }else if(line == "next" && next){
+          selectAlermBusStructInDialog = new Date(next.getTime());
+        }else{
+          return;
+        }
+        selectAlermBusStructInDialog.setSeconds(0);
+        selectAlermBusStructInDialog.setMilliseconds(0);
+        let strMinutes = String(selectAlermBusStructInDialog.getMinutes());
+        if(strMinutes.length < 2){
+          strMinutes = `0${strMinutes}`;
+        }
+        selectAlermBusTextInDialogRef.value = String(selectAlermBusStructInDialog.getHours()) + ":" + strMinutes;
+        selectAlermDialogRef.value?.showModal();
       },
       tapedDisclaimer() {
         const targetElement = document.getElementById("yome");
@@ -419,6 +518,54 @@ export default defineComponent({
   /*background-color: red;*/
   width: 100%;
 }
+/*アラームダイアログ*/
+.selectAlermDialog{
+  padding-top: 4vmax;
+  width: fit-content;
+  height: fit-content;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 1.8em;
+  overflow: visible;
+}
+.selectAlermDialog select{
+  width: 3em;
+  text-align: inherit;
+}
+.selectAlermDialog .sideText{
+  margin-top: 0.5em;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+  color: #000000D0;
+  font-size: 0.8em;
+  line-height: 1.0em;
+}
+.selectAlermDialog .smallText{
+  margin-top: 0.5em;
+  color: #00000080;
+  font-size: 0.75em;
+  line-height: 1.0em;
+}
+.selectAlermDialog form #OKButton{
+  margin-top: 1em;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1em;
+  left: 20%-1vw;
+  width: 13em;
+  height: 4em;
+  text-align: inherit;
+}
+.selectAlermDialog form #CancelButton{
+  margin-top: 0.5em;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1em;
+  left: 20%-1vw;
+  width: 13em;
+  height: 2.3em;
+  text-align: inherit;
+}
 /*円内テキスト*/
 .circle_text {
   text-align: center;
@@ -430,14 +577,23 @@ export default defineComponent({
   vertical-align: middle;
   font-size: 6vw;
   color: #7d2927;
+  white-space: nowrap;
   /*background-color: blue;*/
 }
-@media screen and (min-width: 800px) {
+@media screen and (min-width: 200px) {
   .circle_root {
     width: 500px;
   }
   .circle_text {
     font-size: 40px;
+  }
+  .circle_text .alermText {
+    padding: 0;
+    margin: 0;
+    font-size: 0.5em;
+    color: #7d292770;
+    height: 1.0em;
+    line-height: 1.5em;
   }
   .introvert {
     font-size: 24px;

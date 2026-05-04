@@ -18,7 +18,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(row, i) in schedule.schedule_bus_sist_c" :key="row">
+          <tr v-for="(row, i) in schedule.schedule_bus_sist_c" :key="row"  v-on:click='setAlermVibration("c2a", i)'>
             <td>
               <b v-if="checkShowHH(Number(i), schedule.schedule_bus_sist_c)">{{ row.HH }}時</b>
             </td>
@@ -44,7 +44,7 @@
       <div class = "table-notes">{{ showTableNotes() }}</div>
     </div>
     <div v-else>
-      <table>
+      <table @mouseover.stop @mouseenter.stop>
         <thead>
           <tr>
             <th>　時刻　</th>
@@ -76,7 +76,7 @@
             <td v-if="'schedule_jr_d' in schedule">{{ showNextJR(schedule.schedule_bus_sist_a, Number(-1), schedule.schedule_jr_d, schedule.defTransferTimeMust, false, schedule_jr_d_display_style) }}</td>
             <td v-if="'schedule_jr_u' in schedule">{{ showNextJR(schedule.schedule_bus_sist_a, Number(-1), schedule.schedule_jr_u, schedule.defTransferTimeMust, true, schedule_jr_u_display_style) }}</td>
           </tr>
-          <tr v-for="(row, i) in schedule.schedule_bus_sist_a" :key="row">
+          <tr v-for="(row, i) in schedule.schedule_bus_sist_a" :key="row" v-on:click='setAlermVibration("a2c", i)'>
             <td>
               <b v-if="checkShowHH(Number(i), schedule.schedule_bus_sist_a)">{{ row.HH }}時</b>
             </td>
@@ -126,7 +126,7 @@ function GetStationName(index: number): String{
   return stationName[index];
 }
 export default defineComponent({
-  props: ["toC", "schedule"],
+  props: ["toC", "schedule", "setAlermVibration"],
   setup() {
     const 
       scheduleJRUDisplayStyleRef = ref(0),/*2026.05 追加 0: 先発又は乗り換え時間内に発車する電車のみ表示 1:それより後の、次のバスが到着するまでの全ての電車を表示する*/
