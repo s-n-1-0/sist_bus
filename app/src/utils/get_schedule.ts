@@ -2,14 +2,13 @@
  * json形式のスケジュールを取得して処理します。
  */
 
-import axios from "axios";
 /**
  * 過去のスケジュール情報をまとめたリストを取得する
  */
 export async function getYearList() {
   try {
-    const res = await axios.get("/sist_bus/json/schedules/yyyy.json");
-    return res.data;
+    const res = await fetch("/sist_bus/json/schedules/yyyy.json");
+    return await res.json();
   } catch {
     return null;
   }
@@ -40,8 +39,9 @@ export async function getScheduleJson(
       filePath += "_" + String(suffix);
     }
     filePath += ".json";
-    const res = await axios.get(filePath);
-    let json: ScheduleJson = res.data;
+    const res = await fetch(filePath);
+    if (!res.ok) throw new Error(res.statusText);
+    let json: ScheduleJson = await res.json();
     /*読み込んだ時刻表にダイヤ改正があるかを確認 (下のcheckAndFilterScheduleにも同じようなループがあるが大きな変更を避けるため据え置き)*/
     if (json.ex != null) {
       for (let idx in json.ex) {
