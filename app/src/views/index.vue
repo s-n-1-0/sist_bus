@@ -268,8 +268,8 @@ export default defineComponent({
     var next_interval = 0;
     var now = new Date();
     /*2026.05.末まで表示とする、それ以降の更新で消してよい*/
-    if(yyyy <= 2026 && mm <= 5){
-      alermTextRef.value = "アラーム機能が追加！時刻表をタップ";
+    if(false){
+      alermTextRef.value = "なんらかの機能を付けた時など、ここに書くと起動時1秒間表示されます";
     }
     nowTitleRef.value = "アクセス時刻:" + today.toLocaleString("ja-JP") + "";
     /*バスの時刻表を取得*/
