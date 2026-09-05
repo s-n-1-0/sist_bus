@@ -1,11 +1,11 @@
 <template>
   <div class="announce">
     <p class="mb-0 pb-0">
-      <b>アナウンス(7/31)</b>
+      <b>アナウンス(9/5)</b>
     </p>
     <div class="px-2">
       <p class="mb-2">
-        8月分に更新いたしました。
+        9月分に更新いたしました。
         試験期間は時刻を表示しません。↑のPDFまたは大学公式HPから時刻を確認してください。
       </p>
     </div>
