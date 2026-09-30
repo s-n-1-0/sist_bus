@@ -436,7 +436,7 @@ export default defineComponent({
     })
       .format(new Date())
       .replace(/\//g, "");
-      const pdfLink = `https://www.sist.ac.jp/media/202610bus2.pdf`;
+      const pdfLink = `https://www.sist.ac.jp/media/2026.10bus.pdf`;
 
     return {
       pdfLink,
